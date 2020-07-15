@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<link rel="stylesheet" type="text/css" href="../../../css/mui.min.css"/>
+	<link rel="stylesheet" type="text/css" href="../../../css/mui.picker.min.css"/>
+	<link rel="stylesheet" type="text/css" href="../../../css/mui.poppicker.css"/>
+	<script src="../../../js/jquery-3.4.1.js"></script>
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css"> 
+	
+	<title></title>
+	
+	<script src="../../../other_framework/bootstrap/js/bootstrap.min.js"></script>
+
+	<style type="text/css">
+		html{
+				width: 100%;
+				height:100%;
+				background-image: url(../../../images/shexian.png);
+				/* -webkit-filter: blur(100000px);*/
+				background-size: 300%100%;
+				overflow:scroll;
+			/*	background-size: 1%1%;*/
+			}
+			body {
+				position: relative;
+				width: 100%;
+				height:100%;
+				border-radius: 10px;
+				box-shadow: 0 1px 2px rgba(0,0,0,.3);
+				overflow:scroll;
+				padding: 0px;
+				margin: 0px;
+				background-color: rgba(255,255,255,1);
+				background-clip: padding-box;
+				background-origin: padding-box;
+			}
+			.mui-bar{
+				position: fixed;
+				background-color: initial;
+			}
+			
+			.mui-dtpicker-header{
+				width: 100%;
+			}
+			.mui-dtpicker-title {
+				width: 70%;
+			}
+			label{
+				font-size: 80%;
+			}
+			#time{
+			/*	border: none;*/
+				/*width: 50%;*/
+				font-size: 80%;
+				/* text-align: center; */
+			}
+			.input-group{
+				top: 50px;
+			}
+			/*#showUserPicker1{
+				width: 50%;
+				font-size: 80%;
+				border: none;
+			}*/
+			#placechoose{
+				margin-bottom: 50px;
+				/*border: 1px solid lightgray; border-left: none; border-right: none;border-top: none;*/
+			}
+			#timeshoose{
+				margin-top: 19px;
+				/*border: 1px solid lightgray; border-left: none; border-right: none;border-top: none;*/
+			}
+			.mui-dtpicker-header{
+				width: 100%;
+			}
+			.mui-dtpicker-title {
+				width: 70%;
+			}
+			label{
+				font-size: 80%;
+			}
+			#time{
+			/*	border: none;*/
+				/*width: 50%;*/
+				font-size: 80%;
+				/* text-align: center; */
+			}
+			/*#showUserPicker1{
+				width: 50%;
+				font-size: 80%;
+				border: none;
+			}*/
+			#placechoose{
+				margin-bottom: 50px;
+				/*border: 1px solid lightgray; border-left: none; border-right: none;border-top: none;*/
+			}
+			
+			header h1{
+				padding:10px;
+				font-size: 1.2em;
+				text-align: center;
+				position: relative;
+				}
+		</style>
+		</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">温度监测</h1>
+		</header>
+		
+		<div id="timeshoose" class="input-group" data-disable-auto-close="ture" style="padding-left: 20px;padding-right: 20px;">
+			
+			<label class="input-group-addon">查询时间</label>
+			<input type="text" data-options='{}' placeholder="点击选择开始时间" readonly="readonly" id="time" class="form-control" style="text-align: center;font-size: 1.3em;background-color: #FFFFFF;">
+		</div>
+		
+		<div id="placechoose" class="input-group" style="padding-left: 20px;padding-right: 20px;">
+			
+			<label class="input-group-addon">选择区域</label>
+			<button id='showUserPicker1'  type='button'style="background-color:transparent;" class="form-control">出水厂</button>
+		</div>
+			
+		
+		<div id="shuju_echarts" style="width: 100%;height:400px;"></div>
+	</body>
+
+
+
+
+
+<script src="../../../js/mui.min.js"></script>
+<script src="../../../js/config.js"></script>
+<script src="../../../js/mui.poppicker.js"></script>
+<script src="../../../js/mui.picker.min.js"></script>
+<script src="../../../js/echarts.min.js"></script>
+
+
+<script type="text/javascript">
+		mui.init();
+			
+		
+		var chushuiyulv=new Array;
+
+		var oldtype,oldtime,timestr0;
+		
+		var dataarry = new Array(); //先声明一维
+		for(var k=0;k<5;k++){ //一维长度为i,i为变量，可以根据实际情况改变
+		dataarry[k]=new Array(); //声明二维，每一个一维数组里面的一个元素都是一个数组；
+		for(var j=0;j<24;j++){ //一维数组里面每个元素数组可以包含的数量p，p也是一个变量；
+		dataarry[k][j]=""; //这里将变量初始化，我这边统一初始化为空，后面在用所需的值覆盖里面的值
+		 }
+		}
+		
+		mui.plusReady(function(){
+			
+			//myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getHisData&tag_list=BFPLC%5CANPOINT%5CYSHYLV_ARO.PV&dt_str=2019-09-02 00:00:00&dt_end=2019-09-02 23:59:59&space=60',yuanshuiyali);
+		})
+		
+		
+		function myrefresh(url,type){
+					mui.ajax(url,{
+					    type:'get',//HTTP请求类型
+						async:false,
+					    timeout:5000,//超时时间设置为10秒；
+						contentType:"application/json;charset=UTF-8",
+						Accept:"application/json",
+					    success : function(data){
+						         if (typeof(data) == "string") {
+					             if (data != '') {
+					                var mapdata = JSON.parse(data);
+					                var a = mapdata.rows[0].data;
+										for(var index in a){
+										var aa= JSON.parse(a[index].value[1]);
+										//alert(aa);
+										//alert(aaa);
+										type.push(aa);
+									}
+									}
+						         }   
+						     },
+						     error : function(XMLHttpRequest, textStatus, errorThrown) {
+						         console.log("接口" + url + "出错;XMLHttpRequest.status："
+						             + XMLHttpRequest.status + ";XMLHttpRequest.readyState：" 
+						             + XMLHttpRequest.readyState + ";errorThrown：" 
+						             + errorThrown + ";textStatus：" + textStatus);
+						         //errorF();
+						         console.log('加载失败');
+						     }
+						 });
+		}
+					
+		
+		//console.log(yuanshuizhuodu)
+		var date = new Date()<!--获得日期数据-->
+		        var y = date.getFullYear();<!--年-->
+		        var m = date.getMonth()+1;<!--月，这里的月份必须要+1才是当前月份-->
+		        var d = date.getDate(); <!--日，getDay是获得当前星期几（0-6），getDate是获得当前日期-->
+		        document.getElementById("time").placeholder=+y+"-"+m+"-"+d;
+				timestr0=+y+"-"+m+"-"+d;
+		var starttime0=timestr0+' 00:00:00';
+		var endtime0=timestr0+' 23:59:59';		
+		myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getHisData&tag_list=BFPLC%5CANPOINT%5CCCSWDU_ARO.PV&dt_str='+starttime0+'&dt_end='+endtime0+'&space=60',chushuiyulv);
+
+		
+		var userPicker1 = new mui.PopPicker();
+			userPicker1.setData([ {
+				text: '出水厂'
+			}]);
+		var areaName1='源水';
+		document.getElementById('showUserPicker1').addEventListener('tap', function(event) {
+			userPicker1.show(function(items) {
+				areaName1 = items[0].text;
+				document.getElementById('showUserPicker1').innerText =  areaName1;
+				
+				//console.log(document.getElementById('showUserPicker1').innerText);
+			});
+			
+		}, false);
+		
+		
+
+		
+		//console.log(document.getElementById('showUserPicker1').innerText);
+		document.getElementById('time').onclick = function(){
+						var dtPicker1 = new mui.DtPicker({"type":"date"}); 
+					    dtPicker1.show(function (selectItems) { 
+		//			    	starttime_y = selectItems.y.text;
+		//			    	starttime_m = selectItems.m.text;
+		//			    	starttime_d = selectItems.d.text;
+		//			    	starttime_h = selectItems.h.text;
+		//			    	starttime_i = selectItems.i.text;
+					    	startTime1 = selectItems.text;
+					        document.getElementById('time').value= selectItems.text;
+							timestr0=selectItems.text;
+					    });
+					};
+					
+		setInterval(function () {
+			var newtype=document.getElementById('showUserPicker1').innerText;
+			var newtime=document.getElementById('time').value;
+			if((newtype!=oldtype)||(newtime!=oldtime)){
+				var starttime=timestr0+' 00:00:00';
+				var endtime=timestr0+' 23:59:59';
+				if(areaName1=='出水厂')
+				{
+					chushuiyulv=[];
+
+					
+					var zhuodustr='http://220.179.118.150:8082/h5/secondwater?action=getHisData&tag_list=BFPLC%5CANPOINT%5CCCSWDU_ARO.PV&dt_str='+starttime+'&dt_end='+endtime+'&space=60'
+					myrefresh(zhuodustr,chushuiyulv);
+
+				}
+				if(areaName1=='源水')
+				{
+					chushuiyulv=[];
+	
+					myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getHisData&tag_list=BFPLC%5CANPOINT%5CCCSWDU_ARO.PV&dt_str='+starttime+'&dt_end='+endtime+'&space=60',chushuiyulv);
+
+					//console.log(chushuiyulv);
+				}
+				
+				
+				
+				$(function () {
+				    
+					
+				     var oneDay = 24 * 3600 *1000;
+				     var fiveMinutes = 300 * 1000;
+					var onehour=1000*3600;
+					var y = date.getFullYear();<!--年-->
+					var m = date.getMonth()+1;<!--月，这里的月份必须要+1才是当前月份-->
+					var d = date.getDate(); <!--日，getDay是获得当前星期几（0-6），getDate是获得当前日期-->
+					//alert(timestr0);
+					var timestr= timestr0+' 00:00:00';	
+				     //var timestr = '2016/2/18 00:00:00';
+				     //var startTime = +new Date(timestr)-fiveMinutes;
+					var startTime = +new Date(timestr)-onehour;
+				 
+				     //把new Date出来的时间格式转换为data123中的日期格式
+				     function riqigeshi(now){
+				         return now.getHours() + ":00";
+				     }
+				 
+				     //用来返回data123一样的数据格式
+				     function chartData(i,data,now) {
+				         return {
+				                riqigeshi: riqigeshi(now),
+				                data: data[i],
+				             }
+				     }
+				 
+				     //把原数据改成data123一样的格式
+				     function changeData(datain) {
+				         var liuru_data = [];
+				         var liuru_xAis = [];
+				         // for (var i = 0; i < 289; i++) {
+				         //     startTime = new Date(+startTime + fiveMinutes);
+				         //     liuru.push(chartData(i,datain,startTime));
+				         // }
+									var starttime1=startTime;
+							for (var i = 0; i < 24; i++) {
+										//console.log(startTime);
+							    starttime1 = new Date(+starttime1 + onehour);
+							    liuru_data.push(chartData(i,datain,starttime1).data);
+							    liuru_xAis.push(chartData(i,datain,starttime1).riqigeshi);
+							}
+						var liuru = {
+							data:liuru_data,
+							xAis:liuru_xAis
+						}
+				        return liuru;
+				         
+				     }
+					 var liuru2 = changeData(chushuiyulv);
+					 
+					 
+				     var chart = echarts.init(document.getElementById("shuju_echarts"));
+				     var option = {
+							color:['#ff0000'],
+				         grid:{
+				             // x:'3.6%',
+				             // y:'5%',
+				             // x2:'2.4%',
+				             // y2:'12%',
+							 bottom:"20%"
+				         },
+							legend: {
+								
+								data:[
+									{
+										name:'温度',
+										icon:'circle',
+										textStyle:{
+											color: '#ff0000'
+										}
+									}
+									],
+							     // data:['销量','售后']
+							},
+				         xAxis:{
+				             type:'category',
+							 data:liuru2.xAis,
+				             splitNumber:8
+				         },
+				         yAxis:{
+				             type:'value',
+							 // max:7.5,
+							 // min:7
+				             // axisLabel:{
+				             //     formatter:'{value} G'       //给Y轴上的刻度加上单位
+				             // },
+				         },
+						  toolbox: {
+						             show: true,
+						             feature: {
+						                 magicType: {
+						                     type: ['line', 'bar'],
+											
+						                 },  //切换为折线图，切换为柱状图
+						                 restore: {show:false},  //还原
+						                 saveAsImage: {show:false}   //保存为图片
+						             }
+						         },
+						
+				         dataZoom: [
+				             {
+				                 type: 'slider',//数据滑块
+				                 dataBackground:{
+				                     lineStyle:{
+				                         color:'#ff6666'
+				                     },
+				                     areaStyle:{
+				                         color:'#ff6666',
+				                         opacity:1,
+				                     }
+				                 },
+				                 // fillerColor:'rgba(255,255,255,.6)'
+				             },
+				             {
+				                 type:'inside'//使鼠标在图表中时滚轮可用
+				             }
+				         ],
+				         tooltip:{
+				             trigger: 'axis',
+//				             formatter : function(params) {
+//				                 var result = params[0].value[0];
+//				                 params.forEach(function(item) {
+//				                     result += '<br/>';
+//				                     result += '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:' + item.color + '"></span>';
+//				                     result += "温度：";
+//				                     result += isNaN(item.value[1]) ? 0 : (item.value[1])+'℃';
+//									 ;
+//				                 });
+//				                 return result;
+//				             },
+				         },
+				         series:[
+				            
+							{
+							    name: '温度',
+							    type: 'line',
+								 areaStyle: {
+								
+								        normal: {
+								
+								            color: {
+								
+								                type: 'linear',//设置线性渐变
+								
+								                x: 0,
+								
+								                y: 0,
+								
+								                x2: 0,
+								
+								                y2: 1,
+								
+								                colorStops: [{
+								
+								                    offset: 0, color: '#ff0000' // 0% 处的颜色
+								
+								                }, {
+								
+								                    offset: 1, color: '#ff6666' // 100% 处的颜色
+								
+								                }],
+								
+								                globalCoord: false // 缺省为 false
+								
+								            },
+								
+								        }
+								
+								    },
+								smooth: true,
+							    showSymbol: false,
+							    symbolSize:12,
+							    data: liuru2.data,
+							}
+									
+							]
+				     };
+				 
+				     chart.setOption(option);
+				 
+				    
+				   
+				     window.onresize = function () {
+				         chart.resize();
+				     };
+				 }()); 
+			}
+			oldtype=newtype;
+			oldtime=newtime;
+		},1000);			
+		
+		 
+	</script>
+</html>

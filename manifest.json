@@ -1,0 +1,458 @@
+{
+    "@platforms" : [ "android", "iPhone", "iPad" ],
+    "id" : "H54A04715", /*应用的标识，创建应用时自动生成，勿手动修改*/
+    "name" : "歙县水务", /*应用名称，程序桌面图标名称*/
+    "version" : {
+        "name" : "1.0.0", /*应用版本名称*/
+        "code" : "83"
+    },
+    "description" : "", /*应用描述信息*/
+    "icons" : {
+        "72" : "icon.png"
+    },
+    "launch_path" : "login/login.html", /*应用的入口页面，默认为根目录下的index.html；支持网络地址，必须以http://或https://开头*/
+    "developer" : {
+        "name" : "", /*开发者名称*/
+        "email" : "", /*开发者邮箱地址*/
+        "url" : "http://www.dcloud.io"
+    },
+    "permissions" : {
+        "Cache" : {
+            "description" : "管理应用缓存"
+        },
+        "Console" : {
+            "description" : "跟踪调试输出日志"
+        },
+        "Events" : {
+            "description" : "应用扩展事件"
+        },
+        "UI" : {},
+        "OAuth" : {},
+        "Maps" : {},
+        "Speech" : {},
+        "Contacts" : {},
+        "Messaging" : {},
+        "Webview" : {},
+        "NativeUI" : {},
+        "Navigator" : {}
+    },
+    "plus" : {
+        "splashscreen" : {
+            "autoclose" : true, /*是否自动关闭程序启动界面，true表示应用加载应用入口页面后自动关闭；false则需调plus.navigator.closeSplashscreen()关闭*/
+            "waiting" : false,
+            "delay" : "0"
+        },
+        "runmode" : "liberate", /*应用的首次启动运行模式，可取liberate或normal，liberate模式在第一次启动时将解压应用资源（Android平台File API才可正常访问_www目录）*/
+        "signature" : "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==", /*可选，保留给应用签名，暂不使用*/
+        "distribute" : {
+            "apple" : {
+                "appid" : "", /*iOS应用标识，苹果开发网站申请的appid，如io.dcloud.HelloH5*/
+                "mobileprovision" : "", /*iOS应用打包配置文件*/
+                "password" : "", /*iOS应用打包个人证书导入密码*/
+                "p12" : "", /*iOS应用打包个人证书，打包配置文件关联的个人证书*/
+                "devices" : "universal", /*iOS应用支持的设备类型，可取值iphone/ipad/universal*/
+                "frameworks" : []
+            },
+            "google" : {
+                "packagename" : "", /*Android应用包名，如io.dcloud.HelloH5*/
+                "keystore" : "", /*Android应用打包使用的密钥库文件*/
+                "password" : "", /*Android应用打包使用密钥库中证书的密码*/
+                "aliasname" : "", /*Android应用打包使用密钥库中证书的别名*/
+                "permissions" : [
+                    "<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>",
+                    "<uses-permission android:name=\"android.permission.READ_CONTACTS\"/>",
+                    "<uses-permission android:name=\"android.permission.READ_LOGS\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
+                    "<uses-feature android:name=\"android.hardware.camera.autofocus\"/>",
+                    "<uses-permission  android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>",
+                    "<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.CAMERA\"/>",
+                    "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>",
+                    "<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>",
+                    "<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>",
+                    "<uses-permission android:name=\"android.permission.SEND_SMS\"/>",
+                    "<uses-permission android:name=\"android.permission.INTERNET\"/>",
+                    "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>",
+                    "<uses-feature android:name=\"android.hardware.camera\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
+                    "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>",
+                    "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>",
+                    "<uses-permission android:name=\"android.permission.WRITE_SMS\"/>",
+                    "<uses-permission android:name=\"android.permission.READ_SMS\"/>"
+                ]
+            },
+            "orientation" : [ "portrait-primary", "portrait-secondary" ], /*应用支持的方向，portrait-primary：竖屏正方向；portrait-secondary：竖屏反方向；landscape-primary：横屏正方向；landscape-secondary：横屏反方向*/
+            "icons" : {
+                "ios" : {
+                    "prerendered" : true, /*应用图标是否已经高亮处理，在iOS6及以下设备上有效*/
+
+                    /*应用图标，分辨率：512x512，用于自动生成各种尺寸程序图标*/
+                    "iphone" : {
+                        "normal" : "unpackage/res/icons/57x57.png", /*iPhone普通屏幕程序图标，分辨率：57x57*/
+                        "retina" : "unpackage/res/icons/114x114.png", /*iPhone高分屏程序图标，分辨率：114x114*/
+
+                        /*iPhone iOS7高分屏程序图标，分辨率：120x120*/
+                        "spotlight-normal" : "unpackage/res/icons/29x29.png", /*iPhone Spotlight搜索程序图标，分辨率：29x29*/
+                        "spotlight-retina" : "unpackage/res/icons/58x58.png", /*iPhone高分屏Spotlight搜索程序图标，分辨率：58x58*/
+
+                        /*iPhone iOS7高分屏Spotlight搜索程序图标，分辨率：80x80*/
+                        "settings-normal" : "unpackage/res/icons/29x29.png", /*iPhone设置页面程序图标，分辨率：29x29*/
+                        "app@2x" : "unpackage/res/icons/120x120.png",
+                        "app@3x" : "unpackage/res/icons/180x180.png",
+                        "settings@3x" : "unpackage/res/icons/87x87.png",
+                        "settings@2x" : "unpackage/res/icons/58x58.png",
+                        "spotlight@2x" : "unpackage/res/icons/80x80.png",
+                        "spotlight@3x" : "unpackage/res/icons/120x120.png",
+                        "notification@3x" : "unpackage/res/icons/60x60.png",
+                        "notification@2x" : "unpackage/res/icons/40x40.png"
+                    },
+                    "ipad" : {
+                        "normal" : "unpackage/res/icons/72x72.png", /*iPad普通屏幕程序图标，分辨率：72x72*/
+                        "retina" : "unpackage/res/icons/144x144.png", /*iPad高分屏程序图标，分辨率：144x144*/
+
+                        /*iPad iOS7程序图标，分辨率：76x76*//*iPad iOS7高分屏程序图标，分辨率：152x152*/
+                        "spotlight-normal" : "unpackage/res/icons/50x50.png", /*iPad Spotlight搜索程序图标，分辨率：50x50*/
+                        "spotlight-retina" : "unpackage/res/icons/100x100.png", /*iPad高分屏Spotlight搜索程序图标，分辨率：100x100*/
+
+                        /*iPad iOS7 Spotlight搜索程序图标，分辨率：40x40*//*iPad iOS7高分屏Spotlight搜索程序图标，分辨率：80x80*//*iPad设置页面程序图标，分辨率：29x29*/
+                        "app" : "unpackage/res/icons/76x76.png",
+                        "app@2x" : "unpackage/res/icons/152x152.png",
+                        "settings" : "unpackage/res/icons/29x29.png",
+                        "proapp@2x" : "unpackage/res/icons/167x167.png",
+                        "spotlight" : "unpackage/res/icons/40x40.png",
+                        "settings@2x" : "unpackage/res/icons/58x58.png",
+                        "spotlight@2x" : "unpackage/res/icons/80x80.png",
+                        "notification" : "unpackage/res/icons/20x20.png",
+                        "notification@2x" : "unpackage/res/icons/40x40.png"
+                    },
+                    "appstore" : "unpackage/res/icons/1024x1024.png"
+                },
+                "android" : {
+                    "mdpi" : "unpackage/res/icons/48x48.png", /*普通屏程序图标，分辨率：48x48*/
+                    "ldpi" : "unpackage/res/icons/48x48.png", /*大屏程序图标，分辨率：48x48*/
+                    "hdpi" : "unpackage/res/icons/72x72.png", /*高分屏程序图标，分辨率：72x72*/
+                    "xhdpi" : "unpackage/res/icons/96x96.png", /*720P高分屏程序图标，分辨率：96x96*/
+                    "xxhdpi" : "unpackage/res/icons/144x144.png",
+                    "xxxhdpi" : "unpackage/res/icons/192x192.png"
+                }
+            },
+            "splashscreen" : {
+                "ios" : {
+                    "iphone" : {
+                        "default" : "", /*iPhone3启动图片选，分辨率：320x480*/
+                        "retina35" : "", /*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
+                        "retina40" : ""
+                    },
+                    "ipad" : {
+                        "portrait" : "", /*iPad竖屏启动图片，分辨率：768x1004*/
+                        "portrait-retina" : "", /*iPad高分屏竖屏图片，分辨率：1536x2008*/
+                        "landscape" : "", /*iPad横屏启动图片，分辨率：1024x748*/
+                        "landscape-retina" : "", /*iPad高分屏横屏启动图片，分辨率：2048x1496*/
+                        "portrait7" : "", /*iPad iOS7竖屏启动图片，分辨率：768x1024*/
+                        "portrait-retina7" : "", /*iPad iOS7高分屏竖屏图片，分辨率：1536x2048*/
+                        "landscape7" : "", /*iPad iOS7横屏启动图片，分辨率：1024x768*/
+                        "landscape-retina7" : ""
+                    }
+                },
+                "android" : {
+                    "mdpi" : "", /*普通屏启动图片，分辨率：240x282*/
+                    "ldpi" : "", /*大屏启动图片，分辨率：320x442*/
+                    "hdpi" : "images/1580901115544.png", /*高分屏启动图片，分辨率：480x762*/
+                    "xhdpi" : "images/1580901115544.png", /*720P高分屏启动图片，分辨率：720x1242*/
+                    "xxhdpi" : "images/1580901115544.png"
+                }
+            },
+            "plugins" : {
+                "speech" : {
+                    "ifly" : {}
+                },
+                "ad" : {}
+            }
+        },
+        "screenOrientation" : [ "portrait-primary", "portrait-secondary" ]
+    },
+    "dependencies" : {
+		"pages": {
+			"setting.html": {
+				"href": "setting.html",
+				"resources": [
+					"js/mui.min.js",
+					"js/mui.view.js",
+					"libs/easymob-webim-sdk/jquery-1.11.1.js",
+					"libs/easymob-webim-sdk/strophe-custom-2.0.0.js",
+					"libs/easymob-webim-sdk/json2.js",
+					"libs/easymob-webim-sdk/easemob.im-1.0.5.js",
+					"js/feedback.js",
+					"js/feedback-page.js",
+					"js/mui.locker.js",
+					"js/app.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"css/feedback-page.css",
+					"images/iconfont-tianjia.png"
+				],
+				"refer": [
+					"login.html"
+				],
+				"priority": 1
+			},
+			"main.html": {
+				"href": "main.html",
+				"resources": [
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"js/app.js"
+				],
+				"refer": [
+					"setting.html"
+				],
+				"priority": 1
+			},
+			"unlock.html": {
+				"href": "unlock.html",
+				"resources": [
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"js/mui.locker.js",
+					"js/app.js"
+				],
+				"refer": [
+					"login.html",
+					"main.html"
+				],
+				"priority": 0
+			},
+			"forget_password.html": {
+				"href": "forget_password.html",
+				"resources": [
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"css/style.css",
+					"js/mui.min.js",
+					"js/app.js"
+				],
+				"priority": 1
+			},
+			"reg.html": {
+				"href": "reg.html",
+				"resources": [
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"css/style.css",
+					"js/mui.min.js",
+					"js/app.js"
+				],
+				"refer": [
+					"login.html"
+				],
+				"priority": 3
+			},
+			"login.html": {
+				"href": "login.html",
+				"resources": [
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"css/style.css",
+					"js/mui.min.js",
+					"js/mui.enterfocus.js",
+					"js/app.js",
+					"images/qihoo.png",
+					"images/qq.png",
+					"images/sinaweibo.png",
+					"images/weixin.png"
+				],
+				"refer": [
+					"unlock.html",
+					"forget_password.html",
+					"main.html",
+					"reg.html"
+				],
+				"priority": 0
+			},
+			"login/login.html": {
+				"href": "login/login.html",
+				"priority": 0,
+				"refer": [
+					"login/main.html"
+				]
+			},
+			"login/main.html": {
+				"resources": [
+					"content_pages/1_shipinjiankong/1.html",
+					"content_pages/1_shipinjiankong/shipinjiankong.html",
+					"content_pages/1_shipinjiankong/new_file.html"
+				],
+				"refer": [
+					"content_pages/6_shujufenxi/shujufenxi.html",
+					"content_pages/4_yuanchengchaobiao/yuanchengchaobiao.html",
+					"content_pages/5_shuizhijiance/shuizhijiance.html",
+					"content_pages/2_yunxingzonglan/yunxingzonglan.html",
+					"content_pages/3_GIS/GIS.html",
+					"content_pages/7_shishibaojing/shishibaojing.html",
+					"content_pages/8_lishishuju/lishishuju.html",
+					"content_pages/12_zhuxiao/zhuxiao.html",
+					"content_pages/9_quanqucanshu/quanqucanshu.html",
+					"content_pages/10_guanyuwomen/guanyuwomen.html",
+					"content_pages/11_gengxinbanben/gengxinbanben.html",
+					"content_pages/3_zhishuishengchan/zhishuishengchan.html",
+					"content_pages/4_bengzhanjiance/bengzhanjiance.html",
+					"login/message.html",
+					"content_pages/9_dma/xunhuanjingjiyuan.html"
+				],
+				"priority": 0
+			},
+			"content_pages/2_yunxingzonglan/yunxingzonglan.html": {
+				"resources": [],
+				"refer": [
+					"content_pages/2_yunxingzonglan/yunxingzonglan_subpage/ergong.html",
+					"content_pages/2_yunxingzonglan/yunxingzonglan_subpage/zonghe.html",
+					"content_pages/2_yunxingzonglan/yunxingzonglan_subpage/liuliang.html",
+					"content_pages/2_yunxingzonglan/yunxingzonglan_subpage/yali.html",
+					"content_pages/2_yunxingzonglan/yunxingzonglan_subpage/map.html"
+				],
+				"priority": 0
+			},
+			"content_pages/3_zhishuishengchan/zhishuishengchan.html": {
+				"resources": [],
+				"refer": [
+					"content_pages/3_zhishuishengchan/zhishuishengchan_subpage/bengzhan.html",
+					"content_pages/3_zhishuishengchan/zhishuishengchan_subpage/Dxinglvchi.html",
+					"content_pages/3_zhishuishengchan/zhishuishengchan_subpage/yuanshuichushui.html",
+					"content_pages/3_zhishuishengchan/zhishuishengchan_subpage/shujubaobiao.html",
+					"content_pages/3_zhishuishengchan/zhishuishengchan_subpage/jiayaojialv.html",
+					"content_pages/3_zhishuishengchan/zhishuishengchan_subpage/peidianxitong.html"
+				],
+				"priority": 0
+			},
+			"content_pages/5_shuizhijiance/shuizhijiance.html": {
+				"resources": [],
+				"refer": [
+					"content_pages/5_shuizhijiance/shuizhijiance_subpage/zhuodu.html",
+					"content_pages/5_shuizhijiance/shuizhijiance_subpage/PH.html",
+					"content_pages/5_shuizhijiance/shuizhijiance_subpage/yulv.html",
+					"content_pages/5_shuizhijiance/shuizhijiance_subpage/wendu.html"
+				],
+				"priority": 0
+			},
+			"content_pages/7_shishibaojing/shishibaojing.html": {
+				"resources": [],
+				"refer": [
+					"content_pages/7_shishibaojing/shishibaojing_subpage/baojingxinxi.html",
+					"content_pages/7_shishibaojing/shishijiance.html"
+				],
+				"priority": 0
+			},
+			"content_pages/7_shishibaojing/shishibaojing_subpage/baojingxinxi.html": {
+				"resources": [],
+				"refer": [
+					"content_pages/7_shishibaojing/shishibaojing_subpage/weichuli.html",
+					"content_pages/7_shishibaojing/shishibaojing_subpage/yichuli.html",
+					"content_pages/7_shishibaojing/shishibaojing_subpage/chulizhong.html",
+					"content_pages/7_shishibaojing/shishibaojing_subpage/yihulue.html"
+				],
+				"priority": 0
+			},
+			"content_pages/4_bengzhanjiance/bengzhanjiance.html": {
+				"resources": [],
+				"refer": [
+					"content_pages/4_bengzhanjiance/huishibengzhanjiance.html",
+					"content_pages/4_bengzhanjiance/xunhuanjingjiyuanjiance.html"
+				],
+				"priority": 0
+			},
+			"login/message.html": {
+				"resources": [],
+				"refer": [
+					"login/sendMessage.html",
+					"login/message_content.html"
+				],
+				"priority": 0
+			},
+			"content_pages/9_dma/qushiyuce/qushifenxi.html": {
+				"resources": [],
+				"refer": [
+					"content_pages/9_dma/qushiyuce/airuikede.html",
+					"content_pages/9_dma/qushiyuce/zhengjiexincailiao.html",
+					"content_pages/9_dma/qushiyuce/shanfu.html",
+					"content_pages/9_dma/qushiyuce/wushuichulichang.html",
+					"content_pages/9_dma/qushiyuce/kehongkeji.html",
+					"content_pages/9_dma/qushiyuce/changxiangkeji.html"
+				],
+				"priority": 0
+			},
+			"content_pages/9_dma/xunhuanjingjiyuan.html": {
+				"resources": [],
+				"refer": [
+					"content_pages/9_dma/qushiyuce/qushifenxi.html",
+					"content_pages/9_dma/dmafenqujiliang/dmafenqu.html",
+					"content_pages/9_dma/yejianxiaoliuliang/yejianxiaoliuliang.html"
+				],
+				"priority": 0
+			}
+		},
+		"idle": {
+			"resources": [
+				"js/mui.picker.min.js",
+				"other_framework/bootstrap/css/bootstrap-table.min.css",
+				"other_framework/bootstrap/fonts/glyphicons-halflings-regular.woff",
+				"other_framework/bootstrap/css/bootstrap.css",
+				"js/mui.poppicker.js",
+				"css/iconfont.css",
+				"other_framework/bootstrap/fonts/glyphicons-halflings-regular.woff2",
+				"other_framework/bootstrap/js/bootstrap-table.min.js",
+				"fonts/iconfont.ttf",
+				"js/mui.js",
+				"css/mui.imageviewer.css",
+				"css/mui.picker.min.css",
+				"other_framework/bootstrap/fonts/glyphicons-halflings-regular.ttf",
+				"README.md",
+				"js/mui.picker.js",
+				"other_framework/bootstrap/js/bootstrap-table-zh-CN.js",
+				"css/mui.listpicker.css",
+				"images/firstpages/huangshan1.jpg",
+				"images/login_title_img.png",
+				"css/mui.css",
+				"other_framework/bootstrap/css/bootstrap-theme.min.css",
+				"images/firstpages/huangshan4.jpg",
+				"css/mui.dtpicker.css",
+				"css/mui.picker.all.css",
+				"images/firstpages/huangshan3.jpg",
+				"images/user-photo.png",
+				"js/iconfont.js",
+				"images/shexian.jpg",
+				"other_framework/bootstrap/js/respond.min.js",
+				"other_framework/bootstrap/js/bootstrap-editable.min.js",
+				"new_file.html",
+				"other_framework/bootstrap/css/bootstrap-editable.css",
+				"images/firstpages/huangshan2.jpg",
+				"images/shexian.png",
+				"other_framework/bootstrap/js/bootstrap.js",
+				"other_framework/bootstrap/js/bootstrap.min.js",
+				"other_framework/bootstrap/css/bootstrap.min.css",
+				"images/firstpages/huangshan5.jpg",
+				"images/login_title_img2.png",
+				"css/mui.poppicker.css",
+				"other_framework/bootstrap/css/bootstrap-table.css",
+				"other_framework/bootstrap/fonts/glyphicons-halflings-regular.eot",
+				"other_framework/bootstrap/js/bootstrap-table-zh-CN.min.js",
+				"libs/easymob-webim-sdk/quickstart.md",
+				"other_framework/bootstrap/js/html5shiv.min.js",
+				"css/mui.picker.css",
+				"css/mui.indexedlist.css",
+				"js/mui.picker.all.js",
+				"other_framework/bootstrap/js/bootstrap-table.js",
+				"images/login_title_img0.png",
+				"other_framework/bootstrap/fonts/glyphicons-halflings-regular.svg"
+			]
+		}
+	},
+    "unpackage" : [ "README.md" ],
+    "screenOrientation" : [ "portrait-primary", "portrait-secondary" ]
+}

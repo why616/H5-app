@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<script type="text/javascript" src="../../../js/mui.min.js"></script>
+	<script type="text/javascript" src="../../../js/config.js" ></script>
+	
+	<title></title>
+	<style type="text/css">
+			table,th,td
+			{
+				/* border: 1px solid lightgray; */
+				padding: 8px; 
+				font-weight:bold;
+				
+				border: 1px solid lightgray;border-top: none; border-left: none; border-right: none;
+			}
+			table{
+				border-collapse: collapse;
+				margin: auto;
+				margin-top: 10px;
+				border: #000000;
+				box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+				width: 98%;
+			}
+			
+			tbody th{
+				
+			}
+			
+			/* tbody th.green{
+				font-size: 90%;
+				color: #2AC845;
+			} */
+			
+			thead{
+				background-color: #66CCFF;
+				color: white;
+				
+			}
+			
+			tbody{
+				/* border-top-width: 1px;
+				border-top-style: solid; */
+				font-size: 90%;
+			}
+			tbody td.shuju{
+				font-size: 120%;
+				color: #3300ff;
+				text-align: center;
+				padding: 10px;
+			}
+			th{
+				/* text-align: left; */
+				padding: 5px;
+			}
+			table tr.gray{
+				background-color: #E0E0E0;
+			}
+			tbody tr.shuxing th{
+				font-size: 100%;
+				padding: 10px;
+			}
+		</style>
+	<body>
+		<table width=330px >
+			<thead >
+				<tr>
+					<th width=85px>D型滤池</th>
+					<!-- 填补颜色 -->
+					<th width=80px></th><th width=85px></th><th width=80px></th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr class="shuxing">
+					<th>名称</th>
+					<th>状态</th>
+					<th>名称</th>
+					<th>状态</td>
+				</tr>
+				<tr class="gray">
+					<td >1#清水阀</td>
+					<td class="shuju" id="qingshuifazhuangtai1">已启用</th>
+					<td>1#反冲阀</td>
+					<td class="shuju" id="fanchongfazhuangtai1">停用</td>
+				</tr>
+				
+				<tr >
+					<td >2#清水阀</td>
+					<td class="shuju" id="qingshuifazhuangtai2">已启用</th>
+					<td>2#反冲阀</td>
+					<td class="shuju" id="fanchongfazhuangtai2">停用</td>
+				</tr>
+				
+				<tr class="gray">
+					<td >3#清水阀</td>
+					<td class="shuju" id="qingshuifazhuangtai3">已启用</th>
+					<td>3#反冲阀</td>
+					<td class="shuju" id="fanchongfazhuangtai3">停用</td>
+				</tr>
+				
+				<tr>
+					<td >4#清水阀</td>
+					<td class="shuju" id="qingshuifazhuangtai4">已启用</th>
+					<td>4#反冲阀</td>
+					<td class="shuju" id="fanchongfazhuangtai4">停用</td>
+				</tr>
+				
+				<tr class="gray">
+					<td >5#清水阀</td>
+					<td class="shuju" id="qingshuifazhuangtai5">已启用</th>
+					<td>5#反冲阀</td>
+					<td class="shuju" id="fanchongfazhuangtai5">停用</td>
+				</tr>
+				
+				<tr>
+					<td >6#清水阀</td>
+					<td class="shuju" id="qingshuifazhuangtai6">已启用</th>
+					<td>6#反冲阀</td>
+					<td class="shuju" id="fanchongfazhuangtai6">停用</td>
+				</tr>
+				
+			</tbody>
+			
+		</table>
+	</body>
+
+<script type="text/javascript">
+		mui.init();
+			mui.back = function(){
+				console.log("关闭啦");
+				var zhishuishengchan = plus.webview.getWebviewById('zhishuishengchan');
+				var currentView = plus.webview.currentWebview();
+				currentView.hide();
+				zhishuishengchan.close();
+				currentView.close(); 
+			};
+			
+		mui.plusReady(function(){
+			judgestate('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=LCPLC%5CDLC1_QSCSFZT_AI.PV','qingshuifazhuangtai1');
+			judgestate('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=LCPLC%5CDLC1_FCPWFZT_AI.PV','fanchongfazhuangtai1');
+			judgestate('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=LCPLC%5CDLC2_QSCSFZT_AI.PV','qingshuifazhuangtai2');
+			judgestate('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=LCPLC%5CDLC2_FCPWFZT_AI.PV','fanchongfazhuangtai2');
+			judgestate('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=LCPLC%5CDLC3_QSCSFZT_AI.PV','qingshuifazhuangtai3');
+			judgestate('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=LCPLC%5CDLC3_FCPWFZT_AI.PV','fanchongfazhuangtai3');
+			judgestate('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=LCPLC%5CDLC4_QSCSFZT_AI.PV','qingshuifazhuangtai4');
+			judgestate('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=LCPLC%5CDLC4_FCPWFZT_AI.PV','fanchongfazhuangtai4');
+			judgestate('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=LCPLC%5CDLC5_QSCSFZT_AI.PV','qingshuifazhuangtai5');
+			judgestate('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=LCPLC%5CDLC5_FCPWFZT_AI.PV','fanchongfazhuangtai5');
+			judgestate('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=LCPLC%5CDLC6_QSCSFZT_AI.PV','qingshuifazhuangtai6');
+			judgestate('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=LCPLC%5CDLC6_FCPWFZT_AI.PV','fanchongfazhuangtai6');
+	
+		})
+		
+		function judgestate(url,id0){
+				mui.ajax(url,{
+			    type:'get',//HTTP请求类型
+			    timeout:5000,//超时时间设置为10秒；
+				contentType:"application/json;charset=UTF-8",
+				Accept:"application/json",
+			     success : function(data){
+				         if (typeof(data) == "string") {
+			             if (data != '') {
+			                var mapdata = JSON.parse(data);
+			                //var aaa = JSON.stringify(mapdata.value);
+			                //var result = JSON.parse(aaa);
+							var flag=mapdata['value'];
+							if(flag!='0'){
+								console.log(id0);
+								console.log(document.getElementById(id0));
+								document.getElementById(id0).innerHTML = '已启用';
+								document.getElementById(id0).style.color = 'green';
+								
+							}
+			                else{
+			                	var id = document.getElementById(id0);
+								id.innerHTML='停用';
+								id.style.color = 'black';
+								
+							}
+			                
+			                 
+				             }
+				         }   
+				     },
+				     error : function(XMLHttpRequest, textStatus, errorThrown) {
+				         console.log("接口" + url + "出错;XMLHttpRequest.status："
+				             + XMLHttpRequest.status + ";XMLHttpRequest.readyState：" 
+				             + XMLHttpRequest.readyState + ";errorThrown：" 
+				             + errorThrown + ";textStatus：" + textStatus);
+				         //errorF();
+				         console.log('加载失败');
+				     }
+				 });
+		}	
+	</script>
+</html>

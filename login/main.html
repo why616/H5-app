@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<base href="../" />
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/iconfont1.css"/>
+		
+		<style>
+			html{
+				height: 100%;	
+			}
+			body {
+				height: 100%;
+				background-color: #efeff4;
+				background: url(images/shexian.png)no-repeat;
+				background-size: 300%100%;
+			}
+			.title{
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+			.icon{
+				width:1em;
+				height:1em;
+				vertical-align: -0.15em;
+				fill: currentColor;
+				overflow:hidden;
+			}
+			.mui-grid-view.mui-grid-9{
+				/*background-color: #FFFFFF;*/
+				height: 100%;
+			}
+			.mui-grid-view.mui-grid-9 li{
+				
+				height: 25%;
+			}
+			.mui-grid-view.mui-grid-9 .mui-table-view-cell{
+				border:#FFFFFF;
+				
+			}
+			.mui-card{
+				border-radius: 10px;
+				background-color: rgba(255,255,255,0.8);
+				margin: 15px;
+			}
+			
+			.nav-bar-img{
+				
+				height: 100%;
+				padding-top: 3px;
+				padding-bottom: 2px;
+			}
+			.nav-bar-text{
+				padding: 1px;
+				
+				
+			}
+			.mui-bar-nav{
+				background-color: rgba(255,255,255,0.1);
+				height: 5%;
+				position: static;
+				padding-left: 10px;
+			}
+			
+			.mui-main-bg{
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				
+			}
+			.message{
+				padding: 5px;
+			}
+			.icon{
+				width: 65%;
+				height: 65%;
+			}
+			span{
+				height: 80%;
+			}
+			a{
+				width: 100%;
+				height: 100%;
+			
+			}
+				
+		</style>
+	</head> 
+	<body>
+		
+		<div id="header" class="mui-bar-nav">
+			<img src="images/user-photo.png" id="offCanvasShow" class="nav-bar-img"/>
+			<span id="maintime" style="display: inline-block;text-align: center;width: 80%;font-size: 1.4em;line-height: 5%;vertical-align: middle;margin-top: 3px;"></span>
+			 <!--<div class="" id="weather" style="height: 36px;position: absolute;top: 0px;right: 16px;">
+			       <dl id="wea-dl" class="cross-simple-icon" style="margin-top: 5px;">
+			         <dd id="weaItemsWraper" style="margin-top: 1px;">
+			           <div class="" id="wea-items"><div class="item"><a title="" target="_blank" href="/s/shexian/60768.htm"><span class="first">歙县</span><span class="second"><b class="temp"><em class="green" style="color: rgb(0, 153, 68);">9</em>～<em class="red" style="color: rgb(204, 0, 0);">15℃</em></b></span></a></div><a class="wea-more" target="_blank" href="/s/shexian/60768.htm" title="点击查看15天天气"><i></i></a></div>
+			         </dd>
+			       </dl> 
+			   </div>-->
+			  <iframe style="position: absolute;top: -5px;right: 15px;" allowtransparency="true" frameborder="0" width="180" height="36" scrolling="no" src="http://tianqi.2345.com/plugin/widget/index.htm?s=3&z=3&t=1&v=0&d=3&bd=0&k=&f=&ltf=009944&htf=cc0000&q=1&e=1&a=0&c=60768&w=180&h=36&align=right"></iframe>
+		</div>
+		<!-- mask遮罩住这个位置，防止点击到 -->
+		<div style="position: absolute;top: 0;right: 12px;width: 180px;height: 36px;" >	
+		</div>
+		
+		
+		<div class="mui-card" id="msg">
+			<div class="message" >
+				<p id="welcome">XXX：下午好~</p> 
+			<p id="newMessageNum">目前有X条新消息，请记得及时查看</p>
+			</div>
+		</div>
+
+		<div class="mui-card" style="height: 70%;" >
+		<ul class="mui-table-view mui-grid-view mui-grid-9" style="background-color: rgba(255,255,255,0.0)">
+		<!-- <li class="mui-table-view-cell mui-media mui-col-xs-4">
+			<a id="shipinjiankong">
+				<span class="mui-icon">
+					<svg class="icon" aria-hidden="true">
+					  <use xlink:href="#icon-icon-jiankong"></use>
+					</svg>
+				</span>
+				<div class="mui-media-body">视频监控</div>
+			</a>
+		</li> -->
+		<li class="mui-table-view-cell mui-media mui-col-xs-4">
+			<a id="yunxingzonglan">
+				<span class="mui-icon">
+					<svg class="icon" aria-hidden="true">
+					  <use xlink:href="#icon-shuilishiyedanwei"></use>
+					</svg>
+				</span>
+				<div class="mui-media-body">运行监测</div>
+			</a>
+		</li>
+		<li class="mui-table-view-cell mui-media mui-col-xs-4 ">
+			<a id="zhishuishengchan">
+				<span class="mui-icon">
+					<svg class="icon" aria-hidden="true">
+					  <use xlink:href="#icon-ditu"></use>
+					</svg>
+				</span>
+				<div class="mui-media-body">制水监测</div>
+			</a>
+		</li>
+		<li class="mui-table-view-cell mui-media mui-col-xs-4 ">
+			<a id="bengzhanjiance">
+				<span class="mui-icon">
+					<svg class="icon" aria-hidden="true">
+					  <use xlink:href="#icon-pie-chart"></use>
+					</svg>
+				</span>
+				<div class="mui-media-body">水泵监测</div>
+			</a>
+		</li>
+		<li class="mui-table-view-cell mui-media mui-col-xs-4 ">
+			<a id="shuizhijiance">
+				<span class="mui-icon">
+					<svg class="icon" aria-hidden="true">
+					  <use xlink:href="#icon-shui"></use>
+					</svg>
+				</span>
+				<div class="mui-media-body">水质监测</div>
+			</a>
+		</li>
+		<!-- <li class="mui-table-view-cell mui-media mui-col-xs-4 ">
+			<a id="shujufenxi">
+				<span class="mui-icon">
+					<svg class="icon" aria-hidden="true">
+					  <use xlink:href="#icon-fenxi"></use>
+					</svg>
+				</span>
+				<div class="mui-media-body">数据分析</div>
+			</a>
+		</li> -->
+		<li class="mui-table-view-cell mui-media mui-col-xs-4 ">
+			<a id="shishibaojing">
+				<span class="mui-icon">
+					<svg class="icon" aria-hidden="true">
+					  <use xlink:href="#icon-real-time-alarm"></use>
+					</svg>
+				</span>
+				<div class="mui-media-body">报警监测</div>
+			</a>
+		</li>
+		<!-- <li class="mui-table-view-cell mui-media mui-col-xs-4 ">
+			<a id="lishishuju">
+				<span class="mui-icon">
+					<svg class="icon" aria-hidden="true">
+					  <use xlink:href="#icon-lishi"></use>
+					</svg>
+				</span>
+				<div class="mui-media-body">历史数据</div>
+			</a>
+		</li> -->
+		<li class="mui-table-view-cell mui-media mui-col-xs-4">
+			<a id="dma">
+				<span class="mui-icon">
+					<svg class="icon" aria-hidden="true">
+					  <use xlink:href="#icon-xitongcanshushezhi"></use>
+					</svg>
+				</span>
+				<div class="mui-media-body">DMA分区</div>
+			</a>
+		</li>
+		<li class="mui-table-view-cell mui-media mui-col-xs-4 ">
+			<a id="guanyuwomen">
+				<span class="mui-icon">
+					<svg class="icon" aria-hidden="true">
+					  <use xlink:href="#icon-guanyuwomen"></use>
+					</svg>
+				</span>
+				<div class="mui-media-body">关于我们</div>
+			</a>
+		</li>
+		<li class="mui-table-view-cell mui-media mui-col-xs-4">
+			<a id="gengxinbanben">
+				<span class="mui-icon">
+					<svg class="icon" aria-hidden="true">
+					  <use xlink:href="#icon-gengxin"></use>
+					</svg>
+				</span>
+				<div class="mui-media-body">更新版本</div>
+			</a>
+		</li>
+		<li class="mui-table-view-cell mui-media mui-col-xs-4">
+			<a id="zhuxiao">
+				<span class="mui-icon">
+					<svg class="icon" aria-hidden="true">
+					  <use xlink:href="#icon-zhanghaozhuxiao"></use>
+					</svg>
+				</span>
+				<div class="mui-media-body">注销</div>
+			</a>
+		</li>
+			
+		</ul>
+		
+		</div>
+		
+	</body> 
+	<script src="js/iconfont.js"></script>
+	<script src="js/mui.min.js"></script>
+	<script type="text/javascript" src="js/config.js" ></script>
+	<script type="text/javascript" src="js/jquery-1.10.2.min.js" ></script>
+		<script type="text/javascript" charset="utf-8">
+			 //mui初始化
+			mui.init();
+			//控制问候
+				//$.getState()||
+			var state = getState();
+			$("#welcome").html(state.account+"："+AMPM());
+			function AMPM(){
+			   var hour = new Date().getHours();
+			   if(hour<12){
+			   	return "早上好";
+			   }else if(hour>18){
+			   	return "晚上好";
+			   }else{ 
+			   	return "下午好";
+			   }
+			}
+			
+//			$.get(url_msg,{id:state.id},
+//				function(data,status){
+//				if(status==200){
+//					$("#msg p").html("目前有"+data.num+"条新消息，请及时查看");
+//				}else{
+//					console.log("无法连接服务器");
+//				}
+//			})
+				
+			
+			//控制主界面显示时间
+			var url_counts = 'http://192.168.1.3:8080/msg/countOfNew'
+			var maintime = document.getElementById("maintime");
+			setInterval(function(){
+				var hour = new Date().getHours();
+				var minue = new Date().getMinutes();
+				if(minue<10)
+					minue = "0"+minue;
+					maintime.innerHTML = hour+" : "+minue;
+//				$.get(url_counts,{userid: state.id},function(data){
+//					if(data==0){
+//						$("#newMessageNum").html("目前暂无新消息，点此可查看历史消息");
+//					}else{
+//						$("#newMessageNum").html("目前有"+data+"条新消息，请及时查看");
+//					}
+//				})
+				
+			},1000)
+			function openSocket() {
+				 var socket;
+		        if(typeof(WebSocket) == "undefined") {
+		            console.log("您的浏览器不支持WebSocket");
+		        }else{
+		            console.log("您的浏览器支持WebSocket");
+		            //实现化WebSocket对象，指定要连接的服务器地址与端口  建立连接
+		            //等同于socket = new WebSocket("ws://localhost:8888/xxxx/im/25");
+		            //var socketUrl="${request.contextPath}/im/"+$("#userId").val();
+		            var socketUrl = url_websocket;
+		            socketUrl += state.id;
+		            socketUrl=socketUrl.replace("https","ws").replace("http","ws");
+		            console.log(socketUrl);
+		            if(socket!=null){
+		                socket.close();
+		                socket=null;
+		            }
+		            socket = new WebSocket(socketUrl);
+		            //打开事件
+		            socket.onopen = function() {
+		                console.log("websocket已打开");
+		                //socket.send("这是来自客户端的消息" + location.href + new Date());
+		            };
+		            //获得消息事件
+		            socket.onmessage = function(msg) {
+		                
+		                if(msg.data==0){
+							$("#newMessageNum").html("目前暂无新消息，点此可查看历史消息");
+						}else{
+							$("#newMessageNum").html("目前有"+msg.data+"条新消息，请及时查看");
+						}
+		                //发现消息进入    开始处理前端触发逻辑
+		            };
+		            //关闭事件
+		            socket.onclose = function() {
+		                console.log("websocket已关闭");
+		                setTimeout(function(){
+		                	 openSocket();
+		                },10000);
+		               
+		            };
+		            //发生了错误事件
+		            socket.onerror = function() {
+		                console.log("websocket发生了错误");
+		            }
+		        }
+		    }
+			openSocket();
+			
+			
+			function getStyle(Element,Property){ return Element.currentStyle ? Element.currentStyle[Property] : getComputedStyle(Element)[Property]; }
+			var header = document.getElementById("header");
+			var headerHeight = getStyle(header,"height");
+			var nextTop = parseInt(headerHeight)+11;
+			console.log("main的： "+nextTop);
+			window.localStorage.setItem("mainheader",nextTop);
+
+		</script>
+		
+	<script type="text/javascript">
+		console.log("在脚本里");
+		var wv_subpages = ['content_pages/1_shipinjiankong/shipinjiankong.html',
+			'content_pages/2_yunxingzonglan/yunxingzonglan.html',
+			'content_pages/3_zhishuishengchan/zhishuishengchan.html',
+			'content_pages/4_bengzhanjiance/bengzhanjiance.html',
+			'content_pages/5_shuizhijiance/shuizhijiance.html',
+			'content_pages/6_shujufenxi/shujufenxi.html',
+			'content_pages/7_shishibaojing/shishibaojing.html',
+			'content_pages/8_lishishuju/lishishuju.html',
+			'content_pages/9_dma/xunhuanjingjiyuan.html',
+			'content_pages/10_guanyuwomen/guanyuwomen.html',
+			'content_pages/11_gengxinbanben/gengxinbanben.html',
+			'content_pages/12_zhuxiao/zhuxiao.html',
+			 
+		];
+		var wv_id = {'shipinjiankong':0, 'yunxingzonglan':1, 'zhishuishengchan':2, 'bengzhanjiance':3, 'shuizhijiance':4,'shujufenxi':5, 'shishibaojing':6, 
+		'lishishuju':7, 'dma':8,'guanyuwomen':9,'gengxinbanben':10,'zhuxiao':11};
+		
+//		// 1-1 shipinjiankong
+			var newpage = [];
+//			console.log(wv_id.gengxinbanben);
+			mui.plusReady(function(){
+				console.log("ready");
+				var pageNum = 0;
+//				for(pageNum;pageNum<12;pageNum++){
+//					var page_url = '../'+wv_subpages[pageNum];
+//					console.log(page_url);
+//					newpage[pageNum] = plus.webview.create(page_url,wv_id[pageNum], {  
+//				 		top:nextTop+'px',
+//				 		bottom:'60px',
+//                		left:'9px',
+//                		right:'10px'
+//            		 }); 
+//            		 
+//             		newpage[pageNum].hide();
+//					plus.webview.currentWebview().append(newpage[pageNum]);
+//				} 
+				
+					mui('.mui-table-view').on('tap','a',function() {
+						var nowWebview = this.getAttribute('id');
+						if(nowWebview == 'zhuxiao'){
+							var clearState = {};
+							console.log("clearstate:"+clearState);
+							window.localStorage.setItem('$state',window.JSON.stringify(clearState));
+							mui.back();
+						}
+						var idNum = wv_id[nowWebview]
+						var page_url = wv_subpages[idNum];
+						page_url = '../'+page_url;
+						plus.webview.open(
+						page_url,
+						nowWebview, 
+						{  
+				 		top:nextTop+'px',
+				 		bottom:'20px',
+                  		left:'9px',
+                  		right:'9px'
+						},"zoom-out",300); 
+						console.log("创建了！！"+nowWebview);
+						plus.webview.show(nowWebview,"zoom-out",300);
+						
+					});
+					mui('#msg').on('tap','div',function() {
+						plus.webview.create("message.html","message", {  
+				 			top:nextTop+'px',
+				 			bottom:'20px',
+                  			left:'9px',
+                  			right:'10px'
+              			 }); 
+						plus.webview.show("message","zoom-out",300);
+					});
+//				$.get(url_msg,{})
+				
+				
+			});
+		//防止输入法导致的界面重构	，注释掉，在能弹出输入法的界面试一下就知道会发生么了
+		var height = document.documentElement.clientHeight || document.body.clientHeight;
+		console.log("height:"+height);
+		window.onresize = function(){
+		var heightView = document.documentElement.clientHeight || document.body.clientHeight;
+             if(heightView < height) {
+               plus.webview.currentWebview().setStyle({
+                     height: height
+               });
+
+			}
+	}
+	</script>
+	
+		 
+
+</html>

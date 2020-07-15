@@ -1,0 +1,159 @@
+<!doctype html>
+<html>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<script type="text/javascript" src="../../../js/mui.min.js"></script>
+	<script type="text/javascript" src="../../../js/config.js" ></script>
+	<link rel="stylesheet" href="../../../css/mui.min.css"/>
+	
+	<title>PH监测</title>
+	<style type="text/css">
+			.mui-dtpicker-header{
+				width: 100%;
+			}
+			.mui-dtpicker-title {
+				width: 70%;
+			}
+			label{
+				font-size: 80%;
+			}
+			#time{
+				border: none;
+				width: 50%;
+				font-size: 80%;
+				/* text-align: center; */
+			}
+			#showUserPicker1{
+				width: 50%;
+				font-size: 80%;
+				border: none;
+			}
+			#placechoose{
+				margin-bottom: 50px;
+				border: 1px solid lightgray; border-left: none; border-right: none;border-top: none;
+			}
+			#timeshoose{
+				margin-top: 50px;
+				border: 1px solid lightgray; border-left: none; border-right: none;border-top: none;
+			}
+			header h1{
+				padding:10px;
+				font-size: 1.2em;
+				text-align: center; 
+				position: relative;
+			}
+			.mui-popover {
+				height:150px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="mui-content">
+			<ul class="mui-table-view" id="content">
+			<li class="mui-table-view-cell">
+				<a class="mui-navigate-right" id= "0" href="#middlePopover">
+					<span class="mui-icon iconfont icon-shiguan"></span>
+					<span class="mui-tab-label">数据未加载</span>
+					<span id="time1" class="mui-tab-label" style="display: block;font-size: 70%;">时间</span>
+					<span id="chulizhuangtai" class="mui-badge">已忽略</span>
+					
+				</a>
+			</li>
+			<!--<li class="mui-table-view-cell">
+				<a class="mui-navigate-right" id="shuiliangbaojing" href="#middlePopover">
+					<span class="mui-icon iconfont icon-shiguan"></span>
+					<span class="mui-tab-label">空管警报</span>
+					<span id="time1" class="mui-tab-label" style="display: block;font-size: 70%;">时间</span>
+					<span id="chulizhuangtai" class="mui-badge mui-badge-danger">未处理</span>
+					
+				</a>
+			</li>-->
+			</ul>
+		</div>
+		
+		<div id="middlePopover" class="mui-popover">
+			<div class="mui-popover-arrow"></div>
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<ul class="mui-table-view" id="popover">
+						<li class="mui-table-view-cell"><a href="#" style="color: #dd524d;font-weight: bold;">未处理</a>
+						</li>
+						<li class="mui-table-view-cell"><a href="#" style="color: #007aff;font-weight: bold;">处理中</a>
+						</li>
+						<li class="mui-table-view-cell"><a href="#" style="color: #4cd964;font-weight: bold;">已处理</a>
+						</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+
+		</div>
+		
+	</body>
+<script type="text/javascript" src="../../../js/jquery-1.10.2.min.js" ></script>
+<script type="text/javascript">
+		mui.init();
+		mui('.mui-scroll-wrapper').scroll();
+			mui.back = function(){
+				console.log("关闭啦");
+				var baojingxinxi = plus.webview.getWebviewById('baojingxinxi');
+				console.log(baojingxinxi.id);
+				plus.webview.currentWebview().close();
+				baojingxinxi.close();
+				// console.log("隐藏啦");
+				// plus.webview.currentWebview().close();
+			};
+			
+		mui.plusReady(function(){
+			$.get(alarmMessageURL,{state:"已忽略"},function(data){
+				if(data!=''){
+					var result = data.result;
+					var newItem = '';
+					mui.each(result,function(index,element){
+						newItem += '<li class="mui-table-view-cell">'+
+								'<a class="mui-navigate-right" id= '+element.id+' href="#middlePopover">'+
+									'<span class="mui-icon iconfont icon-shiguan"></span>'+
+									'<span class="mui-tab-label">'+element.aContent+'</span>'+
+									'<span id="time1" class="mui-tab-label" style="display: block;font-size: 70%;">'+element.aDate+'</span>'+
+									'<span id="chulizhuangtai" class="mui-badge">'+element.aState+'</span>'+
+								'</a>';
+					});
+					document.getElementById('content').innerHTML = newItem;
+		
+				}
+				
+			})
+		})
+		var alarmIdWhichTaped;
+		mui('#content').on('tap','a',function(){
+				alarmIdWhichTaped = this.getAttribute('id');
+				console.log("点击到的报警id："+alarmIdWhichTaped);
+		}); 
+		mui('#popover .mui-table-view-cell').on('tap','a',function(){
+				var newState = this.innerHTML;
+				$.post(changStateURL,{id:alarmIdWhichTaped,newState:newState},function(data){
+					if(data.result =='Success'){
+						document.getElementById(alarmIdWhichTaped).remove();
+						mui.toast("已修改");
+					}else{
+						mui.toast("未知错误");
+					}
+				});
+				
+		});
+	
+		var date = new Date()<!--获得日期数据-->
+		var y = date.getFullYear();<!--年-->
+		var m = date.getMonth()+1;<!--月，这里的月份必须要+1才是当前月份-->
+		var d = date.getDate(); <!--日，getDay是获得当前星期几（0-6），getDate是获得当前日期-->
+		var h = date.getHours();
+		var min = date.getMinutes();
+		var s = date.getSeconds();
+		var time =+y+"-"+m+"-"+d+"  "+h+":"+min+":"+s;
+		document.getElementById('time1').innerHTML = time;	
+	</script>
+</html>

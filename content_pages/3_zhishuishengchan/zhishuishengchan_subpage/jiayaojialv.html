@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<script type="text/javascript" src="../../../js/mui.min.js"></script>
+	<script type="text/javascript" src="../../../js/config.js" ></script>
+	
+	<title></title>
+	<style type="text/css">
+			table,th,td
+			{
+				/* border: 1px solid lightgray; */
+				padding: 8px; 
+				font-weight:bold;
+				border: 1px solid lightgray;border-top: none; border-left: none; border-right: none;
+			}
+			table{
+				border-collapse: collapse;
+				margin: auto;
+				margin-top: 10px;
+				border: #000000;
+				box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.5);
+				width: 98%;
+			}
+			
+			tbody th{
+				font-size: 80%;
+			}
+			
+			/* tbody th.green{
+				font-size: 90%;
+				color: #2AC845;
+			} */
+			
+			thead{
+				background-color: #66CCFF;
+				color: white;
+			}
+			
+			tbody{
+				/* border-top-width: 1px;
+				border-top-style: solid; */
+				font-size: 90%;
+			}
+			tbody td.shuju{
+				font-size: 90%;
+				color: #3300ff;
+				/* text-align: center; */
+				padding: 10px;
+			}
+			th{
+				text-align: left;
+				padding: 5px;
+			}
+			table tr.gray{
+				background-color: #E0E0E0;
+			}
+			tbody tr.shuxing th{
+				font-size: 120%;
+				padding: 10px;
+			}
+		</style>
+	<body>
+		<table width=330px >
+			<thead >
+				<tr>
+					<th>加药</th>
+					<!-- 填补颜色 -->
+					<th width=20px></th><th width=70px></th><th></th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr class="shuxing">
+					<th >名称</th>
+					<th></th>
+					<th>实时值</th>
+					<th>单位</td>
+				</tr>
+				<tr class="gray">
+					<td >1#泵运行状态</td>
+					<th ></th>
+					<td class="shuju" id="yaobengzhuangtai1">已启用</t>
+					<td ></td>
+				</tr>
+				
+				<tr>
+					<td >2#泵运行状态</td>
+					<th ></th>
+					<td class="shuju" id="yaobengzhuangtai2">停用</t>
+					<td ></td>
+				</tr>
+				
+				<tr class="gray">
+					<td >出药瞬时流量</td>
+					<th ></th>
+					<td class="shuju" id="chuyaoshunshiliuliang">0.081</t>
+					<td >m³/h</td>
+				</tr>
+				<tr>
+					<td >出药累计流量</td>
+					<th ></th>
+					<td class="shuju" id="chuyaoleijiliuliang">0</t>
+					<td >m³</td>
+				</tr>
+				<tr  class="gray">
+					<td >加药变频器频率</td>
+					<th ></th>
+					<td class="shuju" id="jiayaobianpinqipinlv">11.475</t>
+					<td >Hz</td>
+				</tr>
+				<tr>
+					<td >1#药池液位</td>
+					<th ></th>
+					<td class="shuju" id="yaochiyewei1">0.559</t>
+					<td >m</td>
+				</tr>
+				<tr  class="gray">
+					<td >2#药池液位</td>
+					<th ></th>
+					<td class="shuju" id="yaochiyewei2">0.348</t>
+					<td >m</td>
+				</tr>
+			</tbody>
+			
+		</table>
+		
+		<table width=330px >
+			<thead >
+				<tr>
+					<th>加氯</th>
+					<!-- 填补颜色 -->
+					<th width=20px></th><th width=70px></th><th></th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr class="shuxing">
+					<th >名称</th>
+					<th></th>
+					<th>实时值</th>
+					<th>单位</td>
+				</tr>
+				<tr class="gray">
+					<td >二氧化氯余量</td>
+					<th ></th>
+					<td class="shuju" id="eryanghualvyuliang">0</t>
+					<td ></td>
+				</tr>
+				
+				<tr>
+					<td >温度1</td>
+					<th ></th>
+					<td class="shuju" id="lvwendu1">43.2</t>
+					<td >℃</td>
+				</tr>
+				
+				<tr  class="gray">
+					<td >温度2</td>
+					<th ></th>
+					<td class="shuju" id="lvwendu2">18</t>
+					<td >℃</td>
+				</tr>
+				<tr>
+					<td >投加量</td>
+					<th ></th>
+					<td class="shuju" id="lvtoujialiang">0.9</t>
+					<td ></td>
+				</tr>
+				<tr  class="gray">
+					<td >水流量</td>
+					<th ></th>
+					<td class="shuju" id="lvshuiliangliu">360</t>
+					<td ></td>
+				</tr>
+			</tbody>
+			
+		</table>
+	</body>
+
+<script type="text/javascript">
+		mui.init();
+			mui.back = function(){
+				console.log("关闭啦");
+				var zhishuishengchan = plus.webview.getWebviewById('zhishuishengchan');
+				var currentView = plus.webview.currentWebview();
+				currentView.hide();
+				zhishuishengchan.close();
+				currentView.close(); 
+				
+				
+			};
+			
+		mui.plusReady(function(){
+			//加药数据
+			judgestate('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=BFPLC%5CANPOINT%5CGSP1YXFZ_ARW.PV','yaobengzhuangtai1');
+			judgestate('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=BFPLC%5CANPOINT%5CGSP2YXFZ_ARW.PV','yaobengzhuangtai2');
+			myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=JYPLC%5CJYJ_CHUYSSLL_AI.PV','chuyaoshunshiliuliang');
+			myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=JYPLC%5CJYJ_CHUYLJLL_AI.PV','chuyaoleijiliuliang');
+			myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=JYPLC%5CJYJ_BIANPQPL_AI.PV','jiayaobianpinqipinlv');
+			myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=JYPLC%5CJYJ_JYC1YEWEI_AI.PV','yaochiyewei1');
+			myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=JYPLC%5CJYJ_JYC2YEWEI_AI.PV','yaochiyewei2');
+			
+			//加氯数据
+			myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=JLPLC%5CJUJ_YULVXS_AI.PV','eryanghualvyuliang');
+			myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=JLPLC%5CJLJ_WENDU1XS_AI.PV','lvwendu1');
+			myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=JLPLC%5CJLJ_WENDU2XS_AI.PV','lvwendu2');
+			myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=JLPLC%5CJLJ_TOUJIALXS_AI.PV','lvtoujialiang');
+			myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=JLPLC%5CJLJ_SHEDSLL_AI.PV','lvshuiliangliu');
+		})
+		
+		function myrefresh(url,id){
+					mui.ajax(url,{
+					    type:'get',//HTTP请求类型
+					    timeout:5000,//超时时间设置为10秒；
+						contentType:"application/json;charset=UTF-8",
+						Accept:"application/json",
+					     success : function(data){
+						         if (typeof(data) == "string") {
+					             if (data != '') {
+					                var mapdata = JSON.parse(data);
+					                //var aaa = JSON.stringify(mapdata.value);
+					                //var result = JSON.parse(aaa);
+					                document.getElementById(id).innerHTML = mapdata['value']; 
+						             }
+						         }   
+						     },
+						     error : function(XMLHttpRequest, textStatus, errorThrown) {
+						         console.log("接口" + url + "出错;XMLHttpRequest.status："
+						             + XMLHttpRequest.status + ";XMLHttpRequest.readyState：" 
+						             + XMLHttpRequest.readyState + ";errorThrown：" 
+						             + errorThrown + ";textStatus：" + textStatus);
+						         //errorF();
+						         console.log('加载失败');
+						     }
+						 });
+		}
+		function judgestate(url,id){
+				mui.ajax(url,{
+			    type:'get',//HTTP请求类型
+			    timeout:5000,//超时时间设置为10秒；
+				contentType:"application/json;charset=UTF-8",
+				Accept:"application/json",
+			     success : function(data){
+				         if (typeof(data) == "string") {
+			             if (data != '') {
+			                var mapdata = JSON.parse(data);
+			                //var aaa = JSON.stringify(mapdata.value);
+			                //var result = JSON.parse(aaa);
+							var flag=mapdata['value'];
+							if(flag!='0'){
+								document.getElementById(id).innerHTML = '已启用';
+							}
+			                else{
+								document.getElementById(id).innerHTML = '停用';
+							}
+			                
+			                 
+				             }
+				         }   
+				     },
+				     error : function(XMLHttpRequest, textStatus, errorThrown) {
+				         console.log("接口" + url + "出错;XMLHttpRequest.status："
+				             + XMLHttpRequest.status + ";XMLHttpRequest.readyState：" 
+				             + XMLHttpRequest.readyState + ";errorThrown：" 
+				             + errorThrown + ";textStatus：" + textStatus);
+				         //errorF();
+				         console.log('加载失败');
+				     }
+				 });
+		}
+	</script>
+</html>

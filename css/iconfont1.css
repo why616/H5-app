@@ -1,0 +1,55 @@
+@font-face {font-family: "iconfont";
+  src url('../fonts/iconfont1.ttf') format('truetype'); /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-shuilishiyedanwei:before {
+  content: "\e62c";
+}
+
+.icon-real-time-alarm:before {
+  content: "\e64f";
+}
+
+.icon-fenxi:before {
+  content: "\e614";
+}
+
+.icon-pie-chart:before {
+  content: "\e622";
+}
+
+.icon-lishi:before {
+  content: "\e654";
+}
+
+.icon-icon-jiankong:before {
+  content: "\e63e";
+}
+
+.icon-ditu:before {
+  content: "\e65f";
+}
+
+.icon-shui:before {
+  content: "\e631";
+}
+
+.icon-xitongcanshushezhi:before {
+  content: "\e649";
+}
+

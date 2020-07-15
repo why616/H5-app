@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title></title>
+		<style>
+			}
+			span.mui-tab-label{
+				color: #66ccff;
+			}
+			
+			table,th,td
+			{
+				border: 1px solid lightgray; border-top: none; border-left: none; border-right: none;
+			}
+			table{
+				border-collapse: collapse;
+				margin-top: 20px;
+				border: #000000;
+				margin: auto;
+				margin-top: 10px;
+				box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.5);
+				width: 98%;
+			}
+			
+			tbody th{
+				font-size: 90%;
+			}
+			
+			
+			thead{
+				background-color: #66CCFF;
+				color: white;
+			}
+			
+			tbody{
+				/* border-top-width: 1px;
+				border-top-style: solid; */
+				font-size: 90%;
+			}
+			tbody td{
+				color: #3300ff;
+			}
+			th{
+				text-align: left;
+				padding: 7px;
+			}
+			td{
+				text-align: center;
+				padding: 3px;
+			}
+			table tr.gray{
+				background-color: #E0E0E0;
+			}
+			tr,td{
+				nowrap: true;
+				white-space:nowrap;
+			}
+		
+		</style>
+	</head>
+	<body>
+		<table width=330px>
+		<thead >
+				<tr>
+					<th>出厂水</th>
+					<!-- 填补颜色 -->
+					<th></th><th></th><th></th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr class="gray">
+					<th>1#瞬时流量：</th>
+					<td id="chuchangshunshiliuliang1" >0.28MPa</td>
+					
+					<th>2#瞬时流量：</th>
+					<td id="chuchangshunshiliuliang2" >2.50m</td>
+				</tr>
+				<tr>
+					<th>1#累计流量：</th>
+					<td id="chuchangleijiliuliang1" >7.13</td>
+					<th>2#累计流量：</th>
+					<td id="chuchangleijiliuliang2" >7.13</td>	
+				</tr>
+				<tr class="gray">
+					<th>出厂水压力：</th>
+					<td id="chuchangshuiyali" >2.50m</td>
+					<th>出厂水余氯：</th>
+					<td id="chuchangshuiyulv" >7.13</td>	
+				</tr>
+				<tr>
+					<th>出厂水PH：</th>
+					<td id="chuchangshuiPH" >2.50m</td>
+					<th>出厂水浊度：</th>
+					<td id="chuchangshuizhuodu" >7.13</td>	
+				</tr>
+			</tbody>
+			
+			
+		</table>
+		<table width=330px>
+			<thead >
+				<tr>
+					<th>源水</th>
+					<!-- 填补颜色 -->
+					<th></th><th></th><th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="gray">
+					<th>泵房瞬时流量：</th>
+					<td id="bengfangshunshiliuliang" >0.28MPa</td>
+					<th></th>
+					<td></td>
+				</tr>
+				<tr>
+					<th>加压站瞬时流量：</th>
+					<td id="jiayashunshiliuliang" ></td>
+					<th></th>
+					<td></td>
+				</tr>
+				<tr>
+					<th>源水累计流量：</th>
+					<td id="yuanshuileijiliuliang" >7.13</td>	
+					<th></th>
+					<td></td>
+					
+				</tr>
+				<tr class="gray">
+					<th>泵房浊度：</th>
+					<td id="bengfangzhuodu" >2.50m</td>
+					<th>泵房压力：</th>
+					<td id="bengfangyali" >7.13</td>
+				</tr>
+				<tr>
+					<th>清水库水位</th>
+					<td id="shuiwei" >7.13</td>
+					<th>加压站浊度：</th>
+					<td id="jiayazhanzhuodu" >7.13</td>
+				</tr>
+				
+			</tbody>
+		</table>
+		
+		<table width=330px>
+			<thead >
+				<tr>
+					<th>送水泵</th>
+					<!-- 填补颜色 -->
+					<th></th><th></th><th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="gray">
+					<th>1#水泵电流：</th>
+					<td id="bengdianliu1" >0.28MPa</td>
+					
+					<th>2#水泵电流：</th>
+					<td id="bengdianliu2" >2.50m</td>
+				</tr>
+				<tr>
+					<th>4#水泵电流：</th>
+					<td id="bengdianliu4" ></td>
+					<th>5#水泵电流：</th>
+					<td id="bengdianliu5" >7.13</td>	
+				</tr>
+				
+			</tbody>
+		</table>
+		
+		<table width=330px>
+			<thead >
+				<tr>
+					<th>D型滤池</th>
+					<!-- 填补颜色 -->
+					<th></th><th></th><th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="gray">
+					<th>1#过滤时间：</th>
+					<td id="bengfangshunshiliuliang" >0.28MPa</td>
+					
+					<th>2#过滤时间：</th>
+					<td id="jiayashunshiliuliang" >2.50m</td>
+				</tr>
+				<tr>
+					<th>3#过滤时间：</th>
+					<td id="" ></td>
+					<th>4#过滤时间：</th>
+					<td id="yuanshuileijiliuliang" >7.13</td>	
+				</tr>
+				<tr>
+					<th>5#过滤时间：</th>
+					<td id="" ></td>
+					<th>6#过滤时间：</th>
+					<td id="yuanshuileijiliuliang" >7.13</td>	
+				</tr>
+				
+			</tbody>
+		</table>
+		<table width=330px>
+			<thead >
+				<tr>
+					<th>加药池</th>
+					<!-- 填补颜色 -->
+					<th></th><th></th><th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="">
+					<th>加药_出药瞬时流量：</th>
+					<td id="chuyaoshunshiliuliang" >0.28MPa</td>
+					<th>二氧化氯投加量：</th>
+					<td id="CLtoujialiang" >2.50m</td>
+				</tr>
+				
+				
+			</tbody>
+		</table>
+		
+	</body>
+	<script type="text/javascript" src="../../js/config.js" ></script>
+	<script type="text/javascript" src="../../js/mui.min.js" ></script>
+	<script type="text/javascript" src="../../js/jquery-1.10.2.min.js" ></script>
+	<script type="text/javascript">
+		mui.init();
+				mui.back = function(){
+					var shishibaojing = plus.webview.getWebviewById('shishibaojing');
+					var currentView = plus.webview.currentWebview();
+					currentView.hide();
+					shishibaojing.close();
+					currentView.close(); 
+				}
+//				console.log(yunxingzonglan.id);
+				
+		mui.plusReady(function(){
+			judgestate('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=BFPLC%5CANPOINT%5CCCS1SSLL_ARO.PV','chuchangshunshiliuliang1','M³/h',100,2600);
+			judgestate('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=BFPLC%5CANPOINT%5CCCS2SSLL_ARO.PV','chuchangshunshiliuliang2','M³/h',100,2600);
+			judgestate('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=BFPLC%5CANPOINT%5CGSCSSL_ARW.PV','chuchangleijiliuliang1','M³',0,Infinity);
+			judgestate('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=BFPLC%5CANPOINT%5CCCS2LJLL_ARO.PV','chuchangleijiliuliang2','M³',0,Infinity);
+			judgestate('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=BFPLC%5CANPOINT%5CCCSYAL_ARO.PV','chuchangshuiyali','MPa',0.24,0.3);
+			judgestate('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=BFPLC%5CANPOINT%5CCCSYUL_ARO.PV','chuchangshuiyulv','mg/l',0.07,1);
+			judgestate('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=BFPLC%5CANPOINT%5CCCSPHV_ARO.PV','chuchangshuiPH','',6.5,8.5);
+			judgestate('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=BFPLC%5CANPOINT%5CCCSZHD_ARO.PV','chuchangshuizhuodu','NTU',0,0.5);
+			
+			judgestate('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=BFPLC%5CANPOINT%5CYUSSSLL_ARO.PV','bengfangshunshiliuliang','M³/h',100,3000);
+			judgestate('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=JYPLC%5CJYJ_ZD20PLZ_AO.PV','jiayashunshiliuliang','M³/h',100,3000);
+			judgestate('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=BFPLC%5CANPOINT%5CYSLJLL_ARW.PV','yuanshuileijiliuliang','M³',0,Infinity);
+			judgestate('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=BFPLC%5CANPOINT%5CYUSZHD_ARO.PV','bengfangzhuodu','NTU',0,40);
+			judgestate('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=BFPLC%5CANPOINT%5CYSHYLV_ARO.PV','bengfangyali','MPa',0.06,0.8);
+			judgestate('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=XYJJY%5CPW_Lev_AI.PV','shuiwei','M',0.7,3.8);
+			judgestate('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=JYPLC%5CJYJ_YSZHUD_AO.PV','jiayazhanzhuodu','NTU',0,40);
+			
+			judgestate('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=XYJJY%5CPUM1_FreCov_CurI_AI.PV','bengdianliu1','A',0,400);
+			judgestate('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=XYJJY%5CPUM2_FreCov_CurI_AI.PV','bengdianliu2','A',0,400);
+			judgestate('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=JSL%5CB4DL.PV','bengdianliu4','A',0,400);
+			judgestate('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=JSL%5CB5DL.PV','bengdianliu5','A',0,400);
+			
+			judgestate('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=JLPLC%5CJLJ_TOUJIALXS_AI.PV','chuyaoshunshiliuliang','M³/h',0,Infinity);
+			judgestate('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=JLPLC%5CJLJ_TOUJIALXS_AI.PV','CLtoujialiang','M³',0,Infinity);
+			
+			
+			
+	
+		})
+		function judgestate(url,id,unit,range0,range1){
+				mui.ajax(url,{
+			    type:'get',//HTTP请求类型
+			    timeout:5000,//超时时间设置为10秒；
+				contentType:"application/json;charset=UTF-8",
+				Accept:"application/json",
+			     success : function(data){
+				         if (typeof(data) == "string") {
+			             if (data != '') {
+			                var mapdata = JSON.parse(data);
+			                //var aaa = JSON.stringify(mapdata.value);
+			                //var result = JSON.parse(aaa);
+							var value=mapdata['value'];
+							
+							if(value<range0||value>range1){
+								var errorType = {'chuchangshunshiliuliang1':"出厂水1#泵瞬时流量超限",
+												 'chuchangshunshiliuliang2':"出厂水2#泵瞬时流量超限",
+												 'chuchangshuiyali':'出厂水压力超限',
+												 'chuchangshuiyulv':'出厂水余氯超限',
+												 'chuchangshuiPH':'出厂水PH超限',
+												 'chuchangshuizhuodu':'出厂水浊度超限',
+												 'bengfangshunshiliuliang':'源水泵房瞬时流量超限',
+												 'jiayashunshiliuliang':'源水加压站瞬时流量超限',
+												 'bengfangzhuodu':'源水泵房浊度超限',
+												 'bengfangyali':'源水泵房水压超限',
+												 'shuiwei':'源水清水池水位超限',
+												 'jiayazhanzhuodu':'源水加压站浊度超限',
+												 'bengdianliu1':'1#送水泵电流超限',
+												 'bengdianliu2':'2#送水泵电流超限',
+												 'bengdianliu4':'4#送水泵电流超限',
+												 'bengdianliu5':'5#送水泵电流超限',
+												 'chuyaoshunshiliuliang':'出药瞬时流量超限',
+												 'CLtoujialiang':'二氧化氯投加量超限'}
+								
+								$.post(addAlarmURL,{aContent:errorType[id],aDate:currentTimeStr(),aState:'未处理'},function(data){
+									 if (data != '') {
+									 	if(data.result == 'Success'){
+									 		mui.toast("存在超限报警");
+									 	}
+									 	
+									 }
+								})
+								document.getElementById(id).style.color = '#dd524d';
+							}
+							document.getElementById(id).innerHTML = mapdata['value']+unit;
+						 }
+				         }   
+				     },
+				     error : function(XMLHttpRequest, textStatus, errorThrown) {
+				         console.log("接口" + url + "出错;XMLHttpRequest.status："
+				             + XMLHttpRequest.status + ";XMLHttpRequest.readyState：" 
+				             + XMLHttpRequest.readyState + ";errorThrown：" 
+				             + errorThrown + ";textStatus：" + textStatus);
+				         //errorF();
+				         console.log('加载失败');
+				     }
+				 });
+				}
+		function currentTimeStr(){
+			var date = new Date()<!--获得日期数据-->
+			var y = date.getFullYear();<!--年-->
+			var m = date.getMonth()+1;<!--月，这里的月份必须要+1才是当前月份-->
+			var d = date.getDate(); <!--日，getDay是获得当前星期几（0-6），getDate是获得当前日期-->
+			var h = date.getHours();
+			var min = date.getMinutes();
+			var s = date.getSeconds();
+			var time =+y+"-"+m+"-"+d+"  "+h+":"+min+":"+s;
+			return time;
+		}
+	</script>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script type="text/javascript" src="../../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../../js/config.js" ></script>
+				
+		<title></title>
+		<style type="text/css">
+				table,th,td
+				{
+					/* border: 1px solid lightgray; */
+					padding: 8px; 
+					font-weight:bold;
+					border: 1px solid lightgray;border-top: none; border-left: none; border-right: none;
+				}
+				table{
+					border-collapse: collapse;
+					margin-top: 10px;
+					border: #000000;
+				
+					box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+					width: 100%;
+					
+				}
+				
+				tbody th{
+					font-size: 80%;
+				}
+				
+				/* tbody th.green{
+					font-size: 90%;
+					color: #2AC845;
+				} */
+				
+				thead{
+					background-color: #66CCFF;
+					color: white;
+					font-size: 90%;
+				}
+				
+				tbody{
+					/* border-top-width: 1px;
+					border-top-style: solid; */
+					font-size: 90%;
+				}
+				tbody td.shuju{
+					font-size: 120%;
+					color: #3300ff;
+					text-align: center;
+					padding: 10px;
+				}
+				th{
+					/* text-align: left; */
+					padding: 5px;
+				}
+				table tr.gray{
+					background-color: #E0E0E0;
+				}
+				tbody tr.shuxing th{
+					font-size: 100%;
+					padding: 10px;
+				}
+			</style>
+	</head>
+
+	<body>
+		<table width=330px >
+			<thead >
+				<tr>
+					<th width=85px>泵轴温度</th>
+					<!-- 填补颜色 -->
+					<th width=80px></th><th width=85px></th><th width=80px></th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr class="shuxing">
+					<th>名称</th>
+					<th>温度（℃）</th>
+					<th>名称</th>
+					<th>温度（℃）</td>
+				</tr>
+				<tr class="gray">
+					<td >泵轴温1#东侧</td>
+					<td class="shuju" id="bengzhouwendongce1">20.7</th>
+					<td>泵轴温2#西侧</td>
+					<td class="shuju" id="bengzhouwenxice2">13.8</td>
+				</tr>
+				
+				<tr>
+					<td >电机轴温3#东</td>
+					<td class="shuju" id="bengzhouwendongce3">14.2</th>
+					<td>电机轴温4#西</td>
+					<td class="shuju" id="bengzhouwenxice4">14.1</td>
+				</tr>
+				
+				<tr class="gray">
+					<td >4#机泵温西侧</td>
+					<td class="shuju" id="jibengwenxice4">20.6</th>
+					<td>4#机泵温东侧</td>
+					<td class="shuju" id="jibengwendongce4">24.6</td>
+				</tr>
+				
+				<tr >
+					<td >5#机泵温西侧</td>
+					<td class="shuju" id="jibengwenxice5">15.1</th>
+					<td>5#机泵温东侧</td>
+					<td class="shuju" id="jibengwendongce5">13.1</td>
+				</tr>
+				
+				
+				
+				<tr >
+					<td >4#电机温度</td>
+					<td class="shuju" id="dianjiwendu4">30.3</th>
+					<td>5#电机温度</td>
+					<td class="shuju" id="dianjiwendu5">24.8</td>
+				</tr>
+
+			</tbody>
+			
+		</table>
+		
+		
+		<!-- <table width=330px >
+			<thead >
+				<tr>
+					<th width=100px>出厂加压泵</th>
+					<th width=80px></th><th width=85px></th><th width=80px></th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr class="shuxing">
+					<th>名称</th>
+					<th>状态</th>
+					<th>频率(Hz)</th>
+					<th>电流(A)</td>
+				</tr>
+				<tr class="gray">
+					<td  align="center">1#泵</td>
+					<td class="shuju" id="jiayabengzhuangtai1">已启用</td>
+					<td class="shuju" id="jiayabengpinlv1">38.009</td>
+					<td class="shuju" id="jiayabengdianliu1">100</td>
+				</tr>
+				
+				<tr>
+					<td  align="center">2#泵</td>
+					<td class="shuju" id="jiayabengzhuangtai2">停用</td>
+					<td class="shuju" id="jiayabengpinlv2">0</td>
+					<td class="shuju" id="jiayabengdianliu2">0</td>
+				</tr>
+		
+			</tbody>
+			
+		</table> -->
+		
+		
+	</body>
+	
+	<script type="text/javascript">
+		mui.init();
+			mui.back = function(){
+				console.log("关闭啦");
+				var zhishuishengchan = plus.webview.getWebviewById('zhishuishengchan');
+				var currentView = plus.webview.currentWebview();
+				currentView.hide();
+				zhishuishengchan.close();
+				currentView.close(); 
+				
+				
+			};
+			
+		mui.plusReady(function(){
+			//泵轴电机温
+			myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=XUNJY%5CWD1_BENG_DONG_AI.PV','bengzhouwendongce1');
+			myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=XUNJY%5CWD2_BENG1_XI_AI.PV','bengzhouwenxice2');
+			myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=XUNJY%5CWD3_DIANJI_DONG_AI.PV','bengzhouwendongce3');
+			myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=XUNJY%5CWD4_DIANJI_XI_AI.PV','bengzhouwenxice4');
+			myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=XUNJY%5CWD6_BENG4_XI_AI.PV','jibengwenxice4');
+			myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=XUNJY%5CWD7_B4_DONG_AI.PV','jibengwendongce4');
+			myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=XUNJY%5CWD9_BENG5_XI_AI.PV','jibengwenxice5');
+			myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=XUNJY%5CWD10_B5_DONG_AI.PV','jibengwendongce5');
+			myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=XUNJY%5CWD5_DJ4_WDU_AI.PV','dianjiwendu4');
+			myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=XUNJY%5CWD8_DJ5_WDU_AI.PV','dianjiwendu5');
+			
+			
+			
+		})
+		function myrefresh(url,id){
+					mui.ajax(url,{
+					    type:'get',//HTTP请求类型
+					    timeout:5000,//超时时间设置为10秒；
+						contentType:"application/json;charset=UTF-8",
+						Accept:"application/json",
+					     success : function(data){
+						         if (typeof(data) == "string") {
+					             if (data != '') {
+					                var mapdata = JSON.parse(data);
+					                //var aaa = JSON.stringify(mapdata.value);
+					                //var result = JSON.parse(aaa);
+					                document.getElementById(id).innerHTML = mapdata['value']; 
+						             }
+						         }   
+						     },
+						     error : function(XMLHttpRequest, textStatus, errorThrown) {
+						         console.log("接口" + url + "出错;XMLHttpRequest.status："
+						             + XMLHttpRequest.status + ";XMLHttpRequest.readyState：" 
+						             + XMLHttpRequest.readyState + ";errorThrown：" 
+						             + errorThrown + ";textStatus：" + textStatus);
+						         //errorF();
+						         console.log('加载失败');
+						     }
+						 });
+		}	
+	</script>
+</html>

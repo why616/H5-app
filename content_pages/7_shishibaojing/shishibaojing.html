@@ -1,0 +1,142 @@
+
+<html>
+
+	<head>
+		<meta charset="utf-8"> 
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		
+		<script type="text/javascript" src="../../js/jquery-1.10.2.min.js" ></script>
+		<script type="text/javascript" src="../../js/config.js" ></script>
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<link rel="stylesheet" href="../../css/iconfont.css"/>
+		<link rel="stylesheet" href="../../css/icons-extra.css" />
+		<style>
+			html{
+				width: 100%;
+				height:100%;
+				background-image: url(../../images/shexian.png);
+				/* -webkit-filter: blur(100000px);*/
+				background-size: 300%100%;
+			/*	background-size: 1%1%; */
+			}
+			
+			body {
+				position: relative;
+				width: 100%;
+				height:100%;
+				border-radius: 10px;
+				box-shadow: 0 1px 2px rgba(0,0,0,.3);
+				
+				padding: 0px;
+				margin: 0px;
+				background-color: rgba(255,255,255,1);
+				background-clip: padding-box;
+				background-origin: padding-box;
+			}
+			header{
+				border-top-left-radius: inherit;
+				border-top-right-radius: inherit;
+				
+				
+				font-size: 1.2em;
+				text-align: center;
+				position: relative;
+				
+			}
+			nav{
+				border-bottom-left-radius: 10px;
+				border-bottom-right-radius: 10px;
+				
+			}
+			.mui-bar-nav~.mui-content{
+				padding: 0;
+			}
+			</style>
+		<body>
+			<header id="header1" class="mui-bar mui-bar-nav" >
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 class="mui-title" >实时报警</h1>
+			</header>
+		
+		<div class="mui-content">
+			
+			<nav id="nav" class="mui-bar mui-bar-tab" >
+			<a id="shishijiance" class="mui-tab-item mui-active" >
+				<span class="mui-icon mui-icon-help"></span>
+				<span class="mui-tab-label">实时监测</span>
+			</a> 
+			<a id="baojingxinxi" class="mui-tab-item" href="tab-webview-subpage-chat.html">
+				<!--<span class="mui-icon mui-icon-email"><span class="mui-badge">9</span></span>-->
+				<span class="mui-icon mui-icon-info"></span>
+				<span class="mui-tab-label">报警消息</span>
+			</a>
+			
+			</nav>
+			
+		
+			
+		</div>
+		
+	</body>
+	<script src="../../js/mui.min.js"></script>
+	<script>
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+	 	function getStyle(Element,Property){ return Element.currentStyle ? Element.currentStyle[Property] : getComputedStyle(Element)[Property]; }
+			var header = document.getElementById("header1");
+			var headerHeight = getStyle(header,"height");
+			var nextTop = parseInt(headerHeight);
+			console.log("运行总览的header: "+nextTop);
+			
+			var mainheader = parseInt(window.localStorage.getItem("mainheader"));
+			nextTop = mainheader+nextTop+5;
+			console.log("子页面的top:"+nextTop);
+			var nav = document.getElementById("nav");
+			var navHeight = getStyle(nav,"height");
+			var nextBottom = parseInt(navHeight)+20;
+			var nowTopPage = 'shishijiance';
+			console.log("子页面的bottom:"+nextBottom);
+			
+			var wv_subpages = ['shishibaojing.html',
+			'shishibaojing_subpage/baojingxinxi.html'
+			];
+		var wv_id = {'shishibaojing':0, 'baojingxinxi':1};
+			mui.plusReady(function(){ 
+				console.log("id:"+plus.webview.currentWebview().id);
+				plus.webview.create('shishijiance.html','shishijiance', {  
+				 		top:nextTop+'px',
+				 		bottom:nextBottom+'px', 
+                  		left:'9px',
+                  		right:'10px'
+              		 }); 
+              		 plus.webview.show('shishijiance',"zoom-out",140);
+				mui('.mui-bar-tab').on('tap','a',function() {
+					console.log("运行总览里点到啦");	
+						var newWebview = this.getAttribute('id');
+						console.log("当前："+nowTopPage);
+						console.log("新建："+newWebview);
+						if(nowTopPage==newWebview){
+							console.log("相同");
+					 		return;
+						}
+						var idNum = wv_id[newWebview];
+						var page_url = wv_subpages[idNum];
+						plus.webview.create(page_url,newWebview, {  
+				 		top:mainheader+'px',
+				 		bottom:20+'px',
+                  		left:'9px',
+                  		right:'10px'
+              		 }); 
+						console.log("创建了！！"+newWebview);
+						plus.webview.show(newWebview,"zoom-out",140);
+				});
+			}); 
+		
+		
+	</script>
+
+</html>

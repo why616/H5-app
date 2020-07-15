@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en" class="feedback">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/feedback.css" rel="stylesheet" />
+		
+	</head>
+
+	<body>
+		
+		<div class="mui-content">
+			<div class="mui-content-padded">
+				<div class="mui-inline">信息内容</div>
+				<a class="mui-pull-right mui-inline" href="#popover">
+					快捷标题
+					<span class="mui-icon mui-icon-arrowdown"></span>
+				</a>
+				<!--快捷输入具体内容，开发者可自己替换常用语-->
+				<div id="popover" class="mui-popover">
+					<div class="mui-popover-arrow"></div>
+					<div class="mui-scroll-wrapper">
+						<div class="mui-scroll">
+							<ul class="mui-table-view">
+								<!--仅流应用环境下显示-->
+								<li class="mui-table-view-cell stream">
+									<a href="#">桌面快捷方式创建失败</a>
+								</li>
+								<li class="mui-table-view-cell"><a href="#">[重要通知]</a></li>
+								<li class="mui-table-view-cell"><a href="#">{保修工作}</a></li>
+								<li class="mui-table-view-cell"><a href="#">(工作安排)</a></li>
+								<li class="mui-table-view-cell"><a href="#">!严重报警!</a></li>
+							</ul>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="row mui-input-row">
+				<textarea id='question' class="mui-input-clear question" placeholder="请在这里输入消息内容..."></textarea>
+			</div>
+			<p>图片</p>
+			<div id='image-list' class="row image-list"></div>
+			<button id="submit" class="mui-btn mui-btn-blue" style="width: 90%;margin-left: 5%;margin-top: 5%;height: 50px;font-size: 1.3em;">发送</button>
+			
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
+		<script src="../js/feedback.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.back = function(){
+				console.log("关闭啦");
+				var currentView = plus.webview.currentWebview();
+				currentView.hide();
+				var message = plus.webview.getWebviewById('message');
+				message.close();
+				currentView.close(); 
+			};
+			var height = document.documentElement.clientHeight || document.body.clientHeight;
+			console.log("height:"+height);
+			
+			window.onresize = function(){
+			
+				var heightView = document.documentElement.clientHeight || document.body.clientHeight;
+                if(heightView < height) {
+                	plus.webview.currentWebview().setStyle({
+                        height: height
+                    });
+//					plus.webview.getWebviewById('index_aKeyNavigation.html').setStyle({
+//                        height: 
+//                    });
+				}
+			}
+			mui('.mui-scroll-wrapper').scroll();
+		</script>
+	</body>
+
+</html>

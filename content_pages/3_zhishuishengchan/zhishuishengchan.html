@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8"> 
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/jquery-1.10.2.min.js" ></script>
+		<script type="text/javascript" src="../../js/config.js" ></script>
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<link rel="stylesheet" href="../../css/iconfont.css"/>
+		<style>
+			html{
+				width: 100%;
+				height:100%;
+				background-image: url(../../images/shexian.png);
+				/* -webkit-filter: blur(100000px);*/
+				background-size: 300%100%;
+			/*	background-size: 1%1%;*/
+			}
+			
+			body {
+				position: relative;
+				width: 100%;
+				height:100%;
+				border-radius: 10px;
+				box-shadow: 0 1px 2px rgba(0,0,0,.3);
+				
+				padding: 0px;
+				margin: 0px;
+				background-color: rgba(255,255,255,1);
+				background-clip: padding-box;
+				background-origin: padding-box;
+			}
+			header{
+				border-top-left-radius: inherit;
+				border-top-right-radius: inherit;
+				background-color: #66ccff;
+				
+				padding:10px;
+				font-size: 1.2em;
+				text-align: center;
+				position: relative;
+				
+			}
+			nav{
+				border-bottom-left-radius: 10px;
+				border-bottom-right-radius: 10px;
+				
+			}
+		</style>
+	</head>
+	<body>
+		<header id="header1" class="mui-bar mui-bar-nav">
+			制水监测
+		</header>
+		<div id="mui-content" >
+			
+			<nav id="nav" class="mui-bar mui-bar-tab" >
+			<a id="yuanshuichushui" class="mui-tab-item mui-active" href="tab-webview-subpage-about.html">
+				<span class="mui-icon iconfont icon-shui"></span>
+				<span class="mui-tab-label">源水出水</span>
+			</a>
+			<a id="jiayaojialv" class="mui-tab-item" href="tab-webview-subpage-chat.html">
+				<!--<span class="mui-icon mui-icon-email"><span class="mui-badge">9</span></span>-->
+				<span class="mui-icon iconfont icon-yaoshui"></span>
+				<span class="mui-tab-label">加药加氯</span>
+			</a>
+			<a id="bengzhan" class="mui-tab-item" href="tab-webview-subpage-contact.html">
+				<span class="mui-icon iconfont icon-bengzhan"></span>
+				<span class="mui-tab-label">泵站</span>
+			</a>
+			<a id="Dxinglvchi" class="mui-tab-item" href="tab-webview-subpage-setting.html">
+				<span class="mui-icon iconfont icon-xiaofangshuixiangshuichi"></span>
+				<span class="mui-tab-label">D型滤池</span>
+			</a>
+			<a id="peidianxitong" class="mui-tab-item" href="tab-webview-subpage-setting.html">
+				<span class="mui-icon iconfont icon-dian"></span>
+				<span class="mui-tab-label">配电系统</span>
+			</a>
+			<a id="shujubaobiao" class="mui-tab-item" href="tab-webview-subpage-setting.html">
+				<span class="mui-icon iconfont icon-biaodan"></span>
+				<span class="mui-tab-label">数据报表</span>
+			</a>
+			</nav>
+		</div>
+		
+	</body>
+
+		
+		<script type="text/javascript" charset="utf-8">
+			 //mui初始化
+			mui.init();
+			mui.back = function(){
+				console.log(nowTopPage+"关闭啦");
+				plus.webview.currentWebview().close();
+			}
+			
+			
+			var wv_subpages = ['zhishuishengchan_subpage/yuanshuichushui.html',
+			'zhishuishengchan_subpage/jiayaojialv.html',
+			'zhishuishengchan_subpage/bengzhan.html',
+			'zhishuishengchan_subpage/Dxinglvchi.html',
+			'zhishuishengchan_subpage/peidianxitong.html',
+			'zhishuishengchan_subpage/shujubaobiao.html'
+			];
+		var wv_id = {'yuanshuichushui':0, 'jiayaojialv':1, 'bengzhan':2, 'Dxinglvchi':3, 'peidianxitong':4,'shujubaobiao':5};
+		
+		function getStyle(Element,Property){ return Element.currentStyle ? Element.currentStyle[Property] : getComputedStyle(Element)[Property]; }
+			var header = document.getElementById("header1");
+			var headerHeight = getStyle(header,"height");
+			var nextTop = parseInt(headerHeight);
+			console.log("运行总览的header: "+nextTop);
+			var mainheader = parseInt(window.localStorage.getItem("mainheader"));
+			nextTop = mainheader+nextTop+5;
+			console.log("子页面的top:"+nextTop);
+			var nav = document.getElementById("nav");
+			var navHeight = getStyle(nav,"height");
+			var nextBottom = parseInt(navHeight)+20;
+			var nowTopPage = 'yuanshuichushui';
+			
+			mui.plusReady(function(){ 
+				plus.webview.create('zhishuishengchan_subpage/yuanshuichushui.html','yuanshuichushui', {  
+				 		top:nextTop+'px',
+				 		bottom:nextBottom+'px',
+                  		left:'9px',
+                  		right:'10px'
+              		 }); 
+					 console.log("创建了");
+              		 plus.webview.show('yuanshuichushui',"fade-in",300);
+				mui('.mui-bar-tab').on('tap','a',function() {
+					console.log("制水生产里点到啦");	
+						var newWebview = this.getAttribute('id');
+						console.log("当前："+nowTopPage);
+						console.log("新建："+newWebview);
+						if(nowTopPage==newWebview){
+							console.log("相同");
+							return;
+						}
+						
+						plus.webview.close(nowTopPage);
+						console.log(nowTopPage+"关闭了");
+						var idNum = wv_id[newWebview];
+						var page_url = wv_subpages[idNum];
+						plus.webview.create(page_url,newWebview, {  
+				 		top:nextTop+'px',
+				 		bottom:nextBottom+'px',
+                  		left:'9px',
+                  		right:'10px'
+              		 }); 
+						console.log("创建了！！"+newWebview);
+						nowTopPage = newWebview;
+						plus.webview.show(newWebview,"fade-in",300);
+				});
+			}); 
+				
+
+		</script>
+</html>

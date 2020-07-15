@@ -1,0 +1,107 @@
+{
+	"login/login.html": {
+		"href": "login/login.html",
+		"priority": 0,
+		"resources": [],
+		"refer": [
+			"login/main.html"
+		]
+	},
+	"login/main.html": {
+		"refer": [
+			"content_pages/1_shipinjiankong/1.html",
+			"content_pages/6_shujufenxi/shujufenxi.html",
+			"content_pages/4_yuanchengchaobiao/yuanchengchaobiao.html",
+			"content_pages/5_shuizhijiance/shuizhijiance.html",
+			"content_pages/2_yunxingzonglan/yunxingzonglan.html",
+			"content_pages/3_GIS/GIS.html",
+			"content_pages/7_shishibaojing/shishibaojing.html",
+			"content_pages/1_shipinjiankong/shipinjiankong.html",
+			"content_pages/8_lishishuju/lishishuju.html",
+			"content_pages/12_zhuxiao/zhuxiao.html",
+			"content_pages/9_quanqucanshu/quanqucanshu.html",
+			"content_pages/10_guanyuwomen/guanyuwomen.html",
+			"content_pages/11_gengxinbanben/gengxinbanben.html",
+			"content_pages/1_shipinjiankong/new_file.html",
+			"content_pages/3_zhishuishengchan/zhishuishengchan.html",
+			"content_pages/4_bengzhanjiance/bengzhanjiance.html",
+			"login/message.html",
+			"content_pages/9_dma/xunhuanjingjiyuan.html"
+		],
+		"resources": [
+			"content_pages/1_shipinjiankong/1.html",
+			"content_pages/1_shipinjiankong/shipinjiankong.html",
+			"content_pages/1_shipinjiankong/new_file.html"
+		]
+	},
+	"content_pages/2_yunxingzonglan/yunxingzonglan.html": {
+		"refer": [
+			"content_pages/2_yunxingzonglan/yunxingzonglan_subpage/ergong.html",
+			"content_pages/2_yunxingzonglan/yunxingzonglan_subpage/zonghe.html",
+			"content_pages/2_yunxingzonglan/yunxingzonglan_subpage/liuliang.html",
+			"content_pages/2_yunxingzonglan/yunxingzonglan_subpage/yali.html",
+			"content_pages/2_yunxingzonglan/yunxingzonglan_subpage/map.html"
+		]
+	},
+	"content_pages/3_zhishuishengchan/zhishuishengchan.html": {
+		"refer": [
+			"content_pages/3_zhishuishengchan/zhishuishengchan_subpage/bengzhan.html",
+			"content_pages/3_zhishuishengchan/zhishuishengchan_subpage/Dxinglvchi.html",
+			"content_pages/3_zhishuishengchan/zhishuishengchan_subpage/yuanshuichushui.html",
+			"content_pages/3_zhishuishengchan/zhishuishengchan_subpage/shujubaobiao.html",
+			"content_pages/3_zhishuishengchan/zhishuishengchan_subpage/jiayaojialv.html",
+			"content_pages/3_zhishuishengchan/zhishuishengchan_subpage/peidianxitong.html"
+		]
+	},
+	"content_pages/5_shuizhijiance/shuizhijiance.html": {
+		"refer": [
+			"content_pages/5_shuizhijiance/shuizhijiance_subpage/zhuodu.html",
+			"content_pages/5_shuizhijiance/shuizhijiance_subpage/PH.html",
+			"content_pages/5_shuizhijiance/shuizhijiance_subpage/yulv.html",
+			"content_pages/5_shuizhijiance/shuizhijiance_subpage/wendu.html"
+		]
+	},
+	"content_pages/7_shishibaojing/shishibaojing.html": {
+		"refer": [
+			"content_pages/7_shishibaojing/shishibaojing_subpage/baojingxinxi.html",
+			"content_pages/7_shishibaojing/shishijiance.html"
+		]
+	},
+	"content_pages/7_shishibaojing/shishibaojing_subpage/baojingxinxi.html": {
+		"refer": [
+			"content_pages/7_shishibaojing/shishibaojing_subpage/weichuli.html",
+			"content_pages/7_shishibaojing/shishibaojing_subpage/yichuli.html",
+			"content_pages/7_shishibaojing/shishibaojing_subpage/chulizhong.html",
+			"content_pages/7_shishibaojing/shishibaojing_subpage/yihulue.html"
+		]
+	},
+	"content_pages/4_bengzhanjiance/bengzhanjiance.html": {
+		"refer": [
+			"content_pages/4_bengzhanjiance/huishibengzhanjiance.html",
+			"content_pages/4_bengzhanjiance/xunhuanjingjiyuanjiance.html"
+		]
+	},
+	"login/message.html": {
+		"refer": [
+			"login/sendMessage.html",
+			"login/message_content.html"
+		]
+	},
+	"content_pages/9_dma/qushiyuce/qushifenxi.html": {
+		"refer": [
+			"content_pages/9_dma/qushiyuce/airuikede.html",
+			"content_pages/9_dma/qushiyuce/zhengjiexincailiao.html",
+			"content_pages/9_dma/qushiyuce/shanfu.html",
+			"content_pages/9_dma/qushiyuce/wushuichulichang.html",
+			"content_pages/9_dma/qushiyuce/kehongkeji.html",
+			"content_pages/9_dma/qushiyuce/changxiangkeji.html"
+		]
+	},
+	"content_pages/9_dma/xunhuanjingjiyuan.html": {
+		"refer": [
+			"content_pages/9_dma/qushiyuce/qushifenxi.html",
+			"content_pages/9_dma/dmafenqujiliang/dmafenqu.html",
+			"content_pages/9_dma/yejianxiaoliuliang/yejianxiaoliuliang.html"
+		]
+	}
+}

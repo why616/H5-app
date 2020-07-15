@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script type="text/javascript" src="../../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../../js/config.js" ></script>
+		<title></title>
+		<style type="text/css">
+			table,th,td
+			{
+				border: 1px solid lightgray; border-top: none; border-left: none; border-right: none;
+			}
+			table{
+				border-collapse: collapse;
+				margin-top: 20px;
+				border: #000000;
+				margin: auto;
+				margin-top: 10px;
+				box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.5);
+				width: 98%;
+			}
+			
+			tbody th{
+				font-size: 80%;
+			}
+			
+			tbody th.green{
+				font-size: 90%;
+				color: #2AC845;
+			}
+			
+			thead{
+				background-color: #66CCFF;
+				color: white;
+			}
+			
+			tbody{
+				/* border-top-width: 1px;
+				border-top-style: solid; */
+				font-size: 90%;
+			}
+			tbody td{
+				color: #3300ff;
+			}
+			th{
+				text-align: left;
+				padding: 7px;
+			}
+			td{
+				font-size: 90%;
+				text-align: center;
+				padding: 3px;
+			}
+			table tr.gray{
+				background-color: #E0E0E0;
+			}
+		</style>
+	</head>
+	<body>
+		<table width=330px>
+			<thead >
+				<tr>
+					<th>压力</th>
+					<!-- 填补颜色 -->
+					<th width=50px></th><th></th><th width=80px></th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr class="gray">
+					<th class="green">循环经济园</th>
+					<th ></th>
+					<th>压力:</th>
+					<td id="xunhuanjingjiyuanyali" >0.40MPa</td>
+				</tr>
+				
+				<tr >
+					<th class="green">徽师泵房</th>
+					<th ></th>
+					<th>压力:</th>
+					<td id="huishibengfangyali" >0.29MPa</td>
+				</tr>
+				
+				<tr class="gray">
+					<th class="green">超限检测站</th>
+					<th ></th>
+					<th>压力:</th>
+					<td id="chaoxianjiancezhanyali" >0.24MPa</td>
+				</tr>
+				
+				<tr>
+					<th class="green">高铁北站</th>
+					<th ></th>
+					<th>压力:</th>
+					<td id="gaotiebeizhanyali" >0.05MPa</td>
+				</tr>
+				
+				<tr class="gray">
+					<th class="green">披云</th>
+					<th ></th>
+					<th>压力:</th>
+					<td id="piyunyali" >0.33MPa</td>
+				</tr>
+				
+				<tr >
+					<th class="green">一水厂</th>
+					<th ></th>
+					<th>压力:</th>
+					<td id="yishuichangyali" >0.32MPa</td>
+				</tr>
+				
+			</tbody>
+		</table>
+	</body>
+	<script type="text/javascript">
+		mui.init();
+			mui.back = function(){
+				console.log("关闭啦");
+				var yunxingzonglan = plus.webview.getWebviewById('yunxingzonglan');
+				var currentView = plus.webview.currentWebview();
+				currentView.hide();
+				yunxingzonglan.close();
+				currentView.close(); 
+				
+			}
+	</script>
+</html>

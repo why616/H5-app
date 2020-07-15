@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8"> 
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../../css/mui.min.css" />
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/config.js" ></script>
+		
+		<style>
+			table,th,td
+			{
+				/* border: 1px solid lightgray; */
+				padding: 8px; 
+				font-weight:bold;
+				
+				border: 1px solid lightgray;border-top: none; border-left: none; border-right: none;
+			}
+			table{
+				border-collapse: collapse;
+				margin: auto;
+				margin-top: 10px;
+				border: #000000;
+				box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+				width: 95%;
+				background-color: #FFFFFF;
+			}
+			
+			tbody th{
+				
+			}
+			
+			/* tbody th.green{
+				font-size: 90%;
+				color: #2AC845;
+			} */
+			
+			thead{
+				background-color: #66CCFF;
+				color: white;
+				
+			}
+			
+			tbody{
+				/* border-top-width: 1px;
+				border-top-style: solid; */
+				font-size: 90%;
+			}
+			tbody td.shuju{
+				font-size: 120%;
+				color: #3300ff;
+				text-align: center;
+				padding: 10px;
+			}
+			th{
+				/* text-align: left; */
+				padding: 5px;
+			}
+			table tr.gray{
+				background-color: #E0E0E0;
+			}
+			tbody tr.shuxing th{
+				font-size: 100%;
+				padding: 10px;
+			}
+			tr,td{
+				nowrap: true;
+				white-space:nowrap;
+				text-align: center;
+			}
+		</style>
+	</head>
+
+	<body scroll="yes">
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">循环经济园实时监测</h1>
+		</header>
+		
+		<table style="margin-top: 50px;">
+			<thead >
+				<tr>
+					<th width=90px>源水</th>
+					<!-- 填补颜色 -->
+					<th width=20px></th><th width=70px></th><th></th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr class="shuxing">
+					<th >名称</th>
+					<th></th>
+					<th>实时值</th>
+					<th>单位</td>
+				</tr>
+				<tr class="gray">
+					<td >清水库液位</td>
+					<td ></td>
+					<td class="shuju" id="jingjiyuanyewei">2.795</t>
+					<td >m</td>
+				</tr>
+				
+				<tr>
+					<td >1#出水口压力</td>
+					<th ></th>
+					<td class="shuju" id="jingjiyuanchushuiyali1">0.412</t>
+					<td >MPa</td>
+				</tr>
+				
+				<tr class="gray">
+					<td >2#出水口压力</td>
+					<th ></th>
+					<td class="shuju" id="jingjiyuanchushuiyali2">0.408</t>
+					<td >Mpa</td>
+				</tr>
+				<tr>
+					<td >1#变频器频率</td>
+					<th ></th>
+					<td class="shuju" id="jingjiyuanbianpinqipinlv1">34.67</t>
+					<td >Hz</td>
+				</tr>
+				<tr>
+					<td >2#泵频率</td>
+					<th ></th>
+					<td class="shuju" id="jingjiyuanbianpinqipinlv2">0</t>
+					<td >Hz</td>
+				</tr>
+				<tr>
+					<td >3#泵频率</td>
+					<th ></th>
+					<td class="shuju" id="jingjiyuanbianpinqipinlv3">0</t>
+					<td >Hz</td>
+				</tr>
+				<tr>
+					<td >1#变频器电流</td>
+					<th ></th>
+					<td class="shuju" id="jingjiyuanbianpinqidianlv1">30.875</t>
+					<td >A</td>
+				</tr>
+				<tr>
+					<td >2#变频器电流</td>
+					<th ></th>
+					<td class="shuju" id="jingjiyuanbianpinqidianlv2">0</t>
+					<td >A</td>
+				</tr>
+				<tr>
+					<td >3#变频器电流</td>
+					<th ></th>
+					<td class="shuju" id="jingjiyuanbianpinqidianlv3">0</t>
+					<td >A</td>
+				</tr>
+				
+			</tbody>
+			
+		</table>
+		
+		
+		<table width=300px >
+			<thead >
+				<tr>
+					<th width=90px>压力曲线</th>
+					<!-- 填补颜色 -->
+					<th width=00px></th><th width=70px></th><th></th>
+				</tr>
+			</thead>
+			<tbody>
+				
+			</tbody>
+			<!--#efeff4-->
+		</table>
+		<div id="shuju_echarts" style="width: 95%;height:400px;margin: auto;margin-top:1px;background-color: #FFFFFF;border:#000000;
+				box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.5);"></div>
+		
+	</body>
+<script src="../../js/mui.poppicker.js"></script>
+		<script src="../../js/mui.picker.min.js"></script>
+		<script src="../../js/echarts.min.js"></script>
+		<script src="../../js/jquery-3.4.1.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			 //mui初始化
+			mui.init();
+			mui.back = function(){
+				console.log("隐藏啦");
+				plus.webview.currentWebview().close();
+			}
+			
+			var chushuiyali=new Array;
+			var jinshuiyali=new Array;
+			var oldtype,oldtime,timestr0;
+			
+			var dataarry = new Array(); //先声明一维
+			for(var k=0;k<5;k++){ //一维长度为i,i为变量，可以根据实际情况改变
+			dataarry[k]=new Array(); //声明二维，每一个一维数组里面的一个元素都是一个数组；
+			for(var j=0;j<24;j++){ //一维数组里面每个元素数组可以包含的数量p，p也是一个变量；
+			dataarry[k][j]=""; //这里将变量初始化，我这边统一初始化为空，后面在用所需的值覆盖里面的值
+			 }
+			}
+			setTimeout(function(){
+				mui.plusReady(function () {
+					
+				    myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=XYJJY%5CPW_Lev_AI.PV','jingjiyuanyewei');
+				    myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=XYJJY%5CEXP_CurPre1_AI.PV','jingjiyuanchushuiyali1');
+				    myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=XYJJY%5CEXP_CurPre2_AI.PV','jingjiyuanchushuiyali2');
+				    myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=XYJJY%5CPUM1_FreCov_CurFr_AI.PV','jingjiyuanbianpinqipinlv1');
+				    myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=XYJJY%5CPUM2_FreCov_CurFr_AI.PV','jingjiyuanbianpinqipinlv2');
+				    myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=XYJJY%5CPUM3_FreCov_CurFr_AI.PV','jingjiyuanbianpinqipinlv3');
+				    myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=XYJJY%5CPUM1_FreCov_CurI_AI.PV','jingjiyuanbianpinqidianlv1');
+				    myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=XYJJY%5CPUM2_FreCov_CurI_AI.PV','jingjiyuanbianpinqidianlv2');
+				    myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=XYJJY%5CPUM3_FreCov_CurI_AI.PV','jingjiyuanbianpinqidianlv3');
+					plus.nativeUI.closeWaiting();
+					var self=plus.webview.currentWebview();
+					self.show('zoom-fade-out',500);
+				})
+			},2000)
+	
+			
+			function myrefresh1(url,type){
+						mui.ajax(url,{
+						    type:'get',//HTTP请求类型
+							async:false,
+						    timeout:5000,//超时时间设置为10秒；
+							contentType:"application/json;charset=UTF-8",
+							Accept:"application/json",
+						    success : function(data){
+							         if (typeof(data) == "string") {
+						             if (data != '') {
+						                var mapdata = JSON.parse(data);
+						                var a = mapdata.rows[0].data;
+											for(var index in a){
+												var aa= JSON.parse(a[index].value[1]);
+												//alert(aa);
+												//alert(aaa);
+												type.push(aa);
+											}
+										}
+							         }   
+							     },
+							     error : function(XMLHttpRequest, textStatus, errorThrown) {
+							         console.log("接口" + url + "出错;XMLHttpRequest.status："
+							             + XMLHttpRequest.status + ";XMLHttpRequest.readyState：" 
+							             + XMLHttpRequest.readyState + ";errorThrown：" 
+							             + errorThrown + ";textStatus：" + textStatus);
+							         //errorF();
+							         console.log('加载失败');
+							     }
+							 });
+			}
+			function myrefresh(url,id){
+						mui.ajax(url,{
+						    type:'get',//HTTP请求类型
+						    timeout:5000,//超时时间设置为10秒；
+							contentType:"application/json;charset=UTF-8",
+							Accept:"application/json",
+						     success : function(data){
+							         if (typeof(data) == "string") {
+						             if (data != '') {
+						                var mapdata = JSON.parse(data);
+						                //var aaa = JSON.stringify(mapdata.value);
+						                //var result = JSON.parse(aaa);
+						                document.getElementById(id).innerHTML = mapdata['value']; 
+							             }
+							         }   
+							     },
+							     error : function(XMLHttpRequest, textStatus, errorThrown) {
+							         console.log("接口" + url + "出错;XMLHttpRequest.status："
+							             + XMLHttpRequest.status + ";XMLHttpRequest.readyState：" 
+							             + XMLHttpRequest.readyState + ";errorThrown：" 
+							             + errorThrown + ";textStatus：" + textStatus);
+							         //errorF();
+							         console.log('加载失败');
+							     }
+							 });
+			}	
+			
+			
+					var date = new Date()<!--获得日期数据-->
+			        var y = date.getFullYear();<!--年-->
+			        var m = date.getMonth()+1;<!--月，这里的月份必须要+1才是当前月份-->
+			        var d = date.getDate(); <!--日，getDay是获得当前星期几（0-6），getDate是获得当前日期-->
+			        
+					timestr0=+y+"-"+m+"-"+d;
+					var starttime0=timestr0+' 00:00:00';
+					var endtime0=timestr0+' 23:59:59';		
+					myrefresh1('http://220.179.118.150:8082/h5/secondwater?action=getHisData&tag_list=XYJJY%5CEXP_CurPre1_AI.PV&dt_str='+starttime0+'&dt_end='+endtime0+'&space=30',chushuiyali);
+					myrefresh1('http://220.179.118.150:8082/h5/secondwater?action=getHisData&tag_list=XYJJY%5CEXP_CurPre2_AI.PV&dt_str='+starttime0+'&dt_end='+endtime0+'&space=30',jinshuiyali);
+		
+					$(function () {
+					    
+						
+					     var oneDay = 24 * 3600 *1000;
+					     var fiveMinutes = 300 * 1000;
+						var onehour=1000*3600;
+						var halfhour=1000*1800;
+						var y = date.getFullYear();<!--年-->
+						var m = date.getMonth()+1;<!--月，这里的月份必须要+1才是当前月份-->
+						var d = date.getDate(); <!--日，getDay是获得当前星期几（0-6），getDate是获得当前日期-->
+						//alert(timestr0);
+						var timestr= timestr0+' 00:00:00';	
+					     //var timestr = '2016/2/18 00:00:00';
+					     //var startTime = +new Date(timestr)-fiveMinutes;
+						var startTime = +new Date(timestr)-halfhour;
+					 
+					     //把new Date出来的时间格式转换为data123中的日期格式
+					     function riqigeshi(now){
+				         return now.getHours() + ":00";
+				     }
+					 
+					     //用来返回data123一样的数据格式
+					      function chartData(i,data,now) {
+				         return {
+				                riqigeshi: riqigeshi(now),
+				                data: data[i],
+				             }
+				     }
+					 
+					     //把原数据改成data123一样的格式
+					     function changeData(datain) {
+					         var liuru_data = [];
+				         var liuru_xAis = [];
+					         
+										var starttime1=startTime;
+								for (var i = 0; i < 49; i++) {
+											//console.log(startTime);
+								    starttime1 = new Date(+starttime1 + onehour);
+							    liuru_data.push(chartData(i,datain,starttime1).data);
+							    liuru_xAis.push(chartData(i,datain,starttime1).riqigeshi);
+								}
+								var liuru = {
+									data:liuru_data,
+									xAis:liuru_xAis
+								}
+					         return liuru;
+					     }
+						 var liuru2=changeData(jinshuiyali);
+						 var liuru1 = changeData(chushuiyali);
+						 
+						 
+					     var chart = echarts.init(document.getElementById("shuju_echarts"));
+					     var option = {
+							 color:['red','blue'],
+							 
+					         grid:{
+					             // x:'3.6%',
+					             // y:'5%',
+					             // x2:'2.4%',
+					             // y2:'12%',
+								 bottom:"20%"
+					         },
+								legend: {
+									
+									data:[
+										{
+											name:'进水压力1',
+											icon:'circle',
+											textStyle:{
+												color: '#66ccff'
+											}
+										},
+										{
+											name:'进水压力2',
+											icon:'circle',
+											textStyle:{
+												color: '#66ccff'
+											}
+										}
+										],
+								     // data:['销量','售后']
+								},
+					         xAxis:{
+					            type:'category',
+								 data:liuru2.xAis
+					         },
+					         yAxis:{
+					             type:'value',
+								 // max:7.5,
+								 // min:7
+					             // axisLabel:{
+					             //     formatter:'{value} G'       //给Y轴上的刻度加上单位
+					             // },
+					         },
+							  toolbox: {
+							             show: true,
+							             feature: {
+//							                 dataView: {
+//												 // show:false, 
+//							                     readOnly: true,
+//												optionToContent: function(opt) {
+//												    var axisData = opt.xAxis[0].data;
+//												    var series = opt.series;
+//												    var table = '<table style="width:100%;text-align:center"><tbody><tr>'
+//												                 + '<td>时间</td>'
+//												                 + '<td>' + series[0].name + '</td>'
+//																 + '<td>' + series[1].name + '</td>'
+//												                 + '</tr>';
+//												    for (var i = 0, l = 48; i < l; i++) {
+//														if(series[0].data[i].value[1]==null){
+//															series[0].data[i].value[1]='';
+//														}if(series[1].data[i].value[1]==null){
+//															series[1].data[i].value[1]='';
+//														}
+//												        table += '<tr>'
+//														
+//												                 + '<td>' + series[0].data[i].value[0].substr(-8,5) + '</td>'
+//												                 + '<td>' + series[0].data[i].value[1] + '</td>'
+//																 + '<td>' + series[1].data[i].value[1] + '</td>'
+//												                 + '</tr>';
+//												    }
+//												    table += '</tbody></table>';
+//												    return table;
+//												}
+//							                 }, //数据视图
+							                 magicType: {
+							                     type: ['line', 'bar'],
+												
+							                 },  //切换为折线图，切换为柱状图
+							                 restore: {show:false},  //还原
+							                 saveAsImage: {show:false}   //保存为图片
+							             }
+							         },
+							
+					         dataZoom: [
+					             {
+					                 type: 'slider',//数据滑块
+					                 dataBackground:{
+					                     lineStyle:{
+					                         color:'#66ccff'
+					                     },
+					                     areaStyle:{
+					                         color:'#66ccff',
+					                         opacity:1,
+					                     }
+					                 },
+					                 // fillerColor:'rgba(255,255,255,.6)'
+					             },
+					             {
+					                 type:'inside'//使鼠标在图表中时滚轮可用
+					             }
+					         ],
+					         tooltip:{
+					             trigger: 'axis',
+//					             formatter : function(params) {
+//					                 var result = params[0].value[0];
+//					                 params.forEach(function(item) {
+//					                     result += '<br/>';
+//					                     result += '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:' + item.color + '"></span>';
+//					                     result += item.seriesName + "：";
+//					                     result += isNaN(item.value[1]) ? 0 : (item.value[1])+'MPa';
+//										 ;
+//					                 });
+//					                 return result;
+//					             },
+					         },
+					         series:[
+					            
+								{
+								    name: '进水压力1',
+								    type: 'line',
+									 
+									smooth: true,
+								    showSymbol: false,
+								    symbolSize:12,
+								    data: liuru1.data
+								},
+								{
+								    name: '进水压力2',
+								    type: 'line',
+									 
+									smooth: true,
+								    showSymbol: false,
+								    symbolSize:12,
+								    data: liuru2.data
+								}
+										
+								]
+					     };
+					 
+					     chart.setOption(option);
+					 
+					    
+					 
+					 
+					     window.onresize = function () {
+					         chart.resize();
+					     };
+					 }()); 
+
+		</script>
+</html>
+

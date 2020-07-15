@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<base href="../">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="js/config.js"></script>
+		<link href="other_framework/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<style>
+			.area {
+				margin: 20px auto 0px auto;
+			}
+			
+			.mui-input-group {
+				margin-top: 10px;
+			}
+			
+			.mui-input-group:first-child {
+				margin-top: 20px;
+			}
+			
+			.mui-input-group label {
+				width: 22%;
+			}
+			
+			.mui-input-row label~input,
+			.mui-input-row label~select,
+			.mui-input-row label~textarea {
+				width: 78%;
+			}
+			
+			.mui-checkbox input[type=checkbox],
+			.mui-radio input[type=radio] {
+				top: 6px;
+			}
+			
+			.mui-content-padded {
+				margin-top: 25px;
+			}
+			
+			.mui-btn {
+				padding: 10px;
+			}
+			
+			.link-area {
+				display: block;
+				margin-top: 25px;
+				text-align: center;
+			}
+			
+			.spliter {
+				color: #bbb;
+				padding: 0px 8px;
+			}
+			
+			.oauth-area {
+				position: absolute;
+				bottom: 20px;
+				left: 0px;
+				text-align: center;
+				width: 100%;
+				padding: 0px;
+				margin: 0px;
+			}
+			
+			.oauth-area .oauth-btn {
+				display: inline-block;
+				width: 50px;
+				height: 50px;
+				background-size: 30px 30px;
+				background-position: center center;
+				background-repeat: no-repeat;
+				margin: 0px 20px;
+				/*-webkit-filter: grayscale(100%); */
+				border: solid 1px #ddd;
+				border-radius: 25px;
+			}
+			
+			.oauth-area .oauth-btn:active {
+				border: solid 1px #aaa;
+			}
+			
+			.oauth-area .oauth-btn.disabled {
+				background-color: #ddd;
+			}
+			
+			.login-img{
+				width: 80%;
+				height: 100%;
+				
+				margin-left: 10%;
+			}
+			.input-group{
+				padding-left: 30px;
+				padding-right: 30px;
+				padding-top: 10px;
+			}
+			.input-group-addon{
+				border: 1px solid rgba(0,0,0,.2);
+				background-color: rgba(255,255,255,0.1);
+				color: #FFFFFF;
+				border-radius: 50px;
+				
+			}
+			.form-login{
+				padding: 30px 20px 0px ;
+			}
+			div.form-login{
+				margin-left: 30px;
+				margin-right: 30px;
+			}
+			.mui-content{
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				background-color: rgba(255,255,255,0.1);
+				  border: 1px solid rgba(0,0,0,0.4);
+			}
+			.mui-login-bg{
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				background: url(images/shexian.png)no-repeat;
+				
+				-webkit-filter: blur(5px);
+			}
+			.mui-btn{
+				background-color: rgba(255,255,255,0.1);
+				border-radius: 50px;
+				
+				color: #FFFFFF;
+			}
+			.form-control{
+				color: #FFFFFF;
+			}
+			
+		</style>
+
+	</head>
+
+	<body id="body">
+		<div class="mui-login-bg"></div>
+		<div class="mui-content" >
+			<div id="content" style="margin-top: 25%;">
+				<div>
+					<img class="login-img" src="images/login_title_img.png"/>
+				</div>
+					
+				<form id='login-form' class="form-login">
+					<div class="input-group">
+						<span class="input-group-addon">账号</span>
+						<input id='account' type="text" class="form-control" placeholder="请输入账号" style="border-top-right-radius: 25px;
+					border-bottom-right-radius: 25px;background-color: rgba(255,255,255,0.1);">
+					</div>
+				
+					<div class="input-group">
+						<span class="input-group-addon">密码</span>
+						<input id='password' type="password" class="form-control" placeholder="请输入密码" style="border-top-right-radius: 25px;
+					border-bottom-right-radius: 25px;background-color: rgba(255,255,255,0.1);">
+					</div>
+				</form>
+				<!--<form class="mui-input-group">
+					<ul class="mui-table-view mui-table-view-chevron">
+						<li class="mui-table-view-cell">
+							自动登录
+							<div id="autoLogin" class="mui-switch">
+								<div class="mui-switch-handle"></div>
+							</div>
+						</li>
+					</ul>
+				</form>-->
+				<div class="form-login">
+					<button id='login' class="mui-btn mui-btn-block">登录</button>
+					<!--<div class="link-area"><a id='reg'>注册账号</a> <span class="spliter">|</span> <a id='forgetPassword'>忘记密码</a>
+					</div>-->
+				</div>
+				<div class="mui-content-padded oauth-area">
+	
+				</div>
+			</div>
+			
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script src="js/mui.enterfocus.js"></script>
+		
+		<script src="js/app.js"></script>
+		
+		<script>
+			(function($, doc) {
+				$.init({
+					statusBarBackground: '#f7f7f7'
+				});
+				$.plusReady(function() {
+					plus.screen.lockOrientation("portrait-primary");
+					var settings = app.getSettings();
+					var state = app.getState();
+
+					var toMain = function() {
+						//使用定时器的原因：
+						//可能执行太快，main页面loaded事件尚未触发就执行自定义事件，此时必然会失败
+//						var id = setInterval(function () {
+//							if(main_loaded_flag){
+//								clearInterval(id);
+//								$.fire(mainPage, 'show', null);
+//								mainPage.show("pop-in");
+//							}
+//						},20);
+						mui.openWindow("main.html");
+//						plus.webview.open("main.html","main",{},"pop-in");
+					};
+					
+					var resize = true;
+					var height0 = document.documentElement.clientHeight || document.body.clientHeight;
+					console.log("height0:"+height0);
+					var beforeResize = 0;
+					window.onresize = function(){
+						console.log("重置界面");
+						
+						var heightView = document.documentElement.clientHeight || document.body.clientHeight;
+						console.log("height:"+heightView);
+						if (height0<heightView) {
+							return;
+						}
+						
+						if(resize){
+							beforeResize = heightView;
+							document.getElementById("content").style.marginTop = "-30%";
+							resize = false;
+						}else{
+							if(Math.abs(beforeResize-heightView)>100){
+								document.getElementById("content").style.marginTop = "25%";
+								resize = true;
+							}
+						}
+					
+//			             if(heightView < height0) {
+//			               plus.webview.currentWebview().setStyle({
+//			                     height: height0
+//			               });
+						//}
+					}
+					//检查 "登录状态/锁屏状态" 开始
+					if (settings.autoLogin && state.token && settings.gestures) {
+						$.openWindow({
+							url: 'unlock.html',
+							id: 'unlock',
+							show: {
+								aniShow: 'pop-in'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					} else if (state.token) {
+						toMain();
+					} 
+					// close splash
+					setTimeout(function() {
+						//关闭 splash
+						plus.navigator.closeSplashscreen();
+					}, 600);
+					//检查 "登录状态/锁屏状态" 结束
+					var loginButton = doc.getElementById('login');
+					var accountBox = doc.getElementById('account');
+					var passwordBox = doc.getElementById('password');
+					var autoLoginButton = doc.getElementById("autoLogin");
+					var regButton = doc.getElementById('reg');
+					var forgetButton = doc.getElementById('forgetPassword');
+					if (state.token) {
+						accountBox.value = state.account;
+						passwordBox.value = state.password;
+					}
+					loginButton.addEventListener('tap', function(event) {
+						console.log("点到了登陆！！");
+						var loginInfo = {
+							account: accountBox.value,
+							password: passwordBox.value
+						};
+						app.login(loginInfo, function(err) {
+							if (err) {
+//								//免密登陆开始
+//								window.localStorage.setItem('$state','{"id":1,"account":"admin","password":"123456","role":"boss","token":true}');
+//								toMain();
+//								//免密登录结束
+								console.log("error");
+								plus.nativeUI.toast(err);
+								return;
+							}
+							
+							toMain();
+						});
+					});
+					$.enterfocus('#login-form input', function() {
+						$.trigger(loginButton, 'tap');
+					});
+					autoLoginButton.classList[settings.autoLogin ? 'add' : 'remove']('mui-active')
+					autoLoginButton.addEventListener('toggle', function(event) {
+						setTimeout(function() {
+							var isActive = event.detail.isActive;
+							settings.autoLogin = isActive;
+							app.setSettings(settings);
+						}, 50);
+					}, false);
+					regButton.addEventListener('tap', function(event) {
+						$.openWindow({
+							url: 'reg.html',
+							id: 'reg',
+							preload: true,
+							show: {
+								aniShow: 'pop-in'
+							},
+							styles: {
+								popGesture: 'hide'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					}, false);
+					forgetButton.addEventListener('tap', function(event) {
+						$.openWindow({
+							url: 'forget_password.html',
+							id: 'forget_password',
+							preload: true,
+							show: {
+								aniShow: 'pop-in'
+							},
+							styles: {
+								popGesture: 'hide'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					}, false);
+					//
+					window.addEventListener('resize', function() {
+						oauthArea.style.display = document.body.clientHeight > 400 ? 'block' : 'none';
+					}, false);
+					// 
+					var backButtonPress = 0;
+					$.back = function(event) {
+						backButtonPress++;
+						if (backButtonPress > 1) {
+							plus.runtime.quit();
+						} else {
+							plus.nativeUI.toast('再按一次退出应用');
+						}
+						setTimeout(function() {
+							backButtonPress = 0;
+						}, 1000);
+						return false;
+					};
+				});
+			}(mui, document));
+		</script>
+	</body>
+
+</html>

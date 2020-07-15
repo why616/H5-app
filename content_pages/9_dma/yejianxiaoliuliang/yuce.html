@@ -1,0 +1,624 @@
+<!doctype html>
+<html>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<link rel="stylesheet" type="text/css" href="../../../css/mui.min.css"/>
+	<link rel="stylesheet" type="text/css" href="../../../css/mui.picker.min.css"/>
+	<link rel="stylesheet" type="text/css" href="../../../css/mui.poppicker.css"/>
+	<title></title>
+	<style type="text/css">
+			.mui-dtpicker-header{
+				width: 100%;
+			}
+			.mui-dtpicker-title {
+				width: 70%;
+			}
+			label{
+				font-size: 80%;
+			}
+			#time{
+				border: none;
+				width: 50%;
+				font-size: 80%;
+				/* text-align: center; */
+			}
+			#showUserPicker1{
+				width: 50%;
+				font-size: 80%;
+				border: none;
+			}
+			#placechoose{
+				margin-bottom: 50px;
+				border: 1px solid lightgray; border-left: none; border-right: none;border-top: none;
+			}
+			#timeshoose{
+				margin-top: 50px;
+				border: 1px solid lightgray; border-left: none; border-right: none;border-top: none;
+			}
+			header h1{
+				padding:10px;
+				font-size: 1.2em;
+				text-align: center;
+				position: relative;
+				}
+		</style>
+		
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">夜间小流量监测</h1>
+		</header>
+		
+		<div id="timeshoose" class="mui-input-row" data-disable-auto-close="ture">
+			
+			<label>查询时间</label>
+			<input type="text" data-options='{}' placeholder="点击选择开始时间" readonly="readonly" id="time">
+		</div>
+		
+		<div id="placechoose" class="mui-input-row">
+			
+			<label >选择区域</label>
+			<button id='showUserPicker1'  type='button' style="background-color:transparent;">艾瑞克德</button>
+		</div>
+			
+		
+		<div id="shuju_echarts" style="width: 100%;height:400px;"></div>
+	</body>
+
+
+
+
+
+<script src="../../../js/mui.min.js"></script>
+<script src="../../../js/config.js"></script>
+<script src="../../../js/mui.poppicker.js"></script>
+<script src="../../../js/mui.picker.min.js"></script>
+<script src="../../../js/echarts.min.js"></script>
+<script src="../../../js/jquery-3.4.1.js"></script>
+
+<script type="text/javascript">
+		mui.init();
+			mui.back = function(){
+				
+				plus.webview.currentWebview().close();
+			
+				
+			};
+		
+		var yejianliuliang=new Array;
+		var jingjiexian=new Array;
+
+		var oldtype,oldtime,timestr0;
+		
+		var dataarry = new Array(); //先声明一维
+		for(var k=0;k<5;k++){ //一维长度为i,i为变量，可以根据实际情况改变
+		dataarry[k]=new Array(); //声明二维，每一个一维数组里面的一个元素都是一个数组；
+		for(var j=0;j<24;j++){ //一维数组里面每个元素数组可以包含的数量p，p也是一个变量；
+		dataarry[k][j]=""; //这里将变量初始化，我这边统一初始化为空，后面在用所需的值覆盖里面的值
+		 }
+		}
+		
+		setTimeout(function(){
+			mui.plusReady(function () {
+				
+			 
+				plus.nativeUI.closeWaiting();
+				var self=plus.webview.currentWebview();
+				self.show('zoom-fade-out',500);
+			})
+		},1000)
+		
+		
+		function myrefresh(url,type){
+					mui.ajax(url,{
+					    type:'get',//HTTP请求类型
+						async:false,
+					    timeout:5000,//超时时间设置为10秒；
+						contentType:"application/json;charset=UTF-8",
+						Accept:"application/json",
+					    success : function(data){
+						         if (typeof(data) == "string") {
+					             if (data != '') {
+					                var mapdata = JSON.parse(data);
+									for(var index in mapdata){
+										var aa= mapdata[index]['dosage']
+										// var aa= mapdata[index]['yhat']
+										//alert(aa);
+										//alert(aaa);
+										type.push(aa);
+									}
+									//console.log(type);
+									//alert(type);
+									
+									// var aaa=JSON.stringify(a);
+									// alert(aaa);
+					                //var result = JSON.parse(aaa);
+					                //document.getElementById(id).innerHTML = mapdata['value']; 
+						             }
+						         }   
+						     },
+						     error : function(XMLHttpRequest, textStatus, errorThrown) {
+						         console.log("接口" + url + "出错;XMLHttpRequest.status："
+						             + XMLHttpRequest.status + ";XMLHttpRequest.readyState：" 
+						             + XMLHttpRequest.readyState + ";errorThrown：" 
+						             + errorThrown + ";textStatus：" + textStatus);
+						         //errorF();
+						         console.log('加载失败');
+						     }
+						 });
+		}
+					
+		
+		//console.log(yuanshuizhuodu)
+		var date = new Date()<!--获得日期数据-->
+		//         var y = date.getFullYear();<!--年-->
+		//         var m = date.getMonth()+1;<!--月，这里的月份必须要+1才是当前月份-->
+		//         var d = date.getDate(); <!--日，getDay是获得当前星期几（0-6），getDate是获得当前日期-->
+		//         document.getElementById("time").placeholder=+y+"-"+m+"-"+d;
+		// 		timestr0=+y+"-"+m+"-"+d;
+		timestr0="2020-04-15"
+		document.getElementById("time").placeholder=timestr0;
+		var starttime0=timestr0+' 00:00:00';
+		var endtime0=timestr0+' 23:59:59';		
+		myrefresh('http://192.168.0.106:8000/strtest/test4/?commaddr=01003483526&starttime='+starttime0+'&endtime='+endtime0,yejianliuliang);
+		myrefresh('http://192.168.0.106:8000/strtest/test4/?commaddr=01003483526&starttime=2016-08-25%2000:00:00&endtime=2016-08-25%2023:00:00',yejianliuliang)
+		// alert(yejianliuliang)
+		var userPicker1 = new mui.PopPicker();
+			userPicker1.setData([ {
+				text: '艾瑞克德'
+			},{
+				text: '善孚新材料'
+			},{
+				text: '畅想科技'
+			},{
+				text: '金磊新材料'
+			},{
+				text: '金质丽科技'
+			},{
+				text: '九星环保'
+			},{
+				text: '科弘科技'
+			},{
+				text: '来明物流'
+			},{
+				text: '万邦电子科技'
+			},{
+				text: '天香科技'
+			},{
+				text: '正杰新材料'
+			},{
+				text: '污水处理厂'
+			}]);
+		var areaName1='艾瑞克德';
+		document.getElementById('showUserPicker1').addEventListener('tap', function(event) {
+			userPicker1.show(function(items) {
+				areaName1 = items[0].text;
+				document.getElementById('showUserPicker1').innerText =  areaName1;
+				
+				//console.log(document.getElementById('showUserPicker1').innerText);
+			});
+			
+		}, false);
+		
+		
+
+		
+		//console.log(document.getElementById('showUserPicker1').innerText);
+		document.getElementById('time').onclick = function(){
+						var dtPicker1 = new mui.DtPicker({"type":"date"}); 
+					    dtPicker1.show(function (selectItems) { 
+		//			    	starttime_y = selectItems.y.text;
+		//			    	starttime_m = selectItems.m.text;
+		//			    	starttime_d = selectItems.d.text;
+		//			    	starttime_h = selectItems.h.text;
+		//			    	starttime_i = selectItems.i.text;
+					    	startTime1 = selectItems.text;
+					        document.getElementById('time').value= selectItems.text;
+							timestr0=selectItems.text;
+					    });
+					};
+					
+		setInterval(function () {
+			var newtype=document.getElementById('showUserPicker1').innerText;
+			var newtime=document.getElementById('time').value;
+			if((newtype!=oldtype)||(newtime!=oldtime)){
+				var starttime=timestr0+'%2000:00:00';
+				var endtime=timestr0+'%2008:00:00';
+				if(areaName1=='艾瑞克德')
+				{
+					yejianliuliang=[];
+					jingjiexian=[];
+					for(var i=0;i<8;i++){
+						jingjiexian.push(2);
+					}
+					// alert(jingjiexian);
+					// var zhuodustr0='http://192.168.0.106:8000/strtest/test4/?commaddr=18355993704&starttime=2020-04-20%2000:00:00&endtime=2020-04-20%2008:00:00';
+					 var zhuodustr='http://192.168.0.106:8000/strtest/test4/?commaddr=18355993704&starttime='+starttime+'&endtime='+endtime;
+					// var zhuodustr='http://192.168.0.106:8000/strtest/test3/'
+					// alert(zhuodustr0)
+					// alert(zhuodustr)
+					// console.log(zhuodustr)
+					myrefresh(zhuodustr,yejianliuliang);
+					// alert(yejianliuliang)
+
+				}
+				if(areaName1=='善孚新材料')
+				{
+					yejianliuliang=[];
+					jingjiexian=[];
+					for(var i=0;i<8;i++){
+						jingjiexian.push(25);
+					}
+					myrefresh('http://192.168.0.106:8000/strtest/test4/?commaddr=13470906292&starttime='+starttime+'&endtime='+endtime,yejianliuliang);
+
+					//console.log(yejianliuliang);
+				}
+				if(areaName1=='畅想科技')
+				{
+					yejianliuliang=[];
+					jingjiexian=[];
+					for(var i=0;i<8;i++){
+						jingjiexian.push(15);
+					}
+					
+					myrefresh('http://192.168.0.106:8000/strtest/test4/?commaddr=01003483526&starttime='+starttime+'&endtime='+endtime,yejianliuliang);
+				
+					//console.log(yejianliuliang);
+				}
+				if(areaName1=='金磊新材料')
+				{
+					yejianliuliang=[];
+					jingjiexian=[];
+					for(var i=0;i<8;i++){
+						jingjiexian.push(25);
+					}
+					
+					myrefresh('http://192.168.0.106:8000/strtest/test4/?commaddr=13470903281&starttime='+starttime+'&endtime='+endtime,yejianliuliang);
+				
+					//console.log(yejianliuliang);
+				}
+				if(areaName1=='金质丽科技')
+				{
+					yejianliuliang=[];
+					jingjiexian=[];
+					for(var i=0;i<8;i++){
+						jingjiexian.push(2);
+					}
+					myrefresh('http://192.168.0.106:8000/strtest/test4/?commaddr=13470901473&starttime='+starttime+'&endtime='+endtime,yejianliuliang);
+				
+					//console.log(yejianliuliang);
+				}
+				if(areaName1=='九星环保')
+				{
+					yejianliuliang=[];
+					jingjiexian=[];
+					for(var i=0;i<8;i++){
+						jingjiexian.push(1);
+					}
+					myrefresh('http://192.168.0.106:8000/strtest/test4/?commaddr=15212302973&starttime='+starttime+'&endtime='+endtime,yejianliuliang);
+				
+					//console.log(yejianliuliang);
+				}
+				if(areaName1=='科弘科技')
+				{
+					yejianliuliang=[];
+					jingjiexian=[];
+					for(var i=0;i<8;i++){
+						jingjiexian.push(50);
+					}
+					myrefresh('http://192.168.0.106:8000/strtest/test4/?commaddr=13470902462&starttime='+starttime+'&endtime='+endtime,yejianliuliang);
+				
+					//console.log(yejianliuliang);
+				}
+				if(areaName1=='来明物流')
+				{
+					yejianliuliang=[];
+					jingjiexian=[];
+					for(var i=0;i<8;i++){
+						jingjiexian.push(2);
+					}
+					myrefresh('http://192.168.0.106:8000/strtest/test4/?commaddr=15255987824&starttime='+starttime+'&endtime='+endtime,yejianliuliang);
+				
+					//console.log(yejianliuliang);
+				}
+				if(areaName1=='万邦电子科技')
+				{
+					yejianliuliang=[];
+					jingjiexian=[];
+					for(var i=0;i<8;i++){
+						jingjiexian.push(10);
+					}
+					myrefresh('http://192.168.0.106:8000/strtest/test4/?commaddr=13470914132&starttime='+starttime+'&endtime='+endtime,yejianliuliang);
+				
+					//console.log(yejianliuliang);
+				}
+				if(areaName1=='天香科技')
+				{
+					yejianliuliang=[];
+					jingjiexian=[];
+					for(var i=0;i<8;i++){
+						jingjiexian.push(2);
+					}
+					myrefresh('http://192.168.0.106:8000/strtest/test4/?commaddr=18255900544&starttime='+starttime+'&endtime='+endtime,yejianliuliang);
+				
+					//console.log(yejianliuliang);
+				}
+				if(areaName1=='正杰新材料')
+				{
+					yejianliuliang=[];
+					jingjiexian=[];
+					for(var i=0;i<8;i++){
+						jingjiexian.push(15);
+					}
+					myrefresh('http://192.168.0.106:8000/strtest/test4/?commaddr=15255983294&starttime='+starttime+'&endtime='+endtime,yejianliuliang);
+				
+					//console.log(yejianliuliang);
+				}
+				if(areaName1=='污水处理厂')
+				{
+					yejianliuliang=[];
+					jingjiexian=[];
+					for(var i=0;i<8;i++){
+						jingjiexian.push(10);
+					}
+					myrefresh('http://192.168.0.106:8000/strtest/test4/?commaddr=18255958254&starttime='+starttime+'&endtime='+endtime,yejianliuliang);
+				
+					//console.log(yejianliuliang);
+				}
+				
+				
+				
+				
+				$(function () {
+				    
+					
+				     var oneDay = 24 * 3600 *1000;
+				     var fiveMinutes = 300 * 1000;
+					var onehour=1000*3600;
+					var y = date.getFullYear();<!--年-->
+					var m = date.getMonth()+1;<!--月，这里的月份必须要+1才是当前月份-->
+					var d = date.getDate(); <!--日，getDay是获得当前星期几（0-6），getDate是获得当前日期-->
+					//alert(timestr0);
+					var timestr= timestr0+' 00:00:00';	
+				     //var timestr = '2016/2/18 00:00:00';
+				     //var startTime = +new Date(timestr)-fiveMinutes;
+					var startTime = +new Date(timestr)-onehour;
+				 
+				     //把new Date出来的时间格式转换为data123中的日期格式
+				     function riqigeshi(now){
+				         return now.toLocaleDateString() + ' ' + now.getHours() + now.toLocaleTimeString().substr(-6,6)
+				     }
+				 
+				     //用来返回data123一样的数据格式
+				     function chartData(i,data,now) {
+				         return {
+				             value: [
+				                 riqigeshi(now),
+				                 data[i],
+				             ]
+				         }
+				     }
+				 
+				     //把原数据改成data123一样的格式
+				     function changeData(datain) {
+				         var liuru = [];
+				         // for (var i = 0; i < 289; i++) {
+				         //     startTime = new Date(+startTime + fiveMinutes);
+				         //     liuru.push(chartData(i,datain,startTime));
+				         // }
+									var starttime1=startTime;
+							for (var i = 0; i <8; i++) {
+										//console.log(startTime);
+							    starttime1 = new Date(+starttime1 + onehour);
+							    liuru.push(chartData(i,datain,starttime1));
+							}
+				         return liuru;
+				     }
+					 var liuru2 = changeData(yejianliuliang);
+					 var liuru1 = changeData(jingjiexian);
+					 
+					 
+				     var chart = echarts.init(document.getElementById("shuju_echarts"));
+				     var option = {
+							color:['#66ccff','#ff0000'],
+				         grid:{
+				             // x:'3.6%',
+				             // y:'5%',
+				             // x2:'2.4%',
+				             // y2:'12%',
+							 bottom:"20%"
+				         },
+							legend: {
+								
+								data:[
+									{
+										name:'夜间流量',
+										icon:'circle',
+										textStyle:{
+											color: '#66ccff'
+										}
+									},
+									{
+										name:'警戒线',
+										icon:'circle',
+										textStyle:{
+											color: '#ff0000'
+										}
+									}
+									],
+							     // data:['销量','售后']
+							},
+				         xAxis:{
+				             type:'time',
+								
+				             splitNumber:8
+				         },
+				         yAxis:{
+				             type:'value',
+							 // max:7.5,
+							 // min:7
+				             // axisLabel:{
+				             //     formatter:'{value} G'       //给Y轴上的刻度加上单位
+				             // },
+				         },
+						  toolbox: {
+						             show: true,
+						             feature: {
+						                 dataView: {
+											  show:false, 
+						                     readOnly: true,
+											optionToContent: function(opt) {
+											    var axisData = opt.xAxis[0].data;
+											    var series = opt.series;
+											    var table = '<table style="width:100%;text-align:center"><tbody><tr>'
+											                 + '<td>时间</td>'
+											                 + '<td>' + series[0].name + '</td>'
+											                 + '</tr>';
+											    for (var i = 0, l = 24; i < l; i++) {
+													if(series[0].data[i].value[1]==null){
+														series[0].data[i].value[1]='';
+													}
+											        table += '<tr>'
+													
+											                 + '<td>' + series[0].data[i].value[0].substr(-8,5) + '</td>'
+											                 + '<td>' + series[0].data[i].value[1] + '</td>'
+											                 + '</tr>';
+											    }
+											    table += '</tbody></table>';
+											    return table;
+											}
+						                 }, //数据视图
+						                 magicType: {
+						                     type: ['line', 'bar'],
+											
+						                 },  //切换为折线图，切换为柱状图
+						                 restore: {show:false},  //还原
+						                 saveAsImage: {show:false}   //保存为图片
+						             }
+						         },
+						
+				         dataZoom: [
+				             {
+				                 type: 'slider',//数据滑块
+				                 dataBackground:{
+				                     lineStyle:{
+				                         color:'#66ccff'
+				                     },
+				                     areaStyle:{
+				                         color:'#66ccff',
+				                         opacity:1,
+				                     }
+				                 },
+				                 // fillerColor:'rgba(255,255,255,.6)'
+				             },
+				             {
+				                 type:'inside'//使鼠标在图表中时滚轮可用
+				             }
+				         ],
+				         tooltip:{
+				             trigger: 'axis',
+				             formatter : function(params) {
+				                 var result = params[0].value[0];
+				                 params.forEach(function(item) {
+				                     result += '<br/>';
+				                     result += '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:' + item.color + '"></span>';
+				                     result += "流量：";
+				                     result += isNaN(item.value[1]) ? 0 : (item.value[1]);
+									 ;
+				                 });
+				                 return result;
+				             },
+				         },
+				         series:[
+				            
+							{
+							    name: '夜间流量',
+							    type: 'line',
+								 areaStyle: {
+								
+								        normal: {
+								
+								            color: {
+								
+								                type: 'linear',//设置线性渐变
+								
+								                x: 0,
+								
+								                y: 0,
+								
+								                x2: 0,
+								
+								                y2: 1,
+								
+								                colorStops: [{
+								
+								                    offset: 0, color: '#0000ff' // 0% 处的颜色
+								
+								                }, {
+								
+								                    offset: 1, color: '#66ccff' // 100% 处的颜色
+								
+								                }],
+								
+								                globalCoord: false // 缺省为 false
+								
+								            },
+								
+								        }
+								
+								    },
+								smooth: true,
+							    showSymbol: false,
+							    symbolSize:12,
+							    data: liuru2,
+							},
+							{
+							    name: '警戒线',
+							    type: 'line',
+								
+							    data: liuru1,
+							}		
+							]
+				     };
+				 
+				     chart.setOption(option);
+				 
+				    
+				   //   function refresh() {
+				   //       liuru先shift(),再push()
+				   //      var liuruShift = liuru.shift();
+				   //       var liuruShiftVal = liuruShift.value[1];
+				   //       var newlrtime = riqigeshi(new Date(+new Date(liuruShift.value[0])+oneDay+fiveMinutes));
+				   //       var newlrtime = riqigeshi(new Date(+new Date(liuruShift.value[0])+oneDay+onehour));
+							// liuru.push({value:[newlrtime,liuruShiftVal]});
+				   //       chart.setOption({
+				   //           series:{
+				   //               data:liuru,
+				   //           }
+				   //       });
+				   //   }
+					// function refreshData(data){
+					//      //刷新数据
+					//       var option = chart.getOption();
+					//       option.series[0].data = data;
+					//       chart.setOption(option);    
+					// }
+				     // setInterval(function () {
+				     //     refresh();
+				     // },3000);
+				 
+				     window.onresize = function () {
+				         chart.resize();
+				     };
+				 }()); 
+			}
+			oldtype=newtype;
+			oldtime=newtime;
+		},1000);			
+		
+		 
+	</script>
+</html>

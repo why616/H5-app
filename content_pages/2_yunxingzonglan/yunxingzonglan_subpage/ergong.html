@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script type="text/javascript" src="../../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../../js/config.js" ></script>
+		<title></title>
+		<style type="text/css">
+			
+			table{
+				border-collapse: collapse;
+				margin-top: 20px;
+				border: #000000;
+				margin: auto;
+				margin-top: 10px;
+				box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.5);
+				width: 98%;
+			}
+			
+			table,th,td
+			{
+				border: 1px solid lightgray; border-top: none; border-left: none; border-right: none;
+			}
+			
+			tbody th{
+				font-size: 80%;
+			}
+			
+			tbody th.green{
+				font-size: 90%;
+				color: #2AC845;
+			}
+			
+			thead{
+				background-color: #66CCFF;
+				color: white;
+			}
+			
+			tbody{
+				
+				font-size: 90%;
+			}
+			tbody td{
+				
+				color: #3300ff;
+			}
+			
+			th{
+				text-align: left;
+				padding: 7px;
+			}
+			td{
+				text-align: center;
+				padding: 3px;
+			}
+			table tr.gray{
+				background-color: #E0E0E0;
+			}
+		</style>
+		
+	</head>
+	<body>
+		<table width=330px>
+			<thead >
+				<tr>
+					<th>二次供水</th>
+					<!-- 填补颜色 -->
+					<th width=50px></th><th></th><th></th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr class="gray">
+					<th class="green">明珠广场</th>
+					<th ></th>
+					<th>高区压力:</th>
+					
+					<td id="mingzhugaoya" >0.30MPa</td>
+				</tr>
+				<tr class="gray">
+					<th></th>
+					<th ></th>
+					<th>中区压力:</th>
+					<td id="mingzhuzhongya" >0.30MPa</td>
+				</tr>
+				
+				<tr >
+					<th class="green">上海花园</th>
+					<th ></th>
+					<th>高区压力:</th>
+					<td id="shanghaihuayuangaoya" >0.41MPa</td>
+				</tr>
+				<tr>
+					<th></th>
+					<th ></th>
+					<th>中区压力:</th>
+					<td id="shanghaihuayuanzhongya" >0.39MPa</td>
+				</tr>
+				
+				<tr class="gray">
+					<th class="green">文锦苑</th>
+					<th ></th>
+					<th>高区压力:</th>
+					<td id="wenjingaoya" >0.21MPa</td>
+				</tr>
+				<tr class="gray">
+					<th></th>
+					<th ></th>
+					<th>中区压力:</th>
+					<td id="wenjinzhongya" >0.21MPa</td>
+				</tr>
+				
+				<tr>
+					<th class="green">新都博苑</th>
+					<th ></th>
+					<th>高区压力:</th>
+					<td id="xindugaoya" >0.29MPa</td>
+				</tr>
+				<tr>
+					<th></th>
+					<th ></th>
+					<th>中区压力:</th>
+					<td id="xinduzhongya" >0.28MPa</td>
+				</tr>
+				
+				<tr class="gray">
+					<th class="green">和泰国际城</th>
+					<th ></th>
+					<th>高区压力:</th>
+					<td id="hetaigaoya" >0.34MPa</td>
+				</tr>
+				<tr class="gray">
+					<th></th>
+					<th ></th>
+					<th>中区压力:</th>
+					<td id="hetaizhongya" >0.38MPa</td>
+				</tr>
+				
+				<tr>
+					<th class="green">置信广场</th>
+					<th ></th>
+					<th>高区压力:</th>
+					<td id="mzhixingaoya" >0.34MPa</td>
+				</tr>
+				
+				<tr class="gray">
+					<th class="green">青枫苑</th>
+					<th ></th>
+					<th>高区压力:</th>
+					<td id="qingfenggaoya" >0.39MPa</td>
+				</tr>
+				
+				<tr>
+					<th class="green">印象徽州</th>
+					<th ></th>
+					<th>高区压力:</th>
+					<td id="yinxianggaoya" >0.33MPa</td>
+				</tr>
+				
+				<tr class="gray">
+					<th class="green">香格里拉</th>
+					<th ></th>
+					<th>高区压力:</th>
+					<td id="xianggelilagaoya" >0.19MPa</td>
+				</tr>
+				
+			</tbody>
+			
+		</table>
+	</body>
+	<script type="text/javascript">
+		mui.init();
+			mui.back = function(){
+				console.log("关闭啦");
+				var yunxingzonglan = plus.webview.getWebviewById('yunxingzonglan');
+				var currentView = plus.webview.currentWebview();
+				currentView.hide();
+				yunxingzonglan.close();
+				currentView.close(); 
+				
+			}
+		mui.plusReady(function () {
+		    myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=sxss_a5_11','mingzhugaoya');
+			myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=sxss_a4_11','mingzhuzhongya');
+			myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=sxss_a7_11','shanghaihuayuangaoya');
+			myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=sxss_a6_11','shanghaihuayuanzhongya');
+			myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=sxss_a8_11','wenjingaoya');
+			myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=sxss_a9_11','wenjinzhongya');
+			myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=sxss_a12_11','xindugaoya');
+			myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=sxss_a11_11','xinduzhongya');
+			myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=sxss_a24_11','hetaigaoya');
+			myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=sxss_a23_11','hetaizhongya');
+			myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=sxss_a10_11','zhixingaoya');
+			myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=sxss_a13_11','qingfenggaoya');
+			myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=sxss_a14_11','yinxianggaoya');
+			myrefresh('http://220.179.118.150:8082/h5/secondwater?action=getRealData&tag=sxss_a15_11','xiangfelilagaoya');
+		})
+		function myrefresh(url,id){
+			mui.ajax(url,{
+			    type:'get',//HTTP请求类型
+			    timeout:5000,//超时时间设置为10秒；
+				contentType:"application/json;charset=UTF-8",
+				Accept:"application/json",
+			     success : function(data){
+				         if (typeof(data) == "string") {
+			             if (data != '') {
+			                var mapdata = JSON.parse(data);
+			                //var aaa = JSON.stringify(mapdata.value);
+			                //var result = JSON.parse(aaa);
+							if(mapdata['value']!=''){
+								document.getElementById(id).innerHTML = mapdata['value']+'Mpa';
+							}
+							else{
+								document.getElementById(id).innerHTML = '';
+							}
+			                
+			                
+			                 
+				             }
+				         }   
+				     },
+				     error : function(XMLHttpRequest, textStatus, errorThrown) {
+				         console.log("接口" + url + "出错;XMLHttpRequest.status："
+				             + XMLHttpRequest.status + ";XMLHttpRequest.readyState：" 
+				             + XMLHttpRequest.readyState + ";errorThrown：" 
+				             + errorThrown + ";textStatus：" + textStatus);
+				         //errorF();
+				         console.log('加载失败');
+				     }
+				 });
+			}	
+	</script>
+</html>

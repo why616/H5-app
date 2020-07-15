@@ -1,0 +1,217 @@
+
+<html>
+
+	<head>
+		<meta charset="utf-8"> 
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="../../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../../js/jquery-1.10.2.min.js" ></script>
+		<script type="text/javascript" src="../../../js/config.js" ></script>
+		<link rel="stylesheet" href="../../../css/mui.min.css">
+		<style>
+			html{
+				width: 100%;
+				height:100%;
+				background-image: url(../../../images/shexian.png);
+				/* -webkit-filter: blur(100000px);*/
+				background-size: 300%100%;
+			/*	background-size: 1%1%;*/
+			}
+			
+			body {
+				position: relative;
+				width: 100%;
+				height:100%;
+				border-radius: 10px;
+				box-shadow: 0 1px 2px rgba(0,0,0,.3);
+				
+				padding: 0px;
+				margin: 0px;
+				background-color: rgba(255,255,255,1);
+				background-clip: padding-box;
+				background-origin: padding-box;
+			}
+			header{
+				border-top-left-radius: inherit;
+				border-top-right-radius: inherit;
+				background-color: #66ccff;
+				
+				padding:10px;
+				font-size: 1.2em;
+				text-align: center;
+				position: relative;
+				
+			}
+			nav{
+				border-bottom-left-radius: 10px;
+				border-bottom-right-radius: 10px;
+				
+			}
+			span.mui-tab-label{
+				color: #66ccff;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<header id="header1" class="mui-bar mui-bar-nav">
+			趋势分析
+		</header>
+		
+		<div class="mui-content" style="background-color: rgba(0,0,0,.0)">
+			
+		
+			<ul class="mui-table-view">
+			
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right" id="airuikede">
+						<span class="mui-icon mui-icon-location"></span>
+						<span class="mui-tab-label">安徽艾瑞克德科技有限公司</span>
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right" id="shanfu">
+						<span class="mui-icon mui-icon-location"></span>
+						<span class="mui-tab-label">安徽善孚新材料</span>
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right" id="changxiangkeji">
+						<span class="mui-icon mui-icon-location"></span>
+						<span class="mui-tab-label">黄山畅想科技股份有限公司</span>
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right" id="jinleixincailiao">
+						<span class="mui-icon mui-icon-location"></span>
+						<span class="mui-tab-label">黄山金磊新材料科技有限公司</span>
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right" id="jinzhili">
+						<span class="mui-icon mui-icon-location"></span>
+						<span class="mui-tab-label">黄山金质丽科技有限公司</span>
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right" id="jiuxinghuanbao">
+						<span class="mui-icon mui-icon-location"></span>
+						<span class="mui-tab-label">黄山九星环保科技有限公司</span>
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right" id="kehongkeji">
+						<span class="mui-icon mui-icon-location"></span>
+						<span class="mui-tab-label">黄山科宏科技发展有限公司</span>
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right" id="laimingwuliu">
+						<span class="mui-icon mui-icon-location"></span>
+						<span class="mui-tab-label">黄山市来明物流有限公司</span>
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right" id="wanbangdianzi">
+						<span class="mui-icon mui-icon-location"></span>
+						<span class="mui-tab-label">黄山市万邦电子科技有限公司</span>
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right" id="tianxiangkeji">
+						<span class="mui-icon mui-icon-location"></span>
+						<span class="mui-tab-label">黄山天香科技股份有限公司</span>
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right" id="zhengjiexincailiao">
+						<span class="mui-icon mui-icon-location"></span>
+						<span class="mui-tab-label">黄山正杰新材料有限公司</span>
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right" id="wushuichulichang">
+						<span class="mui-icon mui-icon-location"></span>
+						<span class="mui-tab-label">污水处理厂</span>
+					</a>
+				</li>
+			</ul>
+		   
+		</div>
+		
+	</body>
+	<script src="../../../js/mui.min.js"></script>
+	<script>
+		mui.init({
+			
+			swipeBack:true //启用右滑关闭功能
+		}
+		);
+	 	
+		document.getElementById('airuikede').addEventListener('tap', function() {
+			mui.openWindow({
+				url: 'airuikede.html', //通过URL传参
+			})
+		});
+		document.getElementById('changxiangkeji').addEventListener('tap', function() {
+			mui.openWindow({
+				url: 'changxiangkeji.html', //通过URL传参
+			})
+		});
+		document.getElementById('jinleixincailiao').addEventListener('tap', function() {
+			mui.openWindow({
+				url: 'jinleixincailiao.html', //通过URL传参
+			})
+		});
+		document.getElementById('jinzhili').addEventListener('tap', function() {
+			mui.openWindow({
+				url: 'jinzhili.html', //通过URL传参
+			})
+		});
+		document.getElementById('jiuxinghuanbao').addEventListener('tap', function() {
+			mui.openWindow({
+				url: 'airuikede.html', //通过URL传参
+			})
+		});
+		document.getElementById('kehongkeji').addEventListener('tap', function() {
+			mui.openWindow({
+				url: 'kehongkeji.html', //通过URL传参
+			})
+		});
+		document.getElementById('laimingwuliu').addEventListener('tap', function() {
+			mui.openWindow({
+				url: 'laimingwuliu.html', //通过URL传参
+			})
+		});
+		document.getElementById('shanfu').addEventListener('tap', function() {
+			mui.openWindow({
+				url: 'shanfu.html', //通过URL传参
+			})
+		});
+		document.getElementById('tianxiangkeji').addEventListener('tap', function() {
+			mui.openWindow({
+				url: 'tianxiangkeji.html', //通过URL传参
+			})
+		});
+		document.getElementById('wanbangdianzi').addEventListener('tap', function() {
+			mui.openWindow({
+				url: 'wanbangdianzi.html', //通过URL传参
+			})
+		});
+		document.getElementById('wushuichulichang').addEventListener('tap', function() {
+			mui.openWindow({
+				url: 'wushuichulichang.html', //通过URL传参
+			})
+		});
+		document.getElementById('zhengjiexincailiao').addEventListener('tap', function() {
+			mui.openWindow({
+				url: 'zhengjiexincailiao.html', //通过URL传参
+			})
+		});
+		
+	</script>
+
+</html>

@@ -1,0 +1,649 @@
+<!doctype html>
+<html>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<link rel="stylesheet" type="text/css" href="../../../css/mui.min.css"/>
+	<link rel="stylesheet" type="text/css" href="../../../css/mui.picker.min.css"/>
+	<link rel="stylesheet" type="text/css" href="../../../css/mui.poppicker.css"/>
+	<script type="text/javascript" src="../../../js/jquery-1.10.2.min.js" ></script>
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css"> 
+	<title></title>
+	<script src="../../../other_framework/bootstrap/js/bootstrap.min.js"></script>
+	
+	<style type="text/css">
+		html{
+				width: 100%;
+				height:100%;
+				background-image: url(../../../images/shexian.png);
+				/* -webkit-filter: blur(100000px);*/
+				background-size: 300%100%;
+				overflow:scroll;
+			/*	background-size: 1%1%;*/
+			}
+			body {
+				position: relative;
+				width: 100%;
+				height:100%;
+				border-radius: 10px;
+				box-shadow: 0 1px 2px rgba(0,0,0,.3);
+				overflow:scroll;
+				padding: 0px;
+				margin: 0px;
+				background-color: rgba(255,255,255,1);
+				background-clip: padding-box;
+				background-origin: padding-box;
+			}
+			.mui-bar{
+				position: fixed;
+				background-color: initial;
+			}
+			.mui-dtpicker-header{
+				width: 100%;
+			}
+			.mui-dtpicker-title {
+				width: 70%;
+			}
+			label{
+				font-size: 80%;
+			}
+			#time{
+			/*	border: none;*/
+				/*width: 50%;*/
+				font-size: 80%;
+				/* text-align: center; */
+			}
+			/*#showUserPicker1{
+				width: 50%;
+				font-size: 80%;
+				border: none;
+			}*/
+			.input-group{
+				top: 50px;
+			}
+			#placechoose{
+				margin-bottom: 50px;
+				/*border: 1px solid lightgray; border-left: none; border-right: none;border-top: none;*/
+			}
+			#timeshoose{
+				margin-top: 19px;
+				/*border: 1px solid lightgray; border-left: none; border-right: none;border-top: none;*/
+			}
+			header h1{
+				padding:10px;
+				font-size: 1.2em;
+				text-align: center;
+				position: fixed;
+			}
+		</style>
+		
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">DMA分析</h1>
+		</header>
+		
+		<div id="timeshoose" class="input-group" data-disable-auto-close="ture" style="padding-left: 20px;padding-right: 20px;">
+			
+			<label class="input-group-addon">查询时间</label>
+			<input type="text" data-options='{}' placeholder="点击选择开始时间" readonly="readonly" id="time" class="form-control" style="text-align: center;font-size: 1.3em;background-color: #FFFFFF;">
+		</div>
+		
+		<div id="placechoose" class="input-group" style="padding-left: 20px;padding-right: 20px;">
+			
+			<label class="input-group-addon">选择区域</label>
+			<button id='showUserPicker1'  type='button'style="background-color:transparent;" class="form-control">循环经济园</button>
+		</div>
+			
+		
+		<div id="shuju_echarts" style="width: 100%;height:400px;"></div>
+	</body>
+
+
+
+
+
+<script src="../../../js/mui.min.js"></script>
+<script src="../../../js/config.js"></script>
+<script src="../../../js/mui.poppicker.js"></script>
+<script src="../../../js/mui.picker.min.js"></script>
+<script src="../../../js/echarts.min.js"></script>
+
+
+<script type="text/javascript">
+		mui.init();
+			mui.back = function(){
+				
+				plus.webview.currentWebview().close();
+			
+				
+			};
+		
+		var yejianliuliang=new Array;
+		var fenqujilianghe=new Array;
+
+		var oldtype,oldtime,timestr0;
+		
+		var dataarry = new Array(); //先声明一维
+		for(var k=0;k<12;k++){ //一维长度为i,i为变量，可以根据实际情况改变
+		dataarry[k]=new Array(); //声明二维，每一个一维数组里面的一个元素都是一个数组；
+		for(var j=0;j<7;j++){ //一维数组里面每个元素数组可以包含的数量p，p也是一个变量；
+		dataarry[k][j]=""; //这里将变量初始化，我这边统一初始化为空，后面在用所需的值覆盖里面的值
+		 }
+		}
+		
+		setTimeout(function(){
+			mui.plusReady(function () {
+				
+			 
+				plus.nativeUI.closeWaiting();
+				var self=plus.webview.currentWebview();
+				self.show('zoom-fade-out',500);
+			})
+		},1000)
+		
+		
+		function myrefresh(url,type){
+					mui.ajax(url,{
+					    type:'get',//HTTP请求类型
+						async:true,
+					    timeout:5000,//超时时间设置为10秒；
+						contentType:"application/json;charset=UTF-8",
+						Accept:"application/json",
+					    success : function(data){
+						         if (typeof(data) == "string") {
+					             if (data != '') {
+					                var mapdata = JSON.parse(data);
+									for(var index in mapdata){
+										var aa= mapdata[index]['dosage']
+										// var aa= mapdata[index]['yhat']
+										//alert(aa);
+										//alert(aaa);
+										type.push(aa);
+									}
+									//console.log(type);
+									//alert(type);
+									
+									// var aaa=JSON.stringify(a);
+									// alert(aaa);
+					                //var result = JSON.parse(aaa);
+					                //document.getElementById(id).innerHTML = mapdata['value']; 
+						             }
+						         }   
+						     },
+						     error : function(XMLHttpRequest, textStatus, errorThrown) {
+						         console.log("接口" + url + "出错;XMLHttpRequest.status："
+						             + XMLHttpRequest.status + ";XMLHttpRequest.readyState：" 
+						             + XMLHttpRequest.readyState + ";errorThrown：" 
+						             + errorThrown + ";textStatus：" + textStatus);
+						         //errorF();
+						         console.log('加载失败');
+						     }
+						 });
+		}
+		function sumrefresh(url,sum){
+			
+			if (typeof(data) == "string") {
+             if (data != '') {
+                var mapdata = JSON.parse(data);
+				var aa=0;
+				var i=0;
+				for(var index in mapdata){
+					
+					
+					aa= Number(mapdata[index]['dosage']) 
+					// alert(aa);
+					flag=Number(index)%7;
+					dataarry[i][flag]=aa;
+					// alert(index);
+					if((Number(index)+1)%7==0){
+						// alert(index);
+						// alert(flag);
+						// alert(flag%7);
+						// sum.push(aa)
+						// alert(aa);
+						aa=0;
+						i=i+1;
+					}
+					// alert(dataarry)
+					// var aa= mapdata[index]['yhat']
+					//alert(aa);
+					//alert(aaa);
+					// type.push(aa);
+				}
+				var sum0=0;
+				for(var i=0;i<7;i++){
+					for(var j=0;j<12;j++){
+						sum0=sum0+Number(dataarry[j][i]);
+					}
+					sum.push(sum0);
+					// alert(sum);
+					sum0=0;
+				}
+				//console.log(type);
+				//alert(type);
+				
+				// var aaa=JSON.stringify(a);
+				// alert(aaa);
+                //var result = JSON.parse(aaa);
+                //document.getElementById(id).innerHTML = mapdata['value']; 
+	             }
+	         }   
+//					mui.ajax(url,{
+//					    type:'get',//HTTP请求类型
+//						async:true,
+//					    timeout:5000,//超时时间设置为10秒；
+//						contentType:"application/json;charset=UTF-8",
+//						Accept:"application/json",
+//					    success : function(data){
+//						         if (typeof(data) == "string") {
+//					             if (data != '') {
+//					                var mapdata = JSON.parse(data);
+//									var aa=0;
+//									var i=0;
+//									for(var index in mapdata){
+//										
+//										
+//										aa= Number(mapdata[index]['dosage']) 
+//										// alert(aa);
+//										flag=Number(index)%7;
+//										dataarry[i][flag]=aa;
+//										// alert(index);
+//										if((Number(index)+1)%7==0){
+//											// alert(index);
+//											// alert(flag);
+//											// alert(flag%7);
+//											// sum.push(aa)
+//											// alert(aa);
+//											aa=0;
+//											i=i+1;
+//										}
+//										// alert(dataarry)
+//										// var aa= mapdata[index]['yhat']
+//										//alert(aa);
+//										//alert(aaa);
+//										// type.push(aa);
+//									}
+//									var sum0=0;
+//									for(var i=0;i<7;i++){
+//										for(var j=0;j<12;j++){
+//											sum0=sum0+Number(dataarry[j][i]);
+//										}
+//										sum.push(sum0);
+//										// alert(sum);
+//										sum0=0;
+//									}
+//									//console.log(type);
+//									//alert(type);
+//									
+//									// var aaa=JSON.stringify(a);
+//									// alert(aaa);
+//					                //var result = JSON.parse(aaa);
+//					                //document.getElementById(id).innerHTML = mapdata['value']; 
+//						             }
+//						         }   
+//						     },
+//						     error : function(XMLHttpRequest, textStatus, errorThrown) {
+//						         console.log("接口" + url + "出错;XMLHttpRequest.status："
+//						             + XMLHttpRequest.status + ";XMLHttpRequest.readyState：" 
+//						             + XMLHttpRequest.readyState + ";errorThrown：" 
+//						             + errorThrown + ";textStatus：" + textStatus);
+//						         //errorF();
+//						         console.log('加载失败');
+//						     }
+//						 });
+		}
+					
+		
+		//console.log(yuanshuizhuodu)
+		var date = new Date()<!--获得日期数据-->
+		//         var y = date.getFullYear();<!--年-->
+		//         var m = date.getMonth()+1;<!--月，这里的月份必须要+1才是当前月份-->
+		//         var d = date.getDate(); <!--日，getDay是获得当前星期几（0-6），getDate是获得当前日期-->
+		//         document.getElementById("time").placeholder=+y+"-"+m+"-"+d;
+		// 		timestr0=+y+"-"+m+"-"+d;
+		timestr0="2020-04-15"
+		document.getElementById("time").placeholder=timestr0;
+		var starttime0=timestr0+' 00:00:00';
+		var endtime0=timestr0+' 23:59:59';		
+//		myrefresh('http://192.168.0.106:8000/strtest/test4/?commaddr=01003483526&starttime='+starttime0+'&endtime='+endtime0,yejianliuliang);
+//		myrefresh('http://192.168.0.106:8000/strtest/test4/?commaddr=01003483526&starttime=2016-08-25%2000:00:00&endtime=2016-08-25%2023:00:00',yejianliuliang)
+//		// alert(yejianliuliang)
+		var userPicker1 = new mui.PopPicker();
+			userPicker1.setData([ {
+				text: '循环经济园'
+			}]);
+		var areaName1='循环经济园';
+		document.getElementById('showUserPicker1').addEventListener('tap', function(event) {
+			userPicker1.show(function(items) {
+				areaName1 = items[0].text;
+				document.getElementById('showUserPicker1').innerText =  areaName1;
+				
+				//console.log(document.getElementById('showUserPicker1').innerText);
+			});
+			
+		}, false);
+		
+		
+
+		
+		//console.log(document.getElementById('showUserPicker1').innerText);
+		document.getElementById('time').onclick = function(){
+						var dtPicker1 = new mui.DtPicker({"type":"date"}); 
+					    dtPicker1.show(function (selectItems) { 
+		//			    	starttime_y = selectItems.y.text;
+		//			    	starttime_m = selectItems.m.text;
+		//			    	starttime_d = selectItems.d.text;
+		//			    	starttime_h = selectItems.h.text;
+		//			    	starttime_i = selectItems.i.text;
+					    	startTime1 = selectItems.text;
+					        document.getElementById('time').value= selectItems.text;
+							timestr0=selectItems.text;
+					    });
+					};
+					
+		setInterval(function () {
+			var newtype=document.getElementById('showUserPicker1').innerText;
+			var newtime=document.getElementById('time').value;
+			if((newtype!=oldtype)||(newtime!=oldtime)){
+				var starttime=timestr0;
+				
+				var endtime="2020-04-21";
+				if(areaName1=='循环经济园')
+				{
+					yejianliuliang=[];
+					fenqujilianghe=[];
+					
+					// alert(fenqujilianghe);
+					// var zhuodustr0='http://192.168.0.106:8000/strtest/test4/?commaddr=18355993704&starttime=2020-04-20%2000:00:00&endtime=2020-04-20%2008:00:00';
+					 var zhuodustr='http://192.168.0.106:8000/strtest/test5/?commaddr=41830012291&starttime='+starttime+'&endtime='+endtime;
+//					myrefresh(zhuodustr,yejianliuliang);
+//					sumrefresh("http://192.168.0.106:8000/strtest/test5/?commaddr=18255958254&commaddr=15255983294&commaddr=18255900544&commaddr=13470914132&commaddr=15255987824&commaddr=13470902462&commaddr=15212302973&commaddr=13470901473&commaddr=13470903281&commaddr=01003483526&commaddr=18355993704&commaddr=13470906292&starttime=2020-04-15&endtime=2020-04-21",fenqujilianghe);
+
+				}
+				
+				$(function () {
+				    
+					
+				     var oneDay = 24 * 3600 *1000;
+				     var fiveMinutes = 300 * 1000;
+					var onehour=1000*3600;
+					var dataZJLB = [6992,6625,6436,5870,5032,5549,5399];
+					var dataFQJLB = [5561.44,5804.07,5602.56,5308.39,4648.06,5150.99,5098.39];
+					var date0 = [];
+					
+					var y = date.getFullYear();<!--年-->
+					var m = date.getMonth()+1;<!--月，这里的月份必须要+1才是当前月份-->
+					var d = date.getDate(); <!--日，getDay是获得当前星期几（0-6），getDate是获得当前日期-->
+					//alert(timestr0);
+					var timestr= timestr0+' 00:00:00';	
+				     //var timestr = '2016/2/18 00:00:00';
+				     //var startTime = +new Date(timestr)-fiveMinutes;
+					var startTime = +new Date(timestr)-oneDay;
+					var startTime1 = new Date(startTime);
+				 		var starttime1=startTime;
+							for (var i = 0; i <7; i++) {
+										//console.log(startTime);
+							    starttime1 = new Date(+starttime1 + oneDay);
+							    if(startTime1.getDate()>starttime1.getDate()){
+							    	dataZJLB[i] = 0;
+							    	dataFQJLB[i] = 0;
+							    }
+							    var month = starttime1.getMonth()+1;
+							    date0[i] =month+"-"+starttime1.getDate();
+							}
+							
+				     //把new Date出来的时间格式转换为data123中的日期格式
+				     function riqigeshi(now){
+				         return now.toLocaleDateString() + ' ' + now.getHours() + now.toLocaleTimeString().substr(-6,6)
+				     }
+				 
+				     //用来返回data123一样的数据格式
+				     function chartData(i,data,now) {
+				         return {
+				             value: [
+				                 riqigeshi(now),
+				                 data[i],
+				             ]
+				         }
+				     }
+				 
+				     //把原数据改成data123一样的格式
+				     function changeData(datain) {
+				         var liuru = [];
+				         // for (var i = 0; i < 289; i++) {
+				         //     startTime = new Date(+startTime + fiveMinutes);
+				         //     liuru.push(chartData(i,datain,startTime));
+				         // }
+									var starttime1=startTime;
+							for (var i = 0; i <7; i++) {
+										//console.log(startTime);
+							    starttime1 = new Date(+starttime1 + oneDay);
+							    liuru.push(chartData(i,datain,starttime1));
+							}
+				         return liuru;
+				     }
+					 var liuru2 = changeData(yejianliuliang);
+					 var liuru1 = changeData(fenqujilianghe);
+					 
+					 
+				     var chart = echarts.init(document.getElementById("shuju_echarts"));
+				     var option = {
+							color:['#66ccff','#ff0000'],
+				         grid:{
+				             // x:'3.6%',
+				             // y:'5%',
+				             // x2:'2.4%',
+				             // y2:'12%',
+							 bottom:"20%"
+				         },
+							legend: {
+							     data:['总表计量','分区计量和']
+							},
+				         xAxis:{
+				             type:'category',
+							 data:date0
+				         },
+				         yAxis:{
+				             type:'value',
+							 // max:7.5,
+							 // min:7
+				             // axisLabel:{
+				             //     formatter:'{value} G'       //给Y轴上的刻度加上单位
+				             // },
+				         },
+						  toolbox: {
+						             show: true,
+						             feature: {
+//						                 dataView: {
+//											  show:false, 
+//						                     readOnly: true,
+//											optionToContent: function(opt) {
+//											    var axisData = opt.xAxis[0].data;
+//											    var series = opt.series;
+//											    var table = '<table style="width:100%;text-align:center"><tbody><tr>'
+//											                 + '<td>时间</td>'
+//											                 + '<td>' + series[0].name + '</td>'
+//											                 + '</tr>';
+//											    for (var i = 0, l = 24; i < l; i++) {
+//													if(series[0].data[i].value[1]==null){
+//														series[0].data[i].value[1]='';
+//													}
+//											        table += '<tr>'
+//													
+//											                 + '<td>' + series[0].data[i].value[0].substr(-8,5) + '</td>'
+//											                 + '<td>' + series[0].data[i].value[1] + '</td>'
+//											                 + '</tr>';
+//											    }
+//											    table += '</tbody></table>';
+//											    return table;
+//											}
+//						                 }, //数据视图
+						                 magicType: {
+						                     type: ['line', 'bar'],
+											
+						                 },  //切换为折线图，切换为柱状图
+						                 restore: {show:false},  //还原
+						                 saveAsImage: {show:false}   //保存为图片
+						             }
+						         },
+						
+				         dataZoom: [
+				             {
+				                 type: 'slider',//数据滑块
+				                 dataBackground:{
+				                     lineStyle:{
+				                         color:'#66ccff'
+				                     },
+				                     areaStyle:{
+				                         color:'#66ccff',
+				                         opacity:1,
+				                     }
+				                 },
+				                 // fillerColor:'rgba(255,255,255,.6)'
+				             },
+				             {
+				                 type:'inside'//使鼠标在图表中时滚轮可用
+				             }
+				         ],
+				         tooltip:{
+				             trigger: 'axis',
+//				             formatter : function(params) {
+//				                 var result = params[0].value[0];
+//				                 params.forEach(function(item) {
+//				                     result += '<br/>';
+//				                     result += '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:' + item.color + '"></span>';
+//				                     result += "流量：";
+//				                     result += isNaN(item.value[1]) ? 0 : (item.value[1]);
+//									 ;
+//				                 });
+//				                 return result;
+//				             },
+				         },
+				         series:[
+				            
+							{
+							    name: '总表计量',
+							    type: 'line',
+								areaStyle: {
+								
+								        normal: {
+								
+								            color: {
+								
+								                type: 'linear',//设置线性渐变
+								
+								                x: 0,
+								
+								                y: 0,
+								
+								                x2: 0,
+								
+								                y2: 1,
+								
+								                colorStops: [{
+								
+								                    offset: 0, color: '#0000ff' // 0% 处的颜色
+								
+								                }, {
+								
+								                    offset: 1, color: '#66ccff' // 100% 处的颜色
+								
+								                }],
+								
+								                globalCoord: false // 缺省为 false
+								
+								            },
+								
+								        }
+								
+								    },
+								smooth: true,
+							    showSymbol: false,
+							    symbolSize:12,
+							    data: dataZJLB
+							},
+							{
+							    name: '分区计量和',
+							    type: 'line',
+								areaStyle: {
+								
+								        normal: {
+								
+								            color: {
+								
+								                type: 'linear',//设置线性渐变
+								
+								                x: 0,
+								
+								                y: 0,
+								
+								                x2: 0,
+								
+								                y2: 1,
+								
+								                colorStops: [{
+								
+								                    offset: 0, color: '#ff0000' // 0% 处的颜色
+								// 
+								                }, {
+								
+								                    offset: 1, color: '#ff6666' // 100% 处的颜色
+								
+								                }],
+								
+								                globalCoord: true // 缺省为 false
+								
+								            },
+								
+								        }
+								
+								    },
+								// smooth: true,
+								// showSymbol: false,
+								symbolSize:8,
+							    data: dataFQJLB
+							}		
+							]
+				     };
+				 
+				     chart.setOption(option);
+				 
+				    
+				   //   function refresh() {
+				   //       liuru先shift(),再push()
+				   //      var liuruShift = liuru.shift();
+				   //       var liuruShiftVal = liuruShift.value[1];
+				   //       var newlrtime = riqigeshi(new Date(+new Date(liuruShift.value[0])+oneDay+fiveMinutes));
+				   //       var newlrtime = riqigeshi(new Date(+new Date(liuruShift.value[0])+oneDay+onehour));
+							// liuru.push({value:[newlrtime,liuruShiftVal]});
+				   //       chart.setOption({
+				   //           series:{
+				   //               data:liuru,
+				   //           }
+				   //       });
+				   //   }
+					// function refreshData(data){
+					//      //刷新数据
+					//       var option = chart.getOption();
+					//       option.series[0].data = data;
+					//       chart.setOption(option);    
+					// }
+				     // setInterval(function () {
+				     //     refresh();
+				     // },3000);
+				 
+				     window.onresize = function () {
+				         chart.resize();
+				     };
+				 }()); 
+			}
+			oldtype=newtype;
+			oldtime=newtime;
+		},1000);			
+		
+		 
+	</script>
+</html>

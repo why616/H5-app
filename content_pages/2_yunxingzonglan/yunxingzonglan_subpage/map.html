@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script type="text/javascript" src="../../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../../js/config.js" ></script>
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=3.0&ak=pO26veXmYREwdb5u5vj7KbtjSPOHkSML"></script>
+				<script type="text/javascript" src="../../../js/InfoBox_min.js" ></script>
+		<title></title>
+		<style type="text/css">  
+       	 	html{height:100%} 
+       	 	
+       	 	body{height:100%;margin:0px;padding:0px}  
+       	 	#container{height:100%} 
+        </style>
+	</head>
+	<body id="container">
+		
+	</body>
+	<script type="text/javascript" src="../../../js/jquery-3.4.1.js" ></script>
+	<script type="text/javascript"> 
+		mui.init();
+			mui.back = function(){
+				console.log("关闭啦");
+				var yunxingzonglan = plus.webview.getWebviewById('yunxingzonglan');
+				var currentView = plus.webview.currentWebview();
+				currentView.hide();
+				yunxingzonglan.close();
+				currentView.close(); 
+				
+			}
+			var data=[
+				{'name':'华通国际','E':118.4706500000,'N':29.8907300000,'P':0.31},
+				{'name':'水岸名城','E':118.4454703331,'N':29.8810996179,'P':0.39},
+				{'name':'宝诚悦府','E':118.44388000000,'N':29.8809100000,'P':0.41},
+				{'name':'县中宿舍楼','E':118.450258,'N':29.870572,'P':0.24},
+				{'name':'置信广场','E':118.42385000000,'N':29.8681800000,'P':0.35},
+				{'name':'文锦苑','E':118.4171600000,'N':29.8643200000,'P':0.21},
+				{'name':'新都博苑','E':118.4088850021,'N':29.8709221015,'P':0.30},
+				{'name':'明珠广场','E':118.4127688408,'N':29.8587337640,'P':0.31},
+				{'name':'和泰国际城','E':118.4116691351,'N':29.8578591237,'P':0.37},
+				{'name':'御景江南','E':118.403792,'N':29.859764,'P':0.34}
+			]
+			var lanToDataMap={
+				
+			}
+			var opts = {
+				boxStyle:{
+    				  background: "#ffffff",
+    				  width:"200px",
+    				  closeIconUrl:"close.png",
+    				   closeIconMargin: "5px 5px 0 0",
+    				    enableAutoPan: true,
+    					align: INFOBOX_AT_TOP
+    			}
+			}
+			
+			var mapv = new BMap.Map("container");          // 创建地图实例  
+			var point = new BMap.Point(118.431627, 29.872167);  // 创建点坐标  
+			//将点显示在地图上
+//			var marker = new BMap.Marker(point);
+//			mapv.addOverlay(marker);
+			//设置点为中心
+			mapv.centerAndZoom(point, 13); 
+			//添加控件 
+			mapv.addControl(new BMap.NavigationControl());    
+			mapv.addControl(new BMap.ScaleControl());
+			var marker = new Array();
+			var point0 = new Array();
+			var infoBox = new Array();
+			
+			for (let i = 0;i<10;i++) {
+				point0[i] = new BMap.Point(data[i].E, data[i].N);
+				marker[i] = new BMap.Marker(point0[i]);
+				mapv.addOverlay(marker[i]);
+				var content = //'<table>'+
+//				'<thead style="background-color:#66ccff;color:#ffffff"><tr><th>压力</th></tr></thead>'+
+//				'<tbody>'+
+//					'<tr>'+
+//					'<th>名称</th>'+
+//					'<td>披云</td>'+
+//					'</tr>'+
+//					'<tr>'+
+//					'<th>状态</th>'+
+//					'<td>在线</td>'+
+//					'</tr>'+
+//					'<tr>'+
+//					'<th>压力</th>'+
+//					'<td>0.33MPa</td>'+
+//					'</tr>'+
+//				'</tbody>'+
+//				'</table>';
+				'<div style="font-size:1.1em;font-weight:bold;box-shadow: 1px 5px 10px #888888">'+
+				'<header style="background-color:#5577FF;color:#ffffff;border-bottom-style:solid;padding:8px">压力<img id = "close" src = "close.png" style="position:absolute;right:3px;top:3px"></img></header>'+
+				'<div style = "border-bottom-style:solid;border-width:1px;padding:3px">'+
+				'<span style="width:50%">名称：</span><span style="width:50%">'+data[i].name+'</span>'+
+				'</div>'+
+				'<div style = "border-bottom-style:solid;border-width:1px;padding:3px">'+
+				'<span style="width:50%">状态：</span><span style="width:50%">在线</span>'+
+				'</div>'+
+				'<div style = "padding:4px">'+
+				'<span style="width:50%">压力：</span><span style="width:50%">'+data[i].P+'Mpa</span>'+
+				'</div>'+
+				'</div>'; 
+				
+				infoBox[i] = new BMapLib.InfoBox(mapv,content,opts);
+				
+				marker[i].addEventListener("click", function(e){
+					console.log(i);
+					// console.log(e.point.lng);
+					
+				  infoBox[i].open(marker[i]);
+				  
+	   			});
+				infoBox[i].addEventListener("open", function(e) { 
+					
+	       			$('#close').on('touchend',function () {
+	        		   infoBox[i].close();
+	      			 });
+	 			});
+			}
+			i = 5;
+			// marker[0].addEventListener("click", function(e){
+			// 	  infoBox[0].open(marker[0]);
+			// });
+			// infoBox[0].addEventListener("open", function(e) { 
+	  //  			$('#close0').on('touchend',function () {
+	  //   		   infoBox[0].close();
+	  // 			 });
+			// });
+			// marker[1].addEventListener("click", function(e){
+			// infoBox[1].open(marker[1]);
+			// });
+			// infoBox[1].addEventListener("open", function(e) { 
+	  //  			$('#close1').on('touchend',function () {
+	  //   		   infoBox[1].close();
+	  // 			 });
+			// });
+			// marker[2].addEventListener("click", function(e){
+			// 	  infoBox[2].open(marker[2]);
+			// });
+			// infoBox[2].addEventListener("open", function(e) { 
+	  //  			$('#close2').on('touchend',function () {
+	  //   		   infoBox[2].close();
+	  // 			 });
+			// });
+			// marker[3].addEventListener("click", function(e){
+			// 	  infoBox[3].open(marker[3]);
+			// });
+			// infoBox[3].addEventListener("open", function(e) { 
+	  //  			$('#close3').on('touchend',function () {
+	  //   		   infoBox[3].close();
+	  // 			 });
+			// });
+			// marker[4].addEventListener("click", function(e){
+			// 	  infoBox[4].open(marker[4]);
+			// });
+			// infoBox[4].addEventListener("open", function(e) { 
+	  //  			$('#close4').on('touchend',function () {
+	  //   		   infoBox[4].close();
+	  // 			 });
+			// });
+			// marker[5].addEventListener("click", function(e){
+			// 	  infoBox[5].open(marker[5]);
+			// });
+			// infoBox[5].addEventListener("open", function(e) { 
+	  //  			$('#close5').on('touchend',function () {
+	  //   		   infoBox[5].close();
+	  // 			 });
+			// });
+			// marker[6].addEventListener("click", function(e){
+			// 	  infoBox[6].open(marker[6]);
+			// });
+			// infoBox[6].addEventListener("open", function(e) { 
+	  //  			$('#close6').on('touchend',function () {
+	  //   		   infoBox[6].close();
+	  // 			 });
+			// });
+			// marker[7].addEventListener("click", function(e){
+			// 	  infoBox[7].open(marker[7]);
+			// });
+			// infoBox[7].addEventListener("open", function(e) { 
+	  //  			$('#close7').on('touchend',function () {
+	  //   		   infoBox[7].close();
+	  // 			 });
+			// });
+			// marker[8].addEventListener("click", function(e){
+			// 	  infoBox[8].open(marker[8]);
+			// });
+			// infoBox[8].addEventListener("open", function(e) { 
+	  //  			$('#close8').on('touchend',function () {
+	  //   		   infoBox[8].close();
+	  // 			 });
+			// });
+			// marker[9].addEventListener("click", function(e){
+			// 	  infoBox[9].open(marker[9]);
+			// });
+			// infoBox[9].addEventListener("open", function(e) { 
+	  //  			$('#close9').on('touchend',function () {
+	  //   		   infoBox[9].close();
+	  // 			 });
+			// });
+			
+ 			
+ 			
+	</script>
+</html>

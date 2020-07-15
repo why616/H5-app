@@ -1,0 +1,6 @@
+{
+  "login/login.html": {
+    "href": "login/login.html",
+    "priority": 0
+  }
+}

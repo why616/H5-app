@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script type="text/javascript" src="../../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../../js/config.js" ></script>
+		<title></title>
+		<style type="text/css">
+			table,th,td
+			{
+				border: 1px solid lightgray;border-top: none; border-left: none; border-right: none;
+			}
+			table{
+				border-collapse: collapse;
+				margin-top: 20px;
+				border: #000000;
+				margin: auto;
+				margin-top: 10px;
+				box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.5);
+				width: 98%;
+			}
+			
+			tbody th{
+				font-size: 80%;
+			}
+			
+			tbody th.green{
+				font-size: 90%;
+				color: #2AC845;
+			}
+			
+			thead{
+				background-color: #66CCFF;
+				color: white;
+			}
+			
+			tbody{
+				/* border-top-width: 1px;
+				border-top-style: solid; */
+				font-size: 90%;
+			}
+			tbody td{
+				font-size: 90%;
+				color: #3300ff;
+			}
+			th{
+				text-align: left;
+				padding: 5px;
+			}
+			td{
+				text-align: center;
+				padding: 3px;
+			}
+			table tr.gray{
+				background-color: #E0E0E0;
+			}
+		</style>
+	</head>
+	<body>
+		<table width=330px>
+			<thead >
+				<tr>
+					<th>流量</th>
+					<!-- 填补颜色 -->
+					<th width=20px></th><th width=70px></th><th></th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr class="gray">
+					<th class="green">城东开发区</th>
+					<th ></th>
+					<th>瞬时流量:</th>
+					<td id="chengdongliuliang" >455.65m³/h</td>
+				</tr>
+				<tr class="gray">
+					<th></th>
+					<th ></th>
+					<th>压力:</th>
+					<td id="chengdongyali" >0.38MPa</td>
+				</tr>
+				
+				<tr >
+					<th class="green">大铭岭中</th>
+					<th ></th>
+					<th>瞬时流量:</th>
+					<td id="damingliuliang" >59.44m³/h</td>
+				</tr>
+				<tr >
+					<th></th>
+					<th ></th>
+					<th>压力:</th>
+					<td id="damingyali" >0.32MPa</td>
+				</tr>
+				
+				
+				<tr class="gray">
+					<th class="green">循环园监控表</th>
+					<th ></th>
+					<th>瞬时流量:</th>
+					<td id="xunhuanyuanliuliang" >163.50m³/h</td>
+				</tr>
+				<tr class="gray">
+					<th></th>
+					<th ></th>
+					<th>压力:</th>
+					<td id="xunhuanyuanyali" >0.35MPa</td>
+				</tr>
+				
+				
+				<tr >
+					<th class="green">长青路监控表</th>
+					<th ></th>
+					<th>瞬时流量:</th>
+					<td id="changqingluliuliang" >32.33m³/h</td>
+				</tr>
+				<tr >
+					<th></th>
+					<th ></th>
+					<th>压力:</th>
+					<td id="changqingluyali" >0.35MPa</td>
+				</tr>
+				
+				
+				<tr class="gray">
+					<th class="green">文欣苑</th>
+					<th ></th>
+					<th>瞬时流量:</th>
+					<td id="wenxinyuanliuliang" >5.16m³/h</td>
+				</tr>
+				<tr class="gray">
+					<th></th>
+					<th ></th>
+					<th>压力:</th>
+					<td id="wenxinyuanyali" >0.00MPa</td>
+				</tr>
+				
+				
+				<tr>
+					<th class="green">新安中心市场</th>
+					<th ></th>
+					<th>瞬时流量:</th>
+					<td id="xinanzhongxinliuliang" >27.04m³/h</td>
+				</tr>
+				<tr>
+					<th></th>
+					<th ></th>
+					<th>压力:</th>
+					<td id="xinanzhongxinyali" ></td>
+				</tr>
+				
+				
+				<tr class="gray">
+					<th class="green">开发区二桥</th>
+					<th ></th>
+					<th>瞬时流量:</th>
+					<td id="erqiaoliuliang" >81.20m³/h</td>
+				</tr>
+				<tr class="gray">
+					<th></th>
+					<th ></th>
+					<th>压力:</th>
+					<td id="erqiaoyali" >0.39MPa</td>
+				</tr>
+				
+				
+			</tbody>
+			
+		</table>
+	</body>
+	<script type="text/javascript">
+		mui.init();
+			mui.back = function(){
+				console.log("关闭啦");
+				var yunxingzonglan = plus.webview.getWebviewById('yunxingzonglan');
+				var currentView = plus.webview.currentWebview();
+				currentView.hide();
+				yunxingzonglan.close();
+				currentView.close(); 
+			}
+	</script>
+</html>

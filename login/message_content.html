@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<base href="../" />
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			.title {
+				padding: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+				background-color: #fff;
+			}
+			button{
+				transition: background-color 1s;
+			}
+			pre{
+				 white-space: pre-wrap;
+				 
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+			}
+		</style>
+	</head>
+
+	<body>
+		
+		
+		<div class="mui-row" id="content">
+		
+		</div>
+		
+		  		
+	</body>
+	<script src="js/mui.min.js"></script>
+	<script type="text/javascript" src="js/config.js" ></script>
+	<script type="text/javascript" src="js/jquery-1.10.2.min.js" ></script>
+	<script>
+		var state = getState();
+
+		mui.init({
+			swipeBack: true, //启用右滑关闭功能
+			pullRefresh: {
+				container: '#pullrefresh',
+				down: {
+					contentrefresh: '',
+					callback: pulldownRefresh
+				}
+
+			}
+		});
+		
+		
+
+
+		//实际部分
+		
+		function loadMessage(){
+			$.get(url_msg,{id:state.id},
+			function(data,status){
+				console.log("state:"+status);
+					var news = '';
+					var i = 0; 
+					var messages = data.result;
+					console.log(data);
+					for (i;i<messages.length;i++) {
+						var result = messages[i];
+						var message = result.message;
+						
+						news += '<div class="mui-card">'+
+								'<div class="mui-card-header mui-card-media">';
+						switch(state.role){
+							case "管理员":
+								news += '<img src="images/sinaweibo.png"/>';
+							case "普通人员":
+								news += '<img src="images/weixin.png"/>';
+							default:
+								news += '<img src="images/sinaweibo.png"/>';
+						}
+						
+							news +='<div class="mui-media-body">';
+							console.log(message);
+							if(null!=message.user.account){
+								news += message.user.account;
+							}
+							news +='<p>'+result.date+'</p>';
+							news +='</div>';
+							var buttenHtml;
+							if(result.read==1){
+								news +='<span id="'+message.id+'" class="mui-badge mui-badge-danger" style="position: absolute;right: 5%;top: 25%;">新消息</span>';
+								buttenHtml = '<button class="mui-btn-blue" style="width: 100%;" name="'+message.id+'">未阅读</button>';
+							}else{
+								buttenHtml = '<button class="mui-btn-green" style="width: 100%;" name="'+message.id+'">已阅</button>';
+							}
+							news +='</div>';
+						//内容区
+						news +='<div class="mui-card-content">';
+						news +='<div id="content"><pre>'+message.content+'</pre></div>';
+						//如果有图片
+						if(message.imgpath!=null)
+						news +='<img src="'+service_ip+'/'+message.imgpath+'" style="width: 100%; height: 100%;"/>'
+						news +='</div>'
+						news +='<div class="mui-card-footer">'+'<a><i class="fa fa-heart-o" aria-hidden="true" id="One"></i></a>'
+						news += buttenHtml;
+						news +='</div>'+'</div>';
+					}	
+//					var html = document.getElementById("content").innerHTML;
+					$(".mui-row").html(news);
+					
+	 		});
+	 		
+		} 
+		loadMessage();
+		mui('.mui-row').on('tap','button',function(){
+			if(this.innerHTML!="已阅"){
+				var id = this.getAttribute('name');
+				console.log("id:"+id);
+				this.setAttribute('class','mui-btn-green');
+				document.getElementById(id).style.display = 'none';
+				this.innerHTML = "已阅";
+				$.post(url_read,{userid:state.id,msgid:id},function(data){
+						if(data == "Success"){
+							ifOk = true;
+							console.log("OK");
+						}else{
+							alert("未知错误");
+						}
+				});	
+			}
+		})
+
+		/**
+		 * 下拉刷新具体业务实现
+		 */
+		function pulldownRefresh() {
+			setTimeout(function() {
+				var table = document.body.querySelector('.mui-content');
+				var cells = document.body.querySelectorAll('.mui-card');
+				
+				mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
+			}, 1000);
+		}
+		mui.back = function(){
+				console.log("关闭啦");
+				var currentView = plus.webview.currentWebview();
+				currentView.hide();
+				var message = plus.webview.getWebviewById('message');
+				message.close();
+				currentView.close(); 
+			};
+		
+		
+			
+	</script>
+
+</html>
